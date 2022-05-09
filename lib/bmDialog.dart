@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-
 import './utilities.dart';
 
 // Bookmarks Dialog
@@ -22,7 +20,7 @@ class BMDialog {
 
     reduceLength(txt, 35);
 
-    TextEditingController _controller = new TextEditingController();
+    TextEditingController _controller = TextEditingController();
     note = _controller.text = txt;
 
     return showDialog<void>(
@@ -30,13 +28,13 @@ class BMDialog {
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Bookmark?'),
+          title: const Text('Bookmark?'),
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
                 Text(
                   arr[0].toString(),
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 5.0),
@@ -48,9 +46,9 @@ class BMDialog {
                       autofocus: true,
                       maxLength: 50,
                       controller: _controller,
-                      decoration: new InputDecoration(
+                      decoration: const InputDecoration(
                           labelText: 'Add your own text',
-                          labelStyle: new TextStyle(
+                          labelStyle: TextStyle(
                             fontSize: 20.0,
                             fontWeight: FontWeight.bold,
                           )),
@@ -65,13 +63,13 @@ class BMDialog {
           ),
           actions: <Widget>[
             TextButton(
-              child: Text('YES', style: TextStyle(fontWeight: FontWeight.bold)),
+              child: const Text('YES', style: TextStyle(fontWeight: FontWeight.bold)),
               onPressed: () {
                 Navigator.of(context).pop(ConfirmAction.ACCEPT);
               },
             ),
             TextButton(
-              child: Text('NO', style: TextStyle(fontWeight: FontWeight.bold)),
+              child: const Text('NO', style: TextStyle(fontWeight: FontWeight.bold)),
               onPressed: () {
                 Navigator.of(context).pop(ConfirmAction.CANCEL);
               },

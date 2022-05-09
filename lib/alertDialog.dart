@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 
 // Alert
@@ -20,7 +18,7 @@ Future<void> showAlertDialog(context, data) async {
         ),
         actions: <Widget>[
           TextButton(
-            child: Text('Close'),
+            child: const Text('Close'),
             onPressed: () {
               Navigator.of(context).pop();
             },

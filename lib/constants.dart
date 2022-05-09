@@ -1,6 +1,8 @@
 
 // Constants
 
+// ignore_for_file: constant_identifier_names
+
 class Constants {
   static const String DB_DBNAME = "wConb.db"; // change the name to update
   static const String BM_DBNAME = "bMara.db"; // change the name to update

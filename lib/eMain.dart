@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:westminster_confession/xDetailPage.dart';
 
@@ -23,7 +22,7 @@ Future _showDialog(context, list) async {
     barrierDismissible: false, // user must tap button!
     builder: (BuildContext context) {
       return AlertDialog(
-        title: Text('Delete this bookmark?'),
+        title: const Text('Delete this bookmark?'),
         content: SingleChildScrollView(
           child: ListBody(
             children: <Widget>[
@@ -33,13 +32,13 @@ Future _showDialog(context, list) async {
         ),
         actions: <Widget>[
           TextButton(
-            child: Text('YES', style: TextStyle(fontWeight: FontWeight.bold)),
+            child: const Text('YES', style: TextStyle(fontWeight: FontWeight.bold)),
             onPressed: () {
               Navigator.of(context).pop(ConfirmAction.ACCEPT);
             },
           ),
           TextButton(
-            child: Text('NO', style: TextStyle(fontWeight: FontWeight.bold)),
+            child: const Text('NO', style: const TextStyle(fontWeight: FontWeight.bold)),
             onPressed: () {
               Navigator.of(context).pop(ConfirmAction.CANCEL);
             },
@@ -51,6 +50,8 @@ Future _showDialog(context, list) async {
 }
 
 class EMain extends StatefulWidget {
+  const EMain({Key key}) : super(key: key);
+
   @override
   _EMainState createState() => _EMainState();
 }
@@ -59,43 +60,45 @@ class _EMainState extends State<EMain> {
   List<BMModel> list = List<BMModel>.empty();
   BMModel model;
 
+  @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<BMModel>>(
-        future: bmProvider.getBookMarkList(),
-        builder: (context, AsyncSnapshot<List<BMModel>> snapshot) {
-          if (snapshot.hasData) {
-            list = snapshot.data;
-            return showChapterList(list, context);
-          } else {
-            return CircularProgressIndicator();
-          }
-        });
+      future: bmProvider.getBookMarkList(),
+      builder: (context, AsyncSnapshot<List<BMModel>> snapshot) {
+        if (snapshot.hasData) {
+          list = snapshot.data;
+          return showChapterList(list, context);
+        } else {
+          return const CircularProgressIndicator();
+        }
+      },
+    );
   }
 
   showChapterList(list, context) {
     ListTile makeListTile(list, int index) => ListTile(
           contentPadding:
-              EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+              const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
           title: Text(
             list[index].title,
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
           subtitle: Row(
             children: <Widget>[
-              Icon(Icons.linear_scale, color: Colors.yellowAccent),
+              const Icon(Icons.linear_scale, color: Colors.yellowAccent),
               Flexible(
                 child: RichText(
                   overflow: TextOverflow.ellipsis,
-                  strutStyle: StrutStyle(fontSize: 12.0),
+                  strutStyle: const StrutStyle(fontSize: 12.0),
                   text: TextSpan(
-                      style: TextStyle(color: Colors.white),
+                      style: const TextStyle(color: Colors.white),
                       text: " " + list[index].subtitle),
                 ),
               ),
             ],
           ),
           trailing:
-              Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 30.0),
+              const Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 30.0),
           onTap: () {
             int goto = int.parse(list[index].page);
             switch (list[index].detail) {
@@ -185,32 +188,30 @@ class _EMainState extends State<EMain> {
 
     Card makeCard(list, int index) => Card(
           elevation: 8.0,
-          margin: new EdgeInsets.symmetric(horizontal: 5.0, vertical: 2.0),
+          margin: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 2.0),
           child: Container(
-            decoration: BoxDecoration(color: Color.fromRGBO(64, 75, 96, .9)),
+            decoration: const BoxDecoration(color: Color.fromRGBO(64, 75, 96, .9)),
             child: makeListTile(list, index),
           ),
         );
 
-    final makeBody = Container(
-      child: ListView.builder(
-        scrollDirection: Axis.vertical,
-        shrinkWrap: true,
-        itemCount: list == null ? 0 : list.length,
-        itemBuilder: (BuildContext context, int index) {
-          return makeCard(list, index);
-        },
-      ),
+    final makeBody = ListView.builder(
+      scrollDirection: Axis.vertical,
+      shrinkWrap: true,
+      itemCount: list == null ? 0 : list.length,
+      itemBuilder: (BuildContext context, int index) {
+        return makeCard(list, index);
+      },
     );
 
     final topAppBar = AppBar(
       elevation: 0.1,
-      backgroundColor: Color.fromRGBO(64, 75, 96, .9),
-      title: Text('Bookmarks'),
+      backgroundColor: const Color.fromRGBO(64, 75, 96, .9),
+      title: const Text('Bookmarks'),
     );
 
     return Scaffold(
-      backgroundColor: Color.fromRGBO(58, 66, 86, 1.0),
+      backgroundColor: const Color.fromRGBO(58, 66, 86, 1.0),
       appBar: topAppBar,
       body: makeBody,
     );

@@ -9,8 +9,8 @@ import 'constants.dart';
 // Bookmarks database helper
 
 class BMProvider {
-  String _dbName = Constants.BM_DBNAME;
-  String _dbTable = Constants.BM_TBNAME;
+  final String _dbName = Constants.BM_DBNAME;
+  final String _dbTable = Constants.BM_TBNAME;
 
   static BMProvider _dbProvider;
   static Database _database;
@@ -18,16 +18,12 @@ class BMProvider {
   BMProvider._createInstance();
 
   factory BMProvider() {
-    if (_dbProvider == null) {
-      _dbProvider = BMProvider._createInstance();
-    }
+    _dbProvider ??= BMProvider._createInstance();
     return _dbProvider;
   }
 
   Future<Database> get database async {
-    if (_database == null) {
-      _database = await initDB();
-    }
+    _database ??= await initDB();
     return _database;
   }
 
@@ -35,10 +31,13 @@ class BMProvider {
     var databasesPath = await getDatabasesPath();
     var path = join(databasesPath, _dbName);
 
-    return await openDatabase(path, version: 1, onOpen: (db) async {},
-        onCreate: (Database db, int version) async {
-      // Create the note table
-      await db.execute('''
+    return await openDatabase(
+      path,
+      version: 1,
+      onOpen: (db) async {},
+      onCreate: (Database db, int version) async {
+        // Create the note table
+        await db.execute('''
                 CREATE TABLE IF NOT EXISTS $_dbTable (
                     id INTEGER PRIMARY KEY,
                     title TEXT DEFAULT '',
@@ -47,7 +46,8 @@ class BMProvider {
                     page TEXT DEFAULT ''
                 )
             ''');
-    });
+      },
+    );
   }
 
   Future close() async {
@@ -73,14 +73,17 @@ class BMProvider {
     final List<Map<String, dynamic>> maps = await db.rawQuery(
         "SELECT id, title, subtitle, detail, page FROM $_dbTable ORDER BY id DESC");
 
-    return List.generate(maps.length, (i) {
-      return BMModel(
-        id: maps[i]['id'],
-        title: maps[i]['title'],
-        subtitle: maps[i]['subtitle'],
-        detail: maps[i]['detail'],
-        page: maps[i]['page'],
-      );
-    });
+    return List.generate(
+      maps.length,
+      (i) {
+        return BMModel(
+          id: maps[i]['id'],
+          title: maps[i]['title'],
+          subtitle: maps[i]['subtitle'],
+          detail: maps[i]['detail'],
+          page: maps[i]['page'],
+        );
+      },
+    );
   }
 }

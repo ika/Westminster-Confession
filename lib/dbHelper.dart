@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:flutter/services.dart';
 import 'package:path/path.dart';
@@ -12,7 +11,7 @@ import 'constants.dart';
 // Main database helper
 
 class DBProvider {
-  String _dbName = Constants.DB_DBNAME;
+  final String _dbName = Constants.DB_DBNAME;
   //String _dbTable = Constants.DB_TBNAME;
 
   static DBProvider _dbProvider;
@@ -21,16 +20,12 @@ class DBProvider {
   DBProvider._createInstance();
 
   factory DBProvider() {
-    if (_dbProvider == null) {
-      _dbProvider = DBProvider._createInstance();
-    }
+    _dbProvider ??= DBProvider._createInstance();
     return _dbProvider;
   }
 
   Future<Database> get database async {
-    if (_database == null) {
-      _database = await initDB();
-    }
+    _database ??= await initDB();
     return _database;
   }
 
@@ -65,14 +60,17 @@ class DBProvider {
     final List<Map<String, dynamic>> maps =
         await db.rawQuery("SELECT id, chap, title FROM $_dbTable");
 
-    return List.generate(maps.length, (i) {
-      return Chapter(
-        id: maps[i]['id'],
-        chap: maps[i]['chap'],
-        title: maps[i]['title'],
-        //text: maps[i]['text'],
-      );
-    });
+    return List.generate(
+      maps.length,
+      (i) {
+        return Chapter(
+          id: maps[i]['id'],
+          chap: maps[i]['chap'],
+          title: maps[i]['title'],
+          //text: maps[i]['text'],
+        );
+      },
+    );
   }
 
   Future<List<Chapter>> getChapters(String _dbTable) async {
@@ -81,13 +79,16 @@ class DBProvider {
     final List<Map<String, dynamic>> maps =
         await db.rawQuery("SELECT id, title, text FROM $_dbTable");
 
-    return List.generate(maps.length, (i) {
-      return Chapter(
-        id: maps[i]['id'],
-        //chap: maps[i]['chap'],
-        title: maps[i]['title'],
-        text: maps[i]['text'],
-      );
-    });
+    return List.generate(
+      maps.length,
+      (i) {
+        return Chapter(
+          id: maps[i]['id'],
+          //chap: maps[i]['chap'],
+          title: maps[i]['title'],
+          text: maps[i]['text'],
+        );
+      },
+    );
   }
 }

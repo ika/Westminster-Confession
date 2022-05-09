@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:flutter/services.dart';
 import 'package:path/path.dart';
@@ -10,8 +9,8 @@ import 'biModel.dart';
 import 'constants.dart';
 
 class BIProvider {
-  String _dbName = Constants.BI_DBNAME;
-  String _dbTable = 't_bible';
+  final String _dbName = Constants.BI_DBNAME;
+  final String _dbTable = 't_bible';
 
   static BIProvider _dbProvider;
   static Database _database;
@@ -19,16 +18,12 @@ class BIProvider {
   BIProvider._createInstance();
 
   factory BIProvider() {
-    if (_dbProvider == null) {
-      _dbProvider = BIProvider._createInstance();
-    }
+    _dbProvider ??= BIProvider._createInstance();
     return _dbProvider;
   }
 
   Future<Database> get database async {
-    if (_database == null) {
-      _database = await initDB();
-    }
+    _database ??= await initDB();
     return _database;
   }
 
@@ -63,14 +58,17 @@ class BIProvider {
         "SELECT t FROM $_dbTable WHERE b=? AND c=? AND v=?",
         ['$b', '$c', '$v']);
 
-    return List.generate(maps.length, (i) {
-      return BIModel(
-        // id: maps[i]['id'],
-        // b: maps[i]['b'],
-        // c: maps[i]['c'],
-        // v: maps[i]['v'],
-        t: maps[i]['t'],
-      );
-    });
+    return List.generate(
+      maps.length,
+      (i) {
+        return BIModel(
+          // id: maps[i]['id'],
+          // b: maps[i]['b'],
+          // c: maps[i]['c'],
+          // v: maps[i]['v'],
+          t: maps[i]['t'],
+        );
+      },
+    );
   }
 }
