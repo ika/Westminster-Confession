@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 
@@ -59,8 +58,8 @@ showChapters(chapters, index, context) {
 
   final h2 = Style(fontSize: const FontSize(18.0));
   final h3 = Style(fontSize: const FontSize(16.0));
-  final a =
-      Style(fontSize: const FontSize(14.0), textDecoration: TextDecoration.none);
+  final a = Style(
+      fontSize: const FontSize(14.0), textDecoration: TextDecoration.none);
 
   final page0 = Html(
       data: chapters[0].text,
@@ -73,7 +72,12 @@ showChapters(chapters, index, context) {
   topAppBar(context) => AppBar(
         elevation: 0.1,
         backgroundColor: const Color.fromRGBO(58, 66, 86, 1.0),
-        title: Text(heading),
+        title: Text(
+          heading,
+          style: const TextStyle(
+            color: Colors.yellow,
+          ),
+        ),
         centerTitle: true,
         actions: [
           IconButton(

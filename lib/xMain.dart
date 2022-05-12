@@ -51,7 +51,8 @@ class _XMainState extends State<XMain> {
           // ),
           title: Text(
             chapters[index].chap,
-            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            style: const TextStyle(
+                color: Colors.white, fontWeight: FontWeight.bold),
           ),
           subtitle: Row(
             children: <Widget>[
@@ -67,8 +68,8 @@ class _XMainState extends State<XMain> {
               ),
             ],
           ),
-          trailing:
-              const Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 30.0),
+          trailing: const Icon(Icons.keyboard_arrow_right,
+              color: Colors.white, size: 30.0),
           onTap: () {
             Future.delayed(
               const Duration(milliseconds: 200),
@@ -86,7 +87,8 @@ class _XMainState extends State<XMain> {
           elevation: 8.0,
           margin: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 2.0),
           child: Container(
-            decoration: const BoxDecoration(color: Color.fromRGBO(64, 75, 96, .9)),
+            decoration:
+                const BoxDecoration(color: Color.fromRGBO(64, 75, 96, .9)),
             child: makeListTile(chapters, index),
           ),
         );
@@ -103,7 +105,12 @@ class _XMainState extends State<XMain> {
     final topAppBar = AppBar(
       elevation: 0.1,
       backgroundColor: const Color.fromRGBO(64, 75, 96, .9),
-      title: const Text('Larger Catechism'),
+      title: const Text(
+        'Larger Catechism',
+        style: TextStyle(
+          color: Colors.yellow,
+        ),
+      ),
       // actions: <Widget>[
       //  IconButton(
       //    icon: Icon(Icons.list_sharp),

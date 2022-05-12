@@ -32,13 +32,15 @@ Future _showDialog(context, list) async {
         ),
         actions: <Widget>[
           TextButton(
-            child: const Text('YES', style: TextStyle(fontWeight: FontWeight.bold)),
+            child: const Text('YES',
+                style: TextStyle(fontWeight: FontWeight.bold)),
             onPressed: () {
               Navigator.of(context).pop(ConfirmAction.ACCEPT);
             },
           ),
           TextButton(
-            child: const Text('NO', style: const TextStyle(fontWeight: FontWeight.bold)),
+            child: const Text('NO',
+                style: const TextStyle(fontWeight: FontWeight.bold)),
             onPressed: () {
               Navigator.of(context).pop(ConfirmAction.CANCEL);
             },
@@ -81,7 +83,8 @@ class _EMainState extends State<EMain> {
               const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
           title: Text(
             list[index].title,
-            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            style: const TextStyle(
+                color: Colors.white, fontWeight: FontWeight.bold),
           ),
           subtitle: Row(
             children: <Widget>[
@@ -97,8 +100,8 @@ class _EMainState extends State<EMain> {
               ),
             ],
           ),
-          trailing:
-              const Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 30.0),
+          trailing: const Icon(Icons.keyboard_arrow_right,
+              color: Colors.white, size: 30.0),
           onTap: () {
             int goto = int.parse(list[index].page);
             switch (list[index].detail) {
@@ -190,7 +193,8 @@ class _EMainState extends State<EMain> {
           elevation: 8.0,
           margin: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 2.0),
           child: Container(
-            decoration: const BoxDecoration(color: Color.fromRGBO(64, 75, 96, .9)),
+            decoration:
+                const BoxDecoration(color: Color.fromRGBO(64, 75, 96, .9)),
             child: makeListTile(list, index),
           ),
         );
@@ -207,7 +211,12 @@ class _EMainState extends State<EMain> {
     final topAppBar = AppBar(
       elevation: 0.1,
       backgroundColor: const Color.fromRGBO(64, 75, 96, .9),
-      title: const Text('Bookmarks'),
+      title: const Text(
+        'Bookmarks',
+        style: TextStyle(
+          color: Colors.yellow,
+        ),
+      ),
     );
 
     return Scaffold(

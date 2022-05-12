@@ -56,13 +56,18 @@ showChapters(chapters, index, context) {
 
   final h2 = Style(fontSize: const FontSize(18.0));
   final h3 = Style(fontSize: const FontSize(16.0));
-  final a =
-      Style(fontSize: const FontSize(12.0), textDecoration: TextDecoration.none);
+  final a = Style(
+      fontSize: const FontSize(12.0), textDecoration: TextDecoration.none);
 
   topAppBar(context) => AppBar(
         elevation: 0.1,
         backgroundColor: const Color.fromRGBO(58, 66, 86, 1.0),
-        title: Text(heading),
+        title: Text(
+          heading,
+          style: const TextStyle(
+            color: Colors.yellow,
+          ),
+        ),
         centerTitle: true,
         actions: [
           IconButton(

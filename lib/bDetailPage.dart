@@ -64,7 +64,12 @@ showChapters(chapters, index, context) {
   topAppBar(context) => AppBar(
         elevation: 0.1,
         backgroundColor: const Color.fromRGBO(58, 66, 86, 1.0),
-        title: const Text('Ecumenical Creeds'),
+        title: const Text(
+          'Ecumenical Creeds',
+          style: TextStyle(
+            color: Colors.yellow,
+          ),
+        ),
         centerTitle: true,
         actions: [
           IconButton(

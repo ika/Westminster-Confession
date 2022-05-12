@@ -156,8 +156,26 @@ class _AMainState extends State<AMain> {
               ),
             ),
             ListTile(
-              trailing: const Icon(Icons.arrow_forward_ios_rounded,
-                  color: Colors.blueGrey),
+              leading: const Icon(Icons.fiber_manual_record_outlined),
+              title: const Text(
+                'Bookmarks',
+              ),
+              dense: true,
+              onTap: () => {
+                Future.delayed(
+                  const Duration(milliseconds: 200),
+                  () {
+                    Navigator.pop(context);
+                    Navigator.push(
+                        context,
+                        CupertinoPageRoute(
+                            builder: (context) => const EMain()));
+                  },
+                ),
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.fiber_manual_record_outlined),
               title: const Text('Preface'),
               dense: true,
               onTap: () => {
@@ -174,28 +192,7 @@ class _AMainState extends State<AMain> {
               },
             ),
             ListTile(
-              trailing: const Icon(
-                Icons.arrow_forward_ios_rounded,
-                color: Colors.blueGrey,
-              ),
-              title: const Text('Ecumenical Creeds'),
-              dense: true,
-              onTap: () => {
-                Future.delayed(
-                  const Duration(milliseconds: 200),
-                  () {
-                    Navigator.pop(context);
-                    Navigator.push(
-                        context,
-                        CupertinoPageRoute(
-                            builder: (context) => const BMain()));
-                  },
-                ),
-              },
-            ),
-            ListTile(
-              trailing: const Icon(Icons.arrow_forward_ios_rounded,
-                  color: Colors.blueGrey),
+              leading: const Icon(Icons.fiber_manual_record_outlined),
               title: const Text('The Five Points'),
               dense: true,
               onTap: () => {
@@ -212,9 +209,8 @@ class _AMainState extends State<AMain> {
               },
             ),
             ListTile(
-              trailing: const Icon(Icons.arrow_forward_ios_rounded,
-                  color: Colors.blueGrey),
-              title: const Text('The Larger Catechism'),
+              leading: const Icon(Icons.fiber_manual_record_outlined),
+              title: const Text('Ecumenical Creeds'),
               dense: true,
               onTap: () => {
                 Future.delayed(
@@ -224,14 +220,13 @@ class _AMainState extends State<AMain> {
                     Navigator.push(
                         context,
                         CupertinoPageRoute(
-                            builder: (context) => const XMain()));
+                            builder: (context) => const BMain()));
                   },
                 ),
               },
             ),
             ListTile(
-              trailing: const Icon(Icons.arrow_forward_ios_rounded,
-                  color: Colors.blueGrey),
+              leading: const Icon(Icons.fiber_manual_record_outlined),
               title: r == 0
                   ? const Text('With Scripture Proofs')
                   : const Text('As Plain Text'),
@@ -257,8 +252,8 @@ class _AMainState extends State<AMain> {
               },
             ),
             ListTile(
-              trailing: const Icon(Icons.bookmarks, color: Colors.blueGrey),
-              title: const Text('Bookmarks'),
+              leading: const Icon(Icons.fiber_manual_record_outlined),
+              title: const Text('The Larger Catechism'),
               dense: true,
               onTap: () => {
                 Future.delayed(
@@ -268,13 +263,13 @@ class _AMainState extends State<AMain> {
                     Navigator.push(
                         context,
                         CupertinoPageRoute(
-                            builder: (context) => const EMain()));
+                            builder: (context) => const XMain()));
                   },
                 ),
               },
             ),
             ListTile(
-              trailing: const Icon(Icons.share, color: Colors.blueGrey),
+              leading: const Icon(Icons.fiber_manual_record_outlined),
               title: const Text('Share this App'),
               dense: true,
               onTap: () => {Navigator.pop(context), _onShareLink(context)},
