@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_html_table/flutter_html_table.dart';
 import 'package:westminster_confession/bkmarks/bm_dialog.dart';
 import 'package:westminster_confession/bkmarks/bm_model.dart';
 import 'package:westminster_confession/bkmarks/bm_queries.dart';
@@ -75,40 +76,6 @@ showChapters(chapters, index, context) {
   PageController pageController =
       PageController(initialPage: chapters[index].id);
 
-  final html = Style(
-      //backgroundColor: Colors.white30,
-      padding: HtmlPaddings.all(15.0),
-      //margin: HtmlPaddings.only(bottom: 20.0),
-      fontFamily: 'Raleway-Regular',
-      fontSize: FontSize(16.0));
-
-  final h2 = Style(fontSize: FontSize(18.0));
-  final h3 = Style(fontSize: FontSize(16.0));
-
-  final a =
-      Style(fontSize: FontSize(14.0), textDecoration: TextDecoration.none);
-
-  final sup = Style(color: Colors.red);
-
-  final table = Style(
-    backgroundColor: const Color.fromARGB(0x50, 0xee, 0xee, 0xee),
-    //width: double.infinity,
-    padding: HtmlPaddings.only(top: 30.0),
-  );
-
-  final th = Style(
-    padding: HtmlPaddings.all(6),
-    backgroundColor: Colors.orangeAccent,
-  );
-
-  final tr = Style(
-      //border: Border(bottom: BorderSide(color: Colors.grey)),
-      );
-
-  final td = Style(
-    padding: HtmlPaddings.all(6.0),
-  );
-
   topAppBar(context) => AppBar(
         elevation: 0.1,
         backgroundColor: const Color.fromRGBO(58, 66, 86, 1.0),
@@ -125,7 +92,7 @@ showChapters(chapters, index, context) {
               int sp = pg + 1;
 
               var arr = List.filled(2, '');
-              arr[0] = "$heading $chap $sp";
+              arr[0] = "$chap $sp";
               arr[1] = chapters[pg].title;
 
               BMDialog().showBmDialog(context, arr).then(
@@ -158,16 +125,51 @@ showChapters(chapters, index, context) {
             padding: const EdgeInsets.symmetric(horizontal: 4.0),
             child: Html(
               data: chapters[index].text,
+              extensions: const [
+                TableHtmlExtension(),
+              ],
               style: {
-                "html": html,
-                "h2": h2,
-                "h3": h3,
-                "a": a,
-                "sup": sup,
-                "table": table,
-                "tr": tr,
-                "th": th,
-                "td": td
+                "html": Style(
+                  padding: HtmlPaddings.all(15.0),
+                  fontFamily: 'Raleway-Regular',
+                  fontSize: FontSize(16.0),
+                ),
+                "h2": Style(
+                  fontSize: FontSize(18.0),
+                ),
+                "h3": Style(
+                  fontSize: FontSize(16.0),
+                ),
+                "sup": Style(
+                  verticalAlign: VerticalAlign.sup,
+                  fontSize: FontSize(12.0),
+                  color: Colors.red,
+                ),
+                "a": Style(
+                  fontSize: FontSize(14.0),
+                  textDecoration: TextDecoration.none,
+                ),
+                "table": Style(
+                  border: Border.all(color: Colors.grey),
+                  padding: HtmlPaddings.only(left: 5),
+                  margin: Margins.only(bottom: 5),
+                  backgroundColor: const Color.fromARGB(0x50, 0xee, 0xee, 0xee),
+                  //width: Width(20, Unit.percent)
+                ),
+                "tr": Style(
+                  //border: const Border(bottom: BorderSide(color: Colors.black54)),
+                ),
+                "th": Style(
+                  color: Colors.red,
+                  //padding: HtmlPaddings.all(4),
+                  //alignment: Alignment.topLeft,
+                  //width: Width(100, Unit.percent),
+                  //backgroundColor: Colors.orangeAccent,
+                ),
+                "td": Style(
+                  padding: HtmlPaddings.all(6),
+                  alignment: Alignment.topLeft,
+                ),
               },
               onLinkTap: (url, _, __) {
                 if (url != null) {

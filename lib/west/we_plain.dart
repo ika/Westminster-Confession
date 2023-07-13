@@ -79,7 +79,7 @@ showChapters(chapters, index, context) {
               int sp = pg + 1;
 
               var arr = List.filled(2, '');
-              arr[0] = "$heading $chap $sp";
+              arr[0] = "$chap $sp";
               arr[1] = chapters[pg].title;
 
               BMDialog().showBmDialog(context, arr).then(
