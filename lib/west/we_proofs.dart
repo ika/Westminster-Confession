@@ -150,25 +150,25 @@ showChapters(chapters, index, context) {
                   textDecoration: TextDecoration.none,
                 ),
                 "table": Style(
-                  border: Border.all(color: Colors.grey),
-                  padding: HtmlPaddings.only(left: 5),
-                  margin: Margins.only(bottom: 5),
-                  backgroundColor: const Color.fromARGB(0x50, 0xee, 0xee, 0xee),
+                  border: Border.all(color: Colors.blueGrey),
+                  padding: HtmlPaddings.all(5),
+                  margin: Margins.only(bottom: 10),
+                  backgroundColor: Colors.blueGrey[50], //const Color.fromARGB(0x50, 0xee, 0xee, 0xee),
                   //width: Width(20, Unit.percent)
                 ),
                 "tr": Style(
                   //border: const Border(bottom: BorderSide(color: Colors.black54)),
                 ),
                 "th": Style(
-                  color: Colors.red,
-                  //padding: HtmlPaddings.all(4),
-                  //alignment: Alignment.topLeft,
-                  //width: Width(100, Unit.percent),
-                  //backgroundColor: Colors.orangeAccent,
+                  color: Colors.blueGrey,
+                  padding: HtmlPaddings.all(4),
+                  alignment: Alignment.topLeft,
+                  width: Width(50, Unit.percent),
+                  backgroundColor: Colors.blueGrey[100],
                 ),
                 "td": Style(
                   padding: HtmlPaddings.all(6),
-                  alignment: Alignment.topLeft,
+                  alignment: Alignment.center,
                 ),
               },
               onLinkTap: (url, _, __) {
