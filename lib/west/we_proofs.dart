@@ -3,7 +3,6 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_html_table/flutter_html_table.dart';
 import 'package:westminster_confession/bkmarks/bm_dialog.dart';
 import 'package:westminster_confession/bkmarks/bm_model.dart';
-import 'package:westminster_confession/bkmarks/bm_queries.dart';
 import 'package:westminster_confession/main/ma_model.dart';
 import 'package:westminster_confession/main/ma_queries.dart';
 import 'package:westminster_confession/bible/bi_verses.dart';
@@ -89,24 +88,14 @@ showChapters(chapters, index, context) {
             ),
             onPressed: () {
               int pg = pageController.page!.toInt();
-              int sp = pg + 1;
 
-              var arr = List.filled(2, '');
-              arr[0] = "$chap $sp";
-              arr[1] = chapters[pg].title;
+              final model = BMModel(
+                  title: "$chap ${pg + 1}",
+                  subtitle: "${chapters[pg].title}",
+                  detail: "5",
+                  page: "$pg");
 
-              BMDialog().showBmDialog(context, arr).then(
-                (value) {
-                  if (value) {
-                    final model = BMModel(
-                        title: arr[0].toString(),
-                        subtitle: note,
-                        detail: "5",
-                        page: pg.toString());
-                    BMQueries().saveBookMark(model);
-                  }
-                },
-              );
+              BMDialog().bMWrapper(context, model);
             },
           ),
         ],
@@ -153,12 +142,13 @@ showChapters(chapters, index, context) {
                   border: Border.all(color: Colors.blueGrey),
                   padding: HtmlPaddings.all(5),
                   margin: Margins.only(bottom: 10),
-                  backgroundColor: Colors.blueGrey[50], //const Color.fromARGB(0x50, 0xee, 0xee, 0xee),
+                  backgroundColor: Colors.blueGrey[
+                      50], //const Color.fromARGB(0x50, 0xee, 0xee, 0xee),
                   //width: Width(20, Unit.percent)
                 ),
                 "tr": Style(
-                  //border: const Border(bottom: BorderSide(color: Colors.black54)),
-                ),
+                    //border: const Border(bottom: BorderSide(color: Colors.black54)),
+                    ),
                 "th": Style(
                   color: Colors.blueGrey,
                   padding: HtmlPaddings.all(4),

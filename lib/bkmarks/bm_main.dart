@@ -7,16 +7,18 @@ import 'package:westminster_confession/points/po_page.dart';
 import 'package:westminster_confession/pref/pref_page.dart';
 import 'package:westminster_confession/utils/globals.dart';
 import 'package:westminster_confession/west/we_plain.dart';
+import 'package:westminster_confession/west/we_proofs.dart';
 
 // Bookmarks
 
 final BMQueries bmQueries = BMQueries();
 
-Future confirmDialog(BuildContext context, String subtitle) async {
+Future confirmDialog(BuildContext context, List list, int index) async {
   return showDialog(
     builder: (context) => AlertDialog(
       title: const Text('Delete this bookmark?'), // title
-      content: Text(subtitle), // subtitle
+      content:
+          Text("${list[index].title}\n${list[index].subtitle}"), // subtitle
       actions: [
         TextButton(
           child:
@@ -59,21 +61,21 @@ class BMMainState extends State<BMMain> {
     );
   }
 
-  goToFunction(BuildContext context, Widget route) {
-    Future.delayed(
-      Duration(milliseconds: Globals.navigatorDelay),
-      () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => route,
-          ),
-        ).then((value) {
-          setState(() {});
-        });
-      },
-    );
-  }
+  // goToFunction(BuildContext context, Widget route, int goto) {
+  //   Future.delayed(
+  //     Duration(milliseconds: Globals.navigatorDelay),
+  //     () {
+  //       Navigator.push(
+  //         context,
+  //         MaterialPageRoute(
+  //           builder: (context) => route,
+  //         ),
+  //       ).then((value) {
+  //         setState(() {});
+  //       });
+  //     },
+  //   );
+  // }
 
   showChapterList(list, context) {
     ListTile makeListTile(list, int index) => ListTile(
@@ -102,94 +104,104 @@ class BMMainState extends State<BMMain> {
               color: Colors.white, size: 30.0),
           onTap: () {
             int goto = int.parse(list[index].page);
+
             switch (list[index].detail) {
               case "1": // Westminster plain text
-                goToFunction(context, WePlainPage(goto));
-                // {
-                //   Navigator.push(
-                //     context,
-                //     MaterialPageRoute(builder: (context) => WePlainPage(goto)),
-                //   ).then((value) {
-                //     setState(() {});
-                //   });
-                // }
+                Future.delayed(
+                  Duration(milliseconds: Globals.navigatorDelay),
+                  () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => WePlainPage(goto),
+                      ),
+                    ).then((value) {
+                      setState(() {});
+                    });
+                  },
+                );
                 break;
 
               case "2": // Ecumenical Creeds
-                goToFunction(context, ECUPage(goto));
-                // {
-                //   Navigator.push(
-                //           context,
-                //           MaterialPageRoute(
-                //               builder: (context) => ECUPage(goto)))
-                //       .then((value) {
-                //     setState(() {});
-                //   });
-                // }
+                Future.delayed(
+                  Duration(milliseconds: Globals.navigatorDelay),
+                  () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ECUPage(goto),
+                      ),
+                    ).then((value) {
+                      setState(() {});
+                    });
+                  },
+                );
+
                 break;
 
               case "3": // Preface
-                goToFunction(context, PrefPage(goto));
-                // {
-                //   Navigator.push(
-                //           context,
-                //           MaterialPageRoute(
-                //               builder: (context) => PrefPage(goto)))
-                //       .then((value) {
-                //     setState(() {});
-                //   });
-                // }
+                Future.delayed(
+                  Duration(milliseconds: Globals.navigatorDelay),
+                  () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => PrefPage(goto),
+                      ),
+                    ).then((value) {
+                      setState(() {});
+                    });
+                  },
+                );
                 break;
 
               case "4": // Five Points
-                goToFunction(context, PointsPage(goto));
-                // {
-                //   Navigator.push(
-                //           context,
-                //           MaterialPageRoute(
-                //               builder: (context) => PointsPage(goto)))
-                //       .then((value) {
-                //     setState(() {});
-                //   });
-                // }
+                Future.delayed(
+                  Duration(milliseconds: Globals.navigatorDelay),
+                  () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => PointsPage(goto),
+                      ),
+                    ).then((value) {
+                      setState(() {});
+                    });
+                  },
+                );
                 break;
               case "5": // Westminster with proofs
-                goToFunction(context, PointsPage(goto));
-                // {
-                //   Navigator.push(
-                //           context,
-                //           MaterialPageRoute(
-                //               builder: (context) => WeProofsPage(goto)))
-                //       .then((value) {
-                //     setState(() {});
-                //   });
-                // }
+                Future.delayed(
+                  Duration(milliseconds: Globals.navigatorDelay),
+                  () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => WeProofsPage(goto),
+                      ),
+                    ).then((value) {
+                      setState(() {});
+                    });
+                  },
+                );
                 break;
               case "6": // Larger Catechism
-                goToFunction(context, CatPages(goto));
-                // {
-                //   Navigator.push(
-                //           context,
-                //           MaterialPageRoute(
-                //               builder: (context) => XDetailPage(goto)))
-                //       .then((value) {
-                //     setState(() {});
-                //   });
-                // }
+                Future.delayed(
+                  Duration(milliseconds: Globals.navigatorDelay),
+                  () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => CatPages(goto),
+                      ),
+                    ).then((value) {
+                      setState(() {});
+                    });
+                  },
+                );
                 break;
             }
           },
-          // onLongPress: () {
-          //   confirmDialog(context, list[index]).then((value) {
-          //     if (value) {
-          //       bmProvider.deleteBookMark(list[index].id).then((value) {
-          //         setState(() {
-          //           list.removeAt(index);
-          //         });
-          //       });
-          //     }
-          //   });
-          // },
         );
 
     Card makeCard(list, int index) => Card(
@@ -211,7 +223,7 @@ class BMMainState extends State<BMMain> {
             onHorizontalDragEnd: (DragEndDetails details) {
               if (details.primaryVelocity! > 0 ||
                   details.primaryVelocity! < 0) {
-                confirmDialog(context, list[index].subtitle).then((value) {
+                confirmDialog(context, list, index).then((value) {
                   if (value) {
                     bmQueries.deleteBookMark(list[index].id).then((value) {
                       setState(() {

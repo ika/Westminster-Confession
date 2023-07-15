@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:westminster_confession/bkmarks/bm_dialog.dart';
 import 'package:westminster_confession/bkmarks/bm_model.dart';
-import 'package:westminster_confession/bkmarks/bm_queries.dart';
 import 'package:westminster_confession/main/ma_model.dart';
 import 'package:westminster_confession/bible/bi_verses.dart';
 import 'package:westminster_confession/main/ma_queries.dart';
@@ -114,23 +113,13 @@ showChapters(chapters, index, context) {
               color: Colors.yellow,
             ),
             onPressed: () {
-              var arr = List.filled(2, '');
-              arr[0] = heading;
-              arr[1] = 'The Five Points';
+              final model = BMModel(
+                  title: heading,
+                  subtitle: "The Five Points",
+                  detail: "4",
+                  page: "0");
 
-              BMDialog().showBmDialog(context, arr).then(
-                (value) {
-                  if (value) {
-                    final model = BMModel(
-                      title: arr[0].toString(),
-                      subtitle: note,
-                      detail: "4",
-                      page: "0",
-                    );
-                    BMQueries().saveBookMark(model);
-                  }
-                },
-              );
+              BMDialog().bMWrapper(context, model);
             },
           ),
         ],

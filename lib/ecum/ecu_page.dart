@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:westminster_confession/bkmarks/bm_dialog.dart';
 import 'package:westminster_confession/bkmarks/bm_model.dart';
-import 'package:westminster_confession/bkmarks/bm_queries.dart';
 import 'package:westminster_confession/main/ma_model.dart';
 import 'package:westminster_confession/main/ma_queries.dart';
 
@@ -77,25 +76,14 @@ showChapters(chapters, index, context) {
             ),
             onPressed: () {
               int pg = pageController.page!.toInt();
-              int sp = pg + 1;
 
-              var arr = List.filled(2, '');
-              arr[0] = "$heading $sp";
-              arr[1] = chapters[pg].title;
+              final model = BMModel(
+                  title: heading,
+                  subtitle: "${chapters[pg].title}",
+                  detail: "2",
+                  page: "$pg");
 
-              BMDialog().showBmDialog(context, arr).then(
-                (value) {
-                  if (value) {
-                    final model = BMModel(
-                      title: arr[0].toString(),
-                      subtitle: note,
-                      detail: "2",
-                      page: pg.toString(),
-                    );
-                    BMQueries().saveBookMark(model);
-                  }
-                },
-              );
+              BMDialog().bMWrapper(context, model);
             },
           ),
         ],
