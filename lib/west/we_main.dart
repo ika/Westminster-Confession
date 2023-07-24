@@ -9,6 +9,7 @@ import 'package:westminster_confession/main/ma_queries.dart';
 import 'package:westminster_confession/points/po_page.dart';
 import 'package:westminster_confession/pref/pref_page.dart';
 import 'package:westminster_confession/utils/globals.dart';
+import 'package:westminster_confession/utils/tx_size.dart';
 import 'package:westminster_confession/west/we_plain.dart';
 import 'package:westminster_confession/west/we_proofs.dart';
 
@@ -68,6 +69,7 @@ class WeMainState extends State<WeMain> {
   }
 
   goToFunction(BuildContext context, Widget route) {
+    //Navigator.pop(context);
     Future.delayed(
       Duration(milliseconds: Globals.navigatorDelay),
       () {
@@ -178,66 +180,87 @@ class WeMainState extends State<WeMain> {
             ListTile(
               leading: const Icon(Icons.keyboard_double_arrow_right),
               title: const Text(
-                'Bookmarks',style: TextStyle(
-                color: Colors.black87,
-                fontFamily: 'Raleway-Regular',
-                fontSize: 16,
+                'Bookmarks',
+                style: TextStyle(
+                  color: Colors.black87,
+                  fontFamily: 'Raleway-Regular',
+                  fontSize: 16,
+                ),
               ),
+              dense: true,
+              onTap: () => {goToFunction(context, const BMMain())},
+            ),
+            ListTile(
+              leading: const Icon(Icons.keyboard_double_arrow_right),
+              title: const Text(
+                'Text Size',
+                style: TextStyle(
+                  color: Colors.black87,
+                  fontFamily: 'Raleway-Regular',
+                  fontSize: 16,
+                ),
               ),
               dense: true,
-              onTap: () => {
-                goToFunction(context, const BMMain())
-              },
+              onTap: () => {goToFunction(context, const TextSizePage())},
             ),
             ListTile(
               leading: const Icon(Icons.keyboard_double_arrow_right),
-              title: const Text('Preface',style: TextStyle(
-                color: Colors.black87,
-                fontFamily: 'Raleway-Regular',
-                fontSize: 16,
-              ),),
+              title: const Text(
+                'Preface',
+                style: TextStyle(
+                  color: Colors.black87,
+                  fontFamily: 'Raleway-Regular',
+                  fontSize: 16,
+                ),
+              ),
               dense: true,
-              onTap: () => {
-                goToFunction(context, PrefPage(0))
-              },
+              onTap: () => {goToFunction(context, PrefPage(0))},
             ),
             ListTile(
               leading: const Icon(Icons.keyboard_double_arrow_right),
-              title: const Text('Five Points',style: TextStyle(
-                color: Colors.black87,
-                fontFamily: 'Raleway-Regular',
-                fontSize: 16,
-              ),),
+              title: const Text(
+                'Five Points',
+                style: TextStyle(
+                  color: Colors.black87,
+                  fontFamily: 'Raleway-Regular',
+                  fontSize: 16,
+                ),
+              ),
               dense: true,
-              onTap: () => {
-                goToFunction(context, PointsPage(0))
-              },
+              onTap: () => {goToFunction(context, PointsPage(0))},
             ),
             ListTile(
               leading: const Icon(Icons.keyboard_double_arrow_right),
-              title: const Text('Ecumenical Creeds',style: TextStyle(
-                color: Colors.black87,
-                fontFamily: 'Raleway-Regular',
-                fontSize: 16,
-              ),),
+              title: const Text(
+                'Ecumenical Creeds',
+                style: TextStyle(
+                  color: Colors.black87,
+                  fontFamily: 'Raleway-Regular',
+                  fontSize: 16,
+                ),
+              ),
               dense: true,
-              onTap: () => {
-                goToFunction(context, const ECUMain())
-              },
+              onTap: () => {goToFunction(context, const ECUMain())},
             ),
             ListTile(
               leading: const Icon(Icons.keyboard_double_arrow_right),
               title: r == 0
-                  ? const Text('Scripture Proofs',style: TextStyle(
-                color: Colors.black87,
-                fontFamily: 'Raleway-Regular',
-                fontSize: 16,
-              ),)
-                  : const Text('Plain Text',style: TextStyle(
-                color: Colors.black87,
-                fontFamily: 'Raleway-Regular',
-                fontSize: 16,
-              ),),
+                  ? const Text(
+                      'Scripture Proofs',
+                      style: TextStyle(
+                        color: Colors.black87,
+                        fontFamily: 'Raleway-Regular',
+                        fontSize: 16,
+                      ),
+                    )
+                  : const Text(
+                      'Plain Text',
+                      style: TextStyle(
+                        color: Colors.black87,
+                        fontFamily: 'Raleway-Regular',
+                        fontSize: 16,
+                      ),
+                    ),
               dense: true,
               onTap: () => {
                 Future.delayed(
@@ -261,23 +284,27 @@ class WeMainState extends State<WeMain> {
             ),
             ListTile(
               leading: const Icon(Icons.keyboard_double_arrow_right),
-              title: const Text('Larger Catechism',style: TextStyle(
-                color: Colors.black87,
-                fontFamily: 'Raleway-Regular',
-                fontSize: 16,
-              ),),
+              title: const Text(
+                'Larger Catechism',
+                style: TextStyle(
+                  color: Colors.black87,
+                  fontFamily: 'Raleway-Regular',
+                  fontSize: 16,
+                ),
+              ),
               dense: true,
-              onTap: () => {
-                goToFunction(context, const CatMain())
-              },
+              onTap: () => {goToFunction(context, const CatMain())},
             ),
             ListTile(
               leading: const Icon(Icons.keyboard_double_arrow_right),
-              title: const Text('Share this App',style: TextStyle(
-                color: Colors.black87,
-                fontFamily: 'Raleway-Regular',
-                fontSize: 16,
-              ),),
+              title: const Text(
+                'Share this App',
+                style: TextStyle(
+                  color: Colors.black87,
+                  fontFamily: 'Raleway-Regular',
+                  fontSize: 16,
+                ),
+              ),
               dense: true,
               onTap: () => {Navigator.pop(context), onShareLink(context)},
             ),

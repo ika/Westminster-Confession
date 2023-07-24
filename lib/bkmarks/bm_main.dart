@@ -116,7 +116,8 @@ class BMMainState extends State<BMMain> {
                         builder: (context) => WePlainPage(goto),
                       ),
                     ).then((value) {
-                      setState(() {});
+                      int count = 1;
+                      Navigator.of(context).popUntil((_) => count++ >= 2);
                     });
                   },
                 );
@@ -132,7 +133,8 @@ class BMMainState extends State<BMMain> {
                         builder: (context) => ECUPage(goto),
                       ),
                     ).then((value) {
-                      setState(() {});
+                      int count = 1;
+                      Navigator.of(context).popUntil((_) => count++ >= 2);
                     });
                   },
                 );
@@ -149,7 +151,8 @@ class BMMainState extends State<BMMain> {
                         builder: (context) => PrefPage(goto),
                       ),
                     ).then((value) {
-                      setState(() {});
+                      int count = 1;
+                      Navigator.of(context).popUntil((_) => count++ >= 2);
                     });
                   },
                 );
@@ -165,7 +168,8 @@ class BMMainState extends State<BMMain> {
                         builder: (context) => PointsPage(goto),
                       ),
                     ).then((value) {
-                      setState(() {});
+                      int count = 1;
+                      Navigator.of(context).popUntil((_) => count++ >= 2);
                     });
                   },
                 );
@@ -180,7 +184,8 @@ class BMMainState extends State<BMMain> {
                         builder: (context) => WeProofsPage(goto),
                       ),
                     ).then((value) {
-                      setState(() {});
+                      int count = 1;
+                      Navigator.of(context).popUntil((_) => count++ >= 2);
                     });
                   },
                 );
@@ -195,7 +200,8 @@ class BMMainState extends State<BMMain> {
                         builder: (context) => CatPages(goto),
                       ),
                     ).then((value) {
-                      setState(() {});
+                      int count = 1;
+                      Navigator.of(context).popUntil((_) => count++ >= 2);
                     });
                   },
                 );

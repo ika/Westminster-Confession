@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_html_table/flutter_html_table.dart';
 import 'package:westminster_confession/bkmarks/bm_dialog.dart';
 import 'package:westminster_confession/bkmarks/bm_model.dart';
+import 'package:westminster_confession/cubit/cub_text.dart';
 import 'package:westminster_confession/main/ma_model.dart';
 import 'package:westminster_confession/main/ma_queries.dart';
 import 'package:westminster_confession/bible/bi_verses.dart';
@@ -12,6 +14,7 @@ import 'package:westminster_confession/bible/bi_verses.dart';
 DBQueries dbQueries = DBQueries();
 
 int index = 0;
+double? primaryTextSize;
 
 class WeProofsPage extends StatefulWidget {
   WeProofsPage(int idx, {Key? key}) : super(key: key) {
@@ -24,6 +27,13 @@ class WeProofsPage extends StatefulWidget {
 
 class WeProofsPageState extends State<WeProofsPage> {
   List<Chapter> chapters = List<Chapter>.empty();
+
+  @override
+  void initState() {
+    super.initState();
+    primaryTextSize = BlocProvider.of<TextSizeCubit>(context).state;
+    //debugPrint("PRIMARY TEXT SIZE $primaryTextSize");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -121,13 +131,13 @@ showChapters(chapters, index, context) {
                 "html": Style(
                   padding: HtmlPaddings.all(15.0),
                   fontFamily: 'Raleway-Regular',
-                  fontSize: FontSize(16.0),
+                  fontSize: FontSize(primaryTextSize!),
                 ),
                 "h2": Style(
-                  fontSize: FontSize(18.0),
+                  fontSize: FontSize(primaryTextSize! + 2),
                 ),
                 "h3": Style(
-                  fontSize: FontSize(16.0),
+                  fontSize: FontSize(primaryTextSize!),
                 ),
                 "sup": Style(
                   verticalAlign: VerticalAlign.sup,
