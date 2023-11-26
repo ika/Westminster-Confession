@@ -10,7 +10,6 @@ BMModel? model;
 String note = "";
 
 class BMDialog {
-
   Future confirmDialog(BuildContext context, BMModel bmmodel) async {
     return showDialog(
       builder: (context) => AlertDialog(
@@ -18,8 +17,8 @@ class BMDialog {
         content: Text("${bmmodel.title}\n${bmmodel.subtitle}"), // subtitle
         actions: [
           TextButton(
-            child:
-                const Text('YES', style: TextStyle(fontWeight: FontWeight.bold)),
+            child: const Text('YES',
+                style: TextStyle(fontWeight: FontWeight.bold)),
             onPressed: () => Navigator.of(context).pop(true),
           ),
           TextButton(

@@ -6,7 +6,6 @@ import 'package:westminster_confession/main/ma_model.dart';
 DBProvider dbProvider = DBProvider();
 
 class DBQueries {
-
   Future<List<Chapter>> getTitleList(String dbTable) async {
     final db = await dbProvider.database;
 
@@ -18,11 +17,10 @@ class DBQueries {
             maps.length,
             (i) {
               return Chapter(
-                id: maps[i]['id'],
-                chap: maps[i]['chap'],
-                title: maps[i]['title'],
-                text: maps[i]['text']
-              );
+                  id: maps[i]['id'],
+                  chap: maps[i]['chap'],
+                  title: maps[i]['title'],
+                  text: maps[i]['text']);
             },
           )
         : [];

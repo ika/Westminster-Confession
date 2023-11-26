@@ -46,13 +46,6 @@ class CatMainState extends State<CatMain> {
     ListTile makeListTile(chapters, int index) => ListTile(
           contentPadding:
               const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-          // leading: Container(
-          //   padding: EdgeInsets.only(right: 12.0),
-          //   decoration: new BoxDecoration(
-          //       border: new Border(
-          //           right: new BorderSide(width: 1.0, color: Colors.white24))),
-          //   child: Icon(Icons.autorenew, color: Colors.white),
-          // ),
           title: Text(
             chapters[index].chap,
             style: const TextStyle(
@@ -78,10 +71,8 @@ class CatMainState extends State<CatMain> {
             Future.delayed(
               Duration(milliseconds: Globals.navigatorDelay),
               () {
-                Navigator.push(
-                    context,
-                    CupertinoPageRoute(
-                        builder: (context) => CatPages(index)));
+                Navigator.push(context,
+                    CupertinoPageRoute(builder: (context) => CatPages(index)));
               },
             );
           },
@@ -115,12 +106,6 @@ class CatMainState extends State<CatMain> {
           color: Colors.yellow,
         ),
       ),
-      // actions: <Widget>[
-      //  IconButton(
-      //    icon: Icon(Icons.list_sharp),
-      //    onPressed: () {},
-      //  )
-      // ],
     );
 
     return Scaffold(

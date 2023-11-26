@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:westminster_confession/bkmarks/bm_dialog.dart';
 import 'package:westminster_confession/bkmarks/bm_model.dart';
-import 'package:westminster_confession/cubit/cub_text.dart';
+import 'package:westminster_confession/cubit/cub_size.dart';
 import 'package:westminster_confession/main/ma_model.dart';
 import 'package:westminster_confession/main/ma_queries.dart';
 
@@ -30,7 +30,6 @@ class WePlainPageState extends State<WePlainPage> {
   void initState() {
     super.initState();
     primaryTextSize = BlocProvider.of<TextSizeCubit>(context).state;
-    //debugPrint("PRIMARY TEXT SIZE $primaryTextSize");
   }
 
   @override

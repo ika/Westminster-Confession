@@ -9,7 +9,7 @@ class BIQueries {
 
   Future<List<BIModel>> getBibleVerse(int b, int c, int v) async {
     final db = await biProvider.database;
-    
+
     final List<Map<String, dynamic>> maps = await db.rawQuery(
         "SELECT t FROM $_dbTable WHERE b=? AND c=? AND v=?",
         ['$b', '$c', '$v']);

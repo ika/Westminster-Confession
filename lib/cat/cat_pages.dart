@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:westminster_confession/bkmarks/bm_dialog.dart';
 import 'package:westminster_confession/bkmarks/bm_model.dart';
-import 'package:westminster_confession/cubit/cub_text.dart';
+import 'package:westminster_confession/cubit/cub_size.dart';
 import 'package:westminster_confession/main/ma_model.dart';
 import 'package:westminster_confession/main/ma_queries.dart';
 
@@ -26,11 +26,11 @@ class CatPages extends StatefulWidget {
 class CatPagesState extends State<CatPages> {
   List<Chapter> chapters = List<Chapter>.empty();
 
-    @override
+  @override
   void initState() {
     super.initState();
     primaryTextSize = BlocProvider.of<TextSizeCubit>(context).state;
-    debugPrint("PRIMARY TEXT SIZE $primaryTextSize");
+    //debugPrint("PRIMARY TEXT SIZE $primaryTextSize");
   }
 
   @override
@@ -110,7 +110,11 @@ showChapters(chapters, index, context) {
             padding: const EdgeInsets.symmetric(horizontal: 4.0),
             child: Html(
               data: chapters[index].text,
-              style: {"html": html, "h2": h2, "h3": h3,},
+              style: {
+                "html": html,
+                "h2": h2,
+                "h3": h3,
+              },
             ),
           ),
         );

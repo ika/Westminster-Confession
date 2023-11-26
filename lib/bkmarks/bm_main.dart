@@ -61,22 +61,6 @@ class BMMainState extends State<BMMain> {
     );
   }
 
-  // goToFunction(BuildContext context, Widget route, int goto) {
-  //   Future.delayed(
-  //     Duration(milliseconds: Globals.navigatorDelay),
-  //     () {
-  //       Navigator.push(
-  //         context,
-  //         MaterialPageRoute(
-  //           builder: (context) => route,
-  //         ),
-  //       ).then((value) {
-  //         setState(() {});
-  //       });
-  //     },
-  //   );
-  // }
-
   showChapterList(list, context) {
     ListTile makeListTile(list, int index) => ListTile(
           contentPadding:

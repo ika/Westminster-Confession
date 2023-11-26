@@ -37,13 +37,6 @@ class ECUMainstate extends State<ECUMain> {
     ListTile makeListTile(chapters, int index) => ListTile(
           contentPadding:
               const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-          // leading: Container(
-          //   padding: EdgeInsets.only(right: 12.0),
-          //   decoration: new BoxDecoration(
-          //       border: new Border(
-          //           right: new BorderSide(width: 1.0, color: Colors.white24))),
-          //   child: Icon(Icons.autorenew, color: Colors.white),
-          // ),
           title: Text(
             chapters[index].chap,
             style: const TextStyle(
@@ -104,12 +97,6 @@ class ECUMainstate extends State<ECUMain> {
           color: Colors.yellow,
         ),
       ),
-      // actions: <Widget>[
-      //  IconButton(
-      //    icon: Icon(Icons.list_sharp),
-      //    onPressed: () {},
-      //  )
-      // ],
     );
 
     return Scaffold(

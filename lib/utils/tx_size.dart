@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:westminster_confession/cubit/cub_text.dart';
+import 'package:westminster_confession/cubit/cub_size.dart';
 import 'package:westminster_confession/utils/shared_prefs.dart';
 
-//MaterialColor? primarySwatch;
 SharedPrefs sharedPrefs = SharedPrefs();
 
 class TextSizePage extends StatefulWidget {
@@ -14,7 +13,6 @@ class TextSizePage extends StatefulWidget {
 }
 
 class _TextSizePageState extends State<TextSizePage> {
-
   List<double> sizesList = [14, 16, 18, 20, 22, 24, 26, 28];
 
   @override

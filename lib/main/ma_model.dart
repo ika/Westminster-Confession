@@ -1,5 +1,4 @@
-
-// Main Database Moelel
+// Main Database Model
 
 class Chapter {
   int? id;
@@ -8,14 +7,4 @@ class Chapter {
   String? text;
 
   Chapter({this.id, this.chap, this.title, this.text});
-
-  // used when inserting data to the database
-  // Map<String, dynamic> toMap() {
-  //   return <String, dynamic>{
-  //     "id": id,
-  //     "chap": chap,
-  //     "title": title,
-  //     "text": text,
-  //   };
-  // }
 }

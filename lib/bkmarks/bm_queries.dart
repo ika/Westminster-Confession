@@ -7,7 +7,6 @@ import 'package:westminster_confession/utils/constants.dart';
 // Bookmarks database helper
 
 class BMQueries {
-  
   final String _dbTable = Constants.BM_TBNAME;
   final BMProvider provider = BMProvider();
 
@@ -48,12 +47,13 @@ class BMQueries {
     return list;
   }
 
-    Future<int> getBookMarkExists(String detail, String page) async {
+  Future<int> getBookMarkExists(String detail, String page) async {
     final db = await provider.db;
 
     var cnt = Sqflite.firstIntValue(
-      await db
-          .rawQuery('''SELECT MAX(id) FROM $_dbTable WHERE detail=? AND page=?''', [detail, page]),
+      await db.rawQuery(
+          '''SELECT MAX(id) FROM $_dbTable WHERE detail=? AND page=?''',
+          [detail, page]),
     );
     return cnt ?? 0;
   }
