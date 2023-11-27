@@ -78,7 +78,7 @@ showVerseDialog(BuildContext context, data) {
 }
 
 showChapters(chapters, index, context) {
-  String heading = "Westminster Confession";
+
   String chap = "Chapter";
 
   PageController pageController =
@@ -87,13 +87,18 @@ showChapters(chapters, index, context) {
   topAppBar(context) => AppBar(
         elevation: 0.1,
         backgroundColor: const Color.fromRGBO(58, 66, 86, 1.0),
-        title: Text(heading),
+        title: const Text(
+          'Westminster Confession',
+          style: TextStyle(
+            color: Colors.yellow,
+          ),
+        ),
         centerTitle: true,
         actions: [
           IconButton(
             icon: const Icon(
               Icons.bookmark_outline_sharp,
-              color: Colors.yellowAccent,
+              color: Colors.yellow,
             ),
             onPressed: () {
               int pg = pageController.page!.toInt();
@@ -128,7 +133,7 @@ showChapters(chapters, index, context) {
               ],
               style: {
                 "html": Style(
-                  padding: HtmlPaddings.all(15.0),
+                  padding: HtmlPaddings.all(15),
                   fontFamily: 'Raleway-Regular',
                   fontSize: FontSize(primaryTextSize!),
                 ),
@@ -140,7 +145,7 @@ showChapters(chapters, index, context) {
                 ),
                 "sup": Style(
                   verticalAlign: VerticalAlign.sup,
-                  fontSize: FontSize(12.0),
+                  fontSize: FontSize(primaryTextSize! - 4),
                   color: Colors.red,
                 ),
                 "a": Style(
@@ -151,13 +156,14 @@ showChapters(chapters, index, context) {
                   border: Border.all(color: Colors.blueGrey),
                   padding: HtmlPaddings.all(5),
                   margin: Margins.only(bottom: 10),
-                  backgroundColor: Colors.blueGrey[
-                      50], //const Color.fromARGB(0x50, 0xee, 0xee, 0xee),
+                  backgroundColor: Colors.blueGrey[50],
+                  //const Color.fromARGB(0x50, 0xee, 0xee, 0xee),
                   //width: Width(20, Unit.percent)
                 ),
                 "tr": Style(
-                    //border: const Border(bottom: BorderSide(color: Colors.black54)),
-                    ),
+                  border:
+                      const Border(bottom: BorderSide(color: Colors.black54)),
+                ),
                 "th": Style(
                   color: Colors.blueGrey,
                   padding: HtmlPaddings.all(4),
@@ -166,16 +172,14 @@ showChapters(chapters, index, context) {
                   backgroundColor: Colors.blueGrey[100],
                 ),
                 "td": Style(
-                  padding: HtmlPaddings.all(6),
+                  padding: HtmlPaddings.all(8),
                   alignment: Alignment.center,
                 ),
               },
               onLinkTap: (url, _, __) {
-                if (url != null) {
-                  getVerseByReference(url).then((value) {
-                    showVerseDialog(context, value);
-                  });
-                }
+                getVerseByReference(url!).then((value) {
+                  showVerseDialog(context, value);
+                });
               },
             ),
           ),

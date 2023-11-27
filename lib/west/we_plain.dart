@@ -49,7 +49,7 @@ class WePlainPageState extends State<WePlainPage> {
 }
 
 showChapters(chapters, index, context) {
-  String heading = "Westminster Confession";
+
   String chap = "Chapter";
 
   PageController pageController =
@@ -57,7 +57,7 @@ showChapters(chapters, index, context) {
 
   final html = Style(
       backgroundColor: Colors.white30,
-      padding: HtmlPaddings.all(15.0),
+      padding: HtmlPaddings.all(15),
       fontFamily: 'Raleway-Regular',
       fontSize: FontSize(primaryTextSize!));
 
@@ -67,9 +67,9 @@ showChapters(chapters, index, context) {
   topAppBar(context) => AppBar(
         elevation: 0.1,
         backgroundColor: const Color.fromRGBO(58, 66, 86, 1.0),
-        title: Text(
-          heading,
-          style: const TextStyle(
+         title: const Text(
+          'Westminster Confession',
+          style: TextStyle(
             color: Colors.yellow,
           ),
         ),

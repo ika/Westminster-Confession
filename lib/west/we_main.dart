@@ -42,6 +42,8 @@ class WeMain extends StatefulWidget {
 class WeMainState extends State<WeMain> {
   List<Chapter> chapters = List<Chapter>.empty();
 
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   void initState() {
     super.initState();
@@ -141,9 +143,15 @@ class WeMainState extends State<WeMain> {
     }
 
     return Scaffold(
+      key: scaffoldKey,
       backgroundColor: const Color.fromRGBO(58, 66, 86, 1.0),
       appBar: AppBar(
-        elevation: 0.1,
+        leading: IconButton(
+          icon: const Icon(Icons.menu, color: Colors.white),
+          onPressed: () {
+            scaffoldKey.currentState!.openDrawer();
+          },
+        ),
         backgroundColor: const Color.fromRGBO(64, 75, 96, .9),
         title: const Text(
           'Westminster Confession',

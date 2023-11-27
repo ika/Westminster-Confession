@@ -75,24 +75,22 @@ showChapters(chapters, index, context) {
 
   final html = Style(
       backgroundColor: Colors.white30,
-      padding: HtmlPaddings.all(15.0),
+      padding: HtmlPaddings.all(15),
       fontFamily: 'Raleway-Regular',
-      fontSize: FontSize(16.0));
+      fontSize: FontSize(16));
 
   final h2 = Style(fontSize: FontSize(18.0));
   final h3 = Style(fontSize: FontSize(16.0));
-  final a =
-      Style(fontSize: FontSize(14.0), textDecoration: TextDecoration.none);
+  final a = Style(
+      fontSize: FontSize(14.0), textDecoration: TextDecoration.none);
 
   final page0 = Html(
     data: chapters[0].text,
     style: {"html": html, "h2": h2, "h3": h3, "a": a},
     onLinkTap: (url, _, __) {
-      if (url != null) {
-        getVerseByReference(url).then((value) {
-          showVerseDialog(context, value);
-        });
-      }
+      getVerseByReference(url!).then((value) {
+        showVerseDialog(context, value);
+      });
     },
   );
 

@@ -57,7 +57,7 @@ showChapters(chapters, index, context) {
 
   final html = Style(
       backgroundColor: Colors.white30,
-      padding: HtmlPaddings.all(15.0),
+      padding: HtmlPaddings.all(15),
       fontFamily: 'Raleway-Regular',
       fontSize: FontSize(primaryTextSize!));
 
