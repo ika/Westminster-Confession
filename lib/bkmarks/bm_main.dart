@@ -91,20 +91,29 @@ class BMMainState extends State<BMMain> {
 
             switch (list[index].detail) {
               case "1": // Westminster plain text
-                Future.delayed(
-                  Duration(milliseconds: Globals.navigatorDelay),
-                  () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => WePlainPage(goto),
-                      ),
-                    ).then((value) {
+                Future.delayed(Duration(milliseconds: Globals.navigatorDelay),
+                    () {
+                  Navigator.of(context)
+                      .pushNamed('/wePlain', arguments: WePlainArguments(goto))
+                      .then(
+                    (value) {
                       int count = 1;
                       Navigator.of(context).popUntil((_) => count++ >= 2);
-                    });
-                  },
-                );
+                    },
+                  );
+                }
+                    // {
+                    //   Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //       builder: (context) => WePlainPage(goto),
+                    //     ),
+                    //   ).then((value) {
+                    //     int count = 1;
+                    //     Navigator.of(context).popUntil((_) => count++ >= 2);
+                    //   });
+                    // },
+                    );
                 break;
 
               case "2": // Ecumenical Creeds
@@ -159,20 +168,30 @@ class BMMainState extends State<BMMain> {
                 );
                 break;
               case "5": // Westminster with proofs
-                Future.delayed(
-                  Duration(milliseconds: Globals.navigatorDelay),
-                  () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => WeProofsPage(goto),
-                      ),
-                    ).then((value) {
+                Future.delayed(Duration(milliseconds: Globals.navigatorDelay),
+                    () {
+                  Navigator.of(context)
+                      .pushNamed('/weProofs', arguments: WeProofArguments(goto))
+                      .then(
+                    (value) {
                       int count = 1;
                       Navigator.of(context).popUntil((_) => count++ >= 2);
-                    });
-                  },
-                );
+                    },
+                  );
+                }
+                    //()
+                    // {
+                    //   Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //       builder: (context) => WeProofsPage(goto),
+                    //     ),
+                    //   ).then((value) {
+                    //     int count = 1;
+                    //     Navigator.of(context).popUntil((_) => count++ >= 2);
+                    //   });
+                    // },
+                    );
                 break;
               case "6": // Larger Catechism
                 Future.delayed(

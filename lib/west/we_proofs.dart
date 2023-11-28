@@ -11,15 +11,17 @@ import 'package:westminster_confession/bible/bi_verses.dart';
 
 // With Proofs pages
 
+class WeProofArguments {
+  final int index;
+  WeProofArguments(this.index);
+}
+
 DBQueries dbQueries = DBQueries();
 
-int index = 0;
 double? primaryTextSize;
 
 class WeProofsPage extends StatefulWidget {
-  WeProofsPage(int idx, {Key? key}) : super(key: key) {
-    index = idx;
-  }
+  const WeProofsPage({super.key});
 
   @override
   WeProofsPageState createState() => WeProofsPageState();
@@ -36,12 +38,14 @@ class WeProofsPageState extends State<WeProofsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments as WeProofArguments;
+
     return FutureBuilder<List<Chapter>>(
       future: dbQueries.getChapters('ftexts'),
       builder: (context, AsyncSnapshot<List<Chapter>> snapshot) {
         if (snapshot.hasData) {
           chapters = snapshot.data!;
-          return showChapters(chapters, index, context);
+          return showChapters(chapters, args.index, context);
         } else {
           return const CircularProgressIndicator();
         }
@@ -78,7 +82,6 @@ showVerseDialog(BuildContext context, data) {
 }
 
 showChapters(chapters, index, context) {
-
   String chap = "Chapter";
 
   PageController pageController =

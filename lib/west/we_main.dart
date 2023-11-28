@@ -9,7 +9,7 @@ import 'package:westminster_confession/main/ma_queries.dart';
 import 'package:westminster_confession/points/po_page.dart';
 import 'package:westminster_confession/pref/pref_page.dart';
 import 'package:westminster_confession/utils/globals.dart';
-import 'package:westminster_confession/utils/tx_size.dart';
+import 'package:westminster_confession/size/tx_size.dart';
 import 'package:westminster_confession/west/we_plain.dart';
 import 'package:westminster_confession/west/we_proofs.dart';
 
@@ -33,7 +33,7 @@ _save(int r) async {
 }
 
 class WeMain extends StatefulWidget {
-  const WeMain({Key? key}) : super(key: key);
+  const WeMain({super.key});
 
   @override
   WeMainState createState() => WeMainState();
@@ -116,12 +116,19 @@ class WeMainState extends State<WeMain> {
             Future.delayed(
               Duration(milliseconds: Globals.navigatorDelay),
               () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => (r == 0)
-                            ? WePlainPage(index)
-                            : WeProofsPage(index)));
+                (r == 0)
+                    ? Navigator.of(context).pushNamed('/wePlain',
+                        arguments: WePlainArguments(index))
+                    : Navigator.of(context).pushNamed('/weProofs',
+                        arguments: WeProofArguments(index));
+
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) =>
+                //         (r == 0) ? WePlainPage(index) : WeProofsPage(index),
+                //   ),
+                // );
               },
             );
           },

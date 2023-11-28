@@ -9,15 +9,17 @@ import 'package:westminster_confession/main/ma_queries.dart';
 
 // Plain Text pages
 
+class WePlainArguments {
+  final int index;
+  WePlainArguments(this.index);
+}
+
 DBQueries dbQueries = DBQueries();
 
-int index = 0;
 double? primaryTextSize;
 
 class WePlainPage extends StatefulWidget {
-  WePlainPage(int idx, {Key? key}) : super(key: key) {
-    index = idx;
-  }
+  const WePlainPage({super.key});
 
   @override
   WePlainPageState createState() => WePlainPageState();
@@ -34,12 +36,15 @@ class WePlainPageState extends State<WePlainPage> {
 
   @override
   Widget build(BuildContext context) {
+    
+    final args = ModalRoute.of(context)!.settings.arguments as WePlainArguments;
+
     return FutureBuilder<List<Chapter>>(
       future: dbQueries.getChapters('atexts'),
       builder: (context, AsyncSnapshot<List<Chapter>> snapshot) {
         if (snapshot.hasData) {
           chapters = snapshot.data!;
-          return showChapters(chapters, index, context);
+          return showChapters(chapters, args.index, context);
         } else {
           return const CircularProgressIndicator();
         }
@@ -49,7 +54,6 @@ class WePlainPageState extends State<WePlainPage> {
 }
 
 showChapters(chapters, index, context) {
-
   String chap = "Chapter";
 
   PageController pageController =
@@ -67,7 +71,7 @@ showChapters(chapters, index, context) {
   topAppBar(context) => AppBar(
         elevation: 0.1,
         backgroundColor: const Color.fromRGBO(58, 66, 86, 1.0),
-         title: const Text(
+        title: const Text(
           'Westminster Confession',
           style: TextStyle(
             color: Colors.yellow,
