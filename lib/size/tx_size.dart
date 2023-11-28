@@ -6,7 +6,7 @@ import 'package:westminster_confession/utils/shared_prefs.dart';
 SharedPrefs sharedPrefs = SharedPrefs();
 
 class TextSizePage extends StatefulWidget {
-  const TextSizePage({Key? key}) : super(key: key);
+  const TextSizePage({super.key});
 
   @override
   State<TextSizePage> createState() => _TextSizePageState();

@@ -117,9 +117,9 @@ class WeMainState extends State<WeMain> {
               Duration(milliseconds: Globals.navigatorDelay),
               () {
                 (r == 0)
-                    ? Navigator.of(context).pushNamed('/wePlain',
+                    ? Navigator.of(context).pushNamed('/WePlainPage',
                         arguments: WePlainArguments(index))
-                    : Navigator.of(context).pushNamed('/weProofs',
+                    : Navigator.of(context).pushNamed('/WeProofsPage',
                         arguments: WeProofArguments(index));
 
                 // Navigator.push(
@@ -219,31 +219,61 @@ class WeMainState extends State<WeMain> {
               onTap: () => {goToFunction(context, const TextSizePage())},
             ),
             ListTile(
-              leading: const Icon(Icons.keyboard_double_arrow_right),
-              title: const Text(
-                'Preface',
-                style: TextStyle(
-                  color: Colors.black87,
-                  fontFamily: 'Raleway-Regular',
-                  fontSize: 16,
+                leading: const Icon(Icons.keyboard_double_arrow_right),
+                title: const Text(
+                  'Preface',
+                  style: TextStyle(
+                    color: Colors.black87,
+                    fontFamily: 'Raleway-Regular',
+                    fontSize: 16,
+                  ),
                 ),
-              ),
-              dense: true,
-              onTap: () => {goToFunction(context, PrefPage(0))},
-            ),
+                dense: true,
+                onTap: () {
+                  Future.delayed(
+                    Duration(milliseconds: Globals.navigatorDelay),
+                    () {
+                      Navigator.of(context)
+                          .pushNamed('/preFace',
+                              arguments: PrefPageArguments(0))
+                          .then(
+                        (value) {
+                          setState(() {});
+                        },
+                      );
+                    },
+                  );
+                }
+                //onTap: () => {goToFunction(context, PrefPage(0))},
+                ),
             ListTile(
-              leading: const Icon(Icons.keyboard_double_arrow_right),
-              title: const Text(
-                'Five Points',
-                style: TextStyle(
-                  color: Colors.black87,
-                  fontFamily: 'Raleway-Regular',
-                  fontSize: 16,
+                leading: const Icon(Icons.keyboard_double_arrow_right),
+                title: const Text(
+                  'Five Points',
+                  style: TextStyle(
+                    color: Colors.black87,
+                    fontFamily: 'Raleway-Regular',
+                    fontSize: 16,
+                  ),
                 ),
-              ),
-              dense: true,
-              onTap: () => {goToFunction(context, PointsPage(0))},
-            ),
+                dense: true,
+                onTap: () {
+                  Future.delayed(
+                    Duration(milliseconds: Globals.navigatorDelay),
+                    () {
+                      Navigator.of(context)
+                          .pushNamed('/PointsPage',
+                              arguments: PointsArguments(0))
+                          .then(
+                        (value) {
+                          setState(() {});
+                        },
+                      );
+                    },
+                  );
+                }
+                //onTap: () => {goToFunction(context, PointsPage(0))},
+                ),
             ListTile(
               leading: const Icon(Icons.keyboard_double_arrow_right),
               title: const Text(

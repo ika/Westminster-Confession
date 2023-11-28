@@ -11,14 +11,13 @@ import 'package:westminster_confession/bible/bi_verses.dart';
 
 // With Proofs pages
 
+DBQueries dbQueries = DBQueries();
+double? primaryTextSize;
+
 class WeProofArguments {
   final int index;
   WeProofArguments(this.index);
 }
-
-DBQueries dbQueries = DBQueries();
-
-double? primaryTextSize;
 
 class WeProofsPage extends StatefulWidget {
   const WeProofsPage({super.key});

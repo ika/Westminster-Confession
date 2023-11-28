@@ -10,14 +10,15 @@ import 'package:westminster_confession/main/ma_queries.dart';
 // Preface
 
 DBQueries dbQueries = DBQueries();
-
-int index = 0;
 double? primaryTextSize;
 
+class PrefPageArguments {
+  final int index;
+  PrefPageArguments(this.index);
+}
+
 class PrefPage extends StatefulWidget {
-  PrefPage(int index, {Key? key}) : super(key: key) {
-    index = index;
-  }
+  const PrefPage({super.key});
 
   @override
   PrefPageState createState() => PrefPageState();
@@ -34,12 +35,15 @@ class PrefPageState extends State<PrefPage> {
 
   @override
   Widget build(BuildContext context) {
+    final args =
+        ModalRoute.of(context)!.settings.arguments as PrefPageArguments;
+
     return FutureBuilder<List<Chapter>>(
       future: dbQueries.getChapters('ctexts'),
       builder: (context, AsyncSnapshot<List<Chapter>> snapshot) {
         if (snapshot.hasData) {
           chapters = snapshot.data!;
-          return showChapters(chapters, index, context);
+          return showChapters(chapters, args.index, context);
         } else {
           return const CircularProgressIndicator();
         }

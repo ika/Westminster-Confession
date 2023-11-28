@@ -10,12 +10,13 @@ import 'package:westminster_confession/main/ma_queries.dart';
 
 DBQueries dbQueries = DBQueries();
 
-int index = 0;
+class PointsArguments {
+  final int index;
+  PointsArguments(this.index);
+}
 
 class PointsPage extends StatefulWidget {
-  PointsPage(int index, {Key? key}) : super(key: key) {
-    index = index;
-  }
+  const PointsPage({super.key});
 
   @override
   PointsPageState createState() => PointsPageState();
@@ -26,12 +27,15 @@ class PointsPageState extends State<PointsPage> {
 
   @override
   Widget build(BuildContext context) {
+    
+    final args = ModalRoute.of(context)!.settings.arguments as PointsArguments;
+
     return FutureBuilder<List<Chapter>>(
       future: dbQueries.getChapters('dtexts'),
       builder: (context, AsyncSnapshot<List<Chapter>> snapshot) {
         if (snapshot.hasData) {
           chapters = snapshot.data!;
-          return showChapters(chapters, index, context);
+          return showChapters(chapters, args.index, context);
         } else {
           return const CircularProgressIndicator();
         }
@@ -81,8 +85,8 @@ showChapters(chapters, index, context) {
 
   final h2 = Style(fontSize: FontSize(18.0));
   final h3 = Style(fontSize: FontSize(16.0));
-  final a = Style(
-      fontSize: FontSize(14.0), textDecoration: TextDecoration.none);
+  final a =
+      Style(fontSize: FontSize(14.0), textDecoration: TextDecoration.none);
 
   final page0 = Html(
     data: chapters[0].text,
