@@ -228,7 +228,7 @@ class BMMainState extends State<BMMain> {
                 Future.delayed(Duration(milliseconds: Globals.navigatorDelay),
                     () {
                   Navigator.of(context)
-                      .pushNamed('/CatPages', arguments: WeProofArguments(goto))
+                      .pushNamed('/CatPages', arguments: CatPageArguments(goto))
                       .then(
                     (value) {
                       int count = 1;

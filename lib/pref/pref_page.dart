@@ -9,13 +9,13 @@ import 'package:westminster_confession/main/ma_queries.dart';
 
 // Preface
 
-DBQueries dbQueries = DBQueries();
-double? primaryTextSize;
-
 class PrefPageArguments {
   final int index;
   PrefPageArguments(this.index);
 }
+
+DBQueries dbQueries = DBQueries();
+double? primaryTextSize;
 
 class PrefPage extends StatefulWidget {
   const PrefPage({super.key});

@@ -41,20 +41,19 @@ class WestMinsterConfession extends StatelessWidget {
           primaryColor: const Color.fromRGBO(58, 66, 86, 1.0),
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        initialRoute: '/weMain',
+        initialRoute: '/WeMain',
         routes: {
           '/WeMain': (context) => const WeMain(),
           '/WePlainPage': (context) => const WePlainPage(),
           '/WeProofsPage': (context) => const WeProofsPage(),
           '/BMMain': (context) => const BMMain(),
-          '/TextSizePage': (context)=> const TextSizePage(),
+          '/TextSizePage': (context) => const TextSizePage(),
           '/PrefPage': (context) => const PrefPage(),
           '/PointsPage': (context) => const PointsPage(),
           '/ECUMain': (context) => const ECUMain(),
-          '/ECUPage': (context)=> const ECUPage(),
-          '/CatMain': (context)=> const CatMain(),
-          '/CatPages': (context)=> const CatPages(),
-
+          '/ECUPage': (context) => const ECUPage(),
+          '/CatMain': (context) => const CatMain(),
+          '/CatPages': (context) => const CatPages()
         },
       ),
     );
