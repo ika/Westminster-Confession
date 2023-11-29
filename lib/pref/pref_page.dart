@@ -6,6 +6,7 @@ import 'package:westminster_confession/bkmarks/bm_model.dart';
 import 'package:westminster_confession/cubit/cub_size.dart';
 import 'package:westminster_confession/main/ma_model.dart';
 import 'package:westminster_confession/main/ma_queries.dart';
+import 'package:westminster_confession/utils/globals.dart';
 
 // Preface
 
@@ -70,6 +71,22 @@ showChapters(chapters, index, context) {
   topAppBar(context) => AppBar(
         elevation: 0.1,
         backgroundColor: const Color.fromRGBO(58, 66, 86, 1.0),
+        leading: GestureDetector(
+          child: IconButton(
+            icon: const Icon(
+              Icons.arrow_back_ios_new_sharp,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              Future.delayed(
+                Duration(milliseconds: Globals.navigatorDelay),
+                () {
+                  Navigator.pop(context);
+                },
+              );
+            },
+          ),
+        ),
         title: Text(
           heading,
           style: const TextStyle(

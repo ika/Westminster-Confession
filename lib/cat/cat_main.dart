@@ -100,6 +100,22 @@ class CatMainState extends State<CatMain> {
     final topAppBar = AppBar(
       elevation: 0.1,
       backgroundColor: const Color.fromRGBO(64, 75, 96, .9),
+      leading: GestureDetector(
+        child: IconButton(
+          icon: const Icon(
+            Icons.arrow_back_ios_new_sharp,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            Future.delayed(
+              Duration(milliseconds: Globals.navigatorDelay),
+              () {
+                Navigator.pop(context);
+              },
+            );
+          },
+        ),
+      ),
       title: const Text(
         'Larger Catechism',
         style: TextStyle(

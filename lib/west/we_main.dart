@@ -256,9 +256,22 @@ class WeMainState extends State<WeMain> {
             ),
             ListTile(
               leading: const Icon(Icons.keyboard_double_arrow_right),
+              title: const Text(
+                'Larger Catechism',
+                style: TextStyle(
+                  color: Colors.black87,
+                  fontFamily: 'Raleway-Regular',
+                  fontSize: 16,
+                ),
+              ),
+              dense: true,
+              onTap: () => {Navigator.of(context).pushNamed(('/CatMain'))},
+            ),
+            ListTile(
+              leading: const Icon(Icons.keyboard_double_arrow_right),
               title: r == 0
                   ? const Text(
-                      'Scripture Proofs',
+                      'With Proofs',
                       style: TextStyle(
                         color: Colors.black87,
                         fontFamily: 'Raleway-Regular',
@@ -266,7 +279,7 @@ class WeMainState extends State<WeMain> {
                       ),
                     )
                   : const Text(
-                      'Plain Text',
+                      'Without Proofs',
                       style: TextStyle(
                         color: Colors.black87,
                         fontFamily: 'Raleway-Regular',
@@ -297,20 +310,7 @@ class WeMainState extends State<WeMain> {
             ListTile(
               leading: const Icon(Icons.keyboard_double_arrow_right),
               title: const Text(
-                'Larger Catechism',
-                style: TextStyle(
-                  color: Colors.black87,
-                  fontFamily: 'Raleway-Regular',
-                  fontSize: 16,
-                ),
-              ),
-              dense: true,
-              onTap: () => {Navigator.of(context).pushNamed(('/CatMain'))},
-            ),
-            ListTile(
-              leading: const Icon(Icons.keyboard_double_arrow_right),
-              title: const Text(
-                'Share this App',
+                'Share',
                 style: TextStyle(
                   color: Colors.black87,
                   fontFamily: 'Raleway-Regular',
