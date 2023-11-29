@@ -35,7 +35,6 @@ class CatPagesState extends State<CatPages> {
 
   @override
   Widget build(BuildContext context) {
-
     final args = ModalRoute.of(context)!.settings.arguments as CatPageArguments;
 
     return FutureBuilder<List<Chapter>>(

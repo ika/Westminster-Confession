@@ -1,11 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:westminster_confession/cat/cat_pages.dart';
+import 'package:westminster_confession/main/ma_helper.dart';
+import 'package:westminster_confession/main/ma_model.dart';
 import 'package:westminster_confession/main/ma_queries.dart';
 import 'package:westminster_confession/utils/globals.dart';
-
-import '../main/ma_helper.dart';
-import '../main/ma_model.dart';
-import 'cat_pages.dart';
 
 // The Larger Catachism
 

@@ -66,23 +66,6 @@ class WeMainState extends State<WeMain> {
     );
   }
 
-  // goToFunction(BuildContext context, Widget route) {
-  //   //Navigator.pop(context);
-  //   Future.delayed(
-  //     Duration(milliseconds: Globals.navigatorDelay),
-  //     () {
-  //       Navigator.push(
-  //         context,
-  //         MaterialPageRoute(
-  //           builder: (context) => route,
-  //         ),
-  //       ).then((value) {
-  //         setState(() {});
-  //       });
-  //     },
-  //   );
-  // }
-
   showChapterList(List<Chapter> chapters, context) {
     ListTile makeListTile(chapters, int index) => ListTile(
           contentPadding:
@@ -117,14 +100,6 @@ class WeMainState extends State<WeMain> {
                         arguments: WePlainArguments(index))
                     : Navigator.of(context).pushNamed('/WeProofsPage',
                         arguments: WeProofArguments(index));
-
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (context) =>
-                //         (r == 0) ? WePlainPage(index) : WeProofsPage(index),
-                //   ),
-                // );
               },
             );
           },
@@ -199,7 +174,6 @@ class WeMainState extends State<WeMain> {
                 ),
               ),
               dense: true,
-              //onTap: () => {goToFunction(context, const BMMain())},
               onTap: () => {Navigator.of(context).pushNamed(('/BMMain'))},
             ),
             ListTile(
@@ -213,65 +187,60 @@ class WeMainState extends State<WeMain> {
                 ),
               ),
               dense: true,
-              //onTap: () => {goToFunction(context, const TextSizePage())},
               onTap: () => {Navigator.of(context).pushNamed(('/TextSizePage'))},
             ),
             ListTile(
-                leading: const Icon(Icons.keyboard_double_arrow_right),
-                title: const Text(
-                  'Preface',
-                  style: TextStyle(
-                    color: Colors.black87,
-                    fontFamily: 'Raleway-Regular',
-                    fontSize: 16,
-                  ),
+              leading: const Icon(Icons.keyboard_double_arrow_right),
+              title: const Text(
+                'Preface',
+                style: TextStyle(
+                  color: Colors.black87,
+                  fontFamily: 'Raleway-Regular',
+                  fontSize: 16,
                 ),
-                dense: true,
-                onTap: () {
-                  Future.delayed(
-                    Duration(milliseconds: Globals.navigatorDelay),
-                    () {
-                      Navigator.of(context)
-                          .pushNamed('/PrefPage',
-                              arguments: PrefPageArguments(0))
-                          .then(
-                        (value) {
-                          setState(() {});
-                        },
-                      );
-                    },
-                  );
-                }
-                //onTap: () => {goToFunction(context, PrefPage(0))},
-                ),
+              ),
+              dense: true,
+              onTap: () {
+                Future.delayed(
+                  Duration(milliseconds: Globals.navigatorDelay),
+                  () {
+                    Navigator.of(context)
+                        .pushNamed('/PrefPage', arguments: PrefPageArguments(0))
+                        .then(
+                      (value) {
+                        setState(() {});
+                      },
+                    );
+                  },
+                );
+              },
+            ),
             ListTile(
-                leading: const Icon(Icons.keyboard_double_arrow_right),
-                title: const Text(
-                  'Five Points',
-                  style: TextStyle(
-                    color: Colors.black87,
-                    fontFamily: 'Raleway-Regular',
-                    fontSize: 16,
-                  ),
+              leading: const Icon(Icons.keyboard_double_arrow_right),
+              title: const Text(
+                'Five Points',
+                style: TextStyle(
+                  color: Colors.black87,
+                  fontFamily: 'Raleway-Regular',
+                  fontSize: 16,
                 ),
-                dense: true,
-                onTap: () {
-                  Future.delayed(
-                    Duration(milliseconds: Globals.navigatorDelay),
-                    () {
-                      Navigator.of(context)
-                          .pushNamed('/PointsPage',
-                              arguments: PointsArguments(0))
-                          .then(
-                        (value) {
-                          setState(() {});
-                        },
-                      );
-                    },
-                  );
-                }
-                //onTap: () => {goToFunction(context, PointsPage(0))},
-                ),
+              ),
+              dense: true,
+              onTap: () {
+                Future.delayed(
+                  Duration(milliseconds: Globals.navigatorDelay),
+                  () {
+                    Navigator.of(context)
+                        .pushNamed('/PointsPage', arguments: PointsArguments(0))
+                        .then(
+                      (value) {
+                        setState(() {});
+                      },
+                    );
+                  },
+                );
+              },
+            ),
             ListTile(
               leading: const Icon(Icons.keyboard_double_arrow_right),
               title: const Text(
@@ -283,7 +252,6 @@ class WeMainState extends State<WeMain> {
                 ),
               ),
               dense: true,
-              //onTap: () => {goToFunction(context, const ECUMain())},
               onTap: () => {Navigator.of(context).pushNamed(('/ECUMain'))},
             ),
             ListTile(
@@ -337,7 +305,6 @@ class WeMainState extends State<WeMain> {
                 ),
               ),
               dense: true,
-              //onTap: () => {goToFunction(context, const CatMain())},
               onTap: () => {Navigator.of(context).pushNamed(('/CatMain'))},
             ),
             ListTile(

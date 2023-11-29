@@ -9,13 +9,13 @@ import 'package:westminster_confession/main/ma_queries.dart';
 
 // Plain Text pages
 
-DBQueries dbQueries = DBQueries();
-double? primaryTextSize;
-
 class WePlainArguments {
   final int index;
   WePlainArguments(this.index);
 }
+
+DBQueries dbQueries = DBQueries();
+double? primaryTextSize;
 
 class WePlainPage extends StatefulWidget {
   const WePlainPage({super.key});
@@ -35,7 +35,6 @@ class WePlainPageState extends State<WePlainPage> {
 
   @override
   Widget build(BuildContext context) {
-
     final args = ModalRoute.of(context)!.settings.arguments as WePlainArguments;
 
     return FutureBuilder<List<Chapter>>(

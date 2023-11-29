@@ -8,12 +8,12 @@ import 'package:westminster_confession/main/ma_queries.dart';
 
 // The five points
 
-DBQueries dbQueries = DBQueries();
-
 class PointsArguments {
   final int index;
   PointsArguments(this.index);
 }
+
+DBQueries dbQueries = DBQueries();
 
 class PointsPage extends StatefulWidget {
   const PointsPage({super.key});

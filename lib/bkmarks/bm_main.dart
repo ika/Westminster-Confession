@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:westminster_confession/bkmarks/bm_model.dart';
 import 'package:westminster_confession/bkmarks/bm_queries.dart';
 import 'package:westminster_confession/cat/cat_pages.dart';
-import 'package:westminster_confession/ecum/ecu_page.dart';
 import 'package:westminster_confession/points/po_page.dart';
 import 'package:westminster_confession/pref/pref_page.dart';
 import 'package:westminster_confession/utils/globals.dart';
@@ -91,163 +90,104 @@ class BMMainState extends State<BMMain> {
 
             switch (list[index].detail) {
               case "1": // Westminster plain text
-                Future.delayed(Duration(milliseconds: Globals.navigatorDelay),
-                    () {
-                  Navigator.of(context)
-                      .pushNamed('/WePlainPage',
-                          arguments: WePlainArguments(goto))
-                      .then(
-                    (value) {
-                      int count = 1;
-                      Navigator.of(context).popUntil((_) => count++ >= 2);
-                    },
-                  );
-                }
-                    // {
-                    //   Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //       builder: (context) => WePlainPage(goto),
-                    //     ),
-                    //   ).then((value) {
-                    //     int count = 1;
-                    //     Navigator.of(context).popUntil((_) => count++ >= 2);
-                    //   });
-                    // },
+                Future.delayed(
+                  Duration(milliseconds: Globals.navigatorDelay),
+                  () {
+                    Navigator.of(context)
+                        .pushNamed('/WePlainPage',
+                            arguments: WePlainArguments(goto))
+                        .then(
+                      (value) {
+                        int count = 1;
+                        Navigator.of(context).popUntil((_) => count++ >= 2);
+                      },
                     );
+                  },
+                );
                 break;
 
               case "2": // Ecumenical Creeds
-                Future.delayed(Duration(milliseconds: Globals.navigatorDelay),
-                    () {
-                  Navigator.of(context)
-                      .pushNamed('/ECUPage', arguments: PrefPageArguments(goto))
-                      .then(
-                    (value) {
-                      int count = 1;
-                      Navigator.of(context).popUntil((_) => count++ >= 2);
-                    },
-                  );
-                }
-                    // () {
-                    //   Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //       builder: (context) => ECUPage(goto),
-                    //     ),
-                    //   ).then((value) {
-                    //     int count = 1;
-                    //     Navigator.of(context).popUntil((_) => count++ >= 2);
-                    //   });
-                    // },
+                Future.delayed(
+                  Duration(milliseconds: Globals.navigatorDelay),
+                  () {
+                    Navigator.of(context)
+                        .pushNamed('/ECUPage',
+                            arguments: PrefPageArguments(goto))
+                        .then(
+                      (value) {
+                        int count = 1;
+                        Navigator.of(context).popUntil((_) => count++ >= 2);
+                      },
                     );
+                  },
+                );
 
                 break;
 
               case "3": // Preface
-                Future.delayed(Duration(milliseconds: Globals.navigatorDelay),
-                    () {
-                  Navigator.of(context)
-                      .pushNamed('/PrefPage',
-                          arguments: PrefPageArguments(goto))
-                      .then(
-                    (value) {
-                      int count = 1;
-                      Navigator.of(context).popUntil((_) => count++ >= 2);
-                    },
-                  );
-                }
-                    // () {
-                    //   Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //       builder: (context) => PrefPage(goto),
-                    //     ),
-                    //   ).then((value) {
-                    //     int count = 1;
-                    //     Navigator.of(context).popUntil((_) => count++ >= 2);
-                    //   });
-                    // },
+                Future.delayed(
+                  Duration(milliseconds: Globals.navigatorDelay),
+                  () {
+                    Navigator.of(context)
+                        .pushNamed('/PrefPage',
+                            arguments: PrefPageArguments(goto))
+                        .then(
+                      (value) {
+                        int count = 1;
+                        Navigator.of(context).popUntil((_) => count++ >= 2);
+                      },
                     );
+                  },
+                );
                 break;
 
               case "4": // Five Points
-                Future.delayed(Duration(milliseconds: Globals.navigatorDelay),
-                    () {
-                  Navigator.of(context)
-                      .pushNamed('/PointsPage',
-                          arguments: PointsArguments(goto))
-                      .then(
-                    (value) {
-                      int count = 1;
-                      Navigator.of(context).popUntil((_) => count++ >= 2);
-                    },
-                  );
-                }
-                    // () {
-                    //   Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //       builder: (context) => PointsPage(goto),
-                    //     ),
-                    //   ).then((value) {
-                    //     int count = 1;
-                    //     Navigator.of(context).popUntil((_) => count++ >= 2);
-                    //   });
-                    // },
+                Future.delayed(
+                  Duration(milliseconds: Globals.navigatorDelay),
+                  () {
+                    Navigator.of(context)
+                        .pushNamed('/PointsPage',
+                            arguments: PointsArguments(goto))
+                        .then(
+                      (value) {
+                        int count = 1;
+                        Navigator.of(context).popUntil((_) => count++ >= 2);
+                      },
                     );
+                  },
+                );
                 break;
               case "5": // Westminster with proofs
-                Future.delayed(Duration(milliseconds: Globals.navigatorDelay),
-                    () {
-                  Navigator.of(context)
-                      .pushNamed('/WeProofsPage',
-                          arguments: WeProofArguments(goto))
-                      .then(
-                    (value) {
-                      int count = 1;
-                      Navigator.of(context).popUntil((_) => count++ >= 2);
-                    },
-                  );
-                }
-                    //()
-                    // {
-                    //   Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //       builder: (context) => WeProofsPage(goto),
-                    //     ),
-                    //   ).then((value) {
-                    //     int count = 1;
-                    //     Navigator.of(context).popUntil((_) => count++ >= 2);
-                    //   });
-                    // },
+                Future.delayed(
+                  Duration(milliseconds: Globals.navigatorDelay),
+                  () {
+                    Navigator.of(context)
+                        .pushNamed('/WeProofsPage',
+                            arguments: WeProofArguments(goto))
+                        .then(
+                      (value) {
+                        int count = 1;
+                        Navigator.of(context).popUntil((_) => count++ >= 2);
+                      },
                     );
+                  },
+                );
                 break;
               case "6": // Larger Catechism
-                Future.delayed(Duration(milliseconds: Globals.navigatorDelay),
-                    () {
-                  Navigator.of(context)
-                      .pushNamed('/CatPages', arguments: CatPageArguments(goto))
-                      .then(
-                    (value) {
-                      int count = 1;
-                      Navigator.of(context).popUntil((_) => count++ >= 2);
-                    },
-                  );
-                }
-                    // () {
-                    //   Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //       builder: (context) => CatPages(goto),
-                    //     ),
-                    //   ).then((value) {
-                    //     int count = 1;
-                    //     Navigator.of(context).popUntil((_) => count++ >= 2);
-                    //   });
-                    // },
+                Future.delayed(
+                  Duration(milliseconds: Globals.navigatorDelay),
+                  () {
+                    Navigator.of(context)
+                        .pushNamed('/CatPages',
+                            arguments: CatPageArguments(goto))
+                        .then(
+                      (value) {
+                        int count = 1;
+                        Navigator.of(context).popUntil((_) => count++ >= 2);
+                      },
                     );
+                  },
+                );
                 break;
             }
           },

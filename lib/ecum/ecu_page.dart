@@ -9,13 +9,13 @@ import 'package:westminster_confession/main/ma_queries.dart';
 
 // Ecumenical Creeds
 
-DBQueries dbQueries = DBQueries();
-double? primaryTextSize;
-
 class ECUPageArguments {
   final int index;
   ECUPageArguments(this.index);
 }
+
+DBQueries dbQueries = DBQueries();
+double? primaryTextSize;
 
 class ECUPage extends StatefulWidget {
   const ECUPage({super.key});
@@ -35,7 +35,6 @@ class ECUPageState extends State<ECUPage> {
 
   @override
   Widget build(BuildContext context) {
-    
     final args = ModalRoute.of(context)!.settings.arguments as ECUPageArguments;
 
     return FutureBuilder<List<Chapter>>(

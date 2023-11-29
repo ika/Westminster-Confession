@@ -37,7 +37,6 @@ class WeProofsPageState extends State<WeProofsPage> {
 
   @override
   Widget build(BuildContext context) {
-    
     final args = ModalRoute.of(context)!.settings.arguments as WeProofArguments;
 
     return FutureBuilder<List<Chapter>>(
