@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:westminster_confession/bkmarks/bm_dialog.dart';
 import 'package:westminster_confession/bkmarks/bm_model.dart';
+import 'package:westminster_confession/cubit/cub_size.dart';
 import 'package:westminster_confession/main/ma_model.dart';
 import 'package:westminster_confession/bible/bi_verses.dart';
 import 'package:westminster_confession/main/ma_queries.dart';
@@ -15,6 +17,7 @@ class PointsArguments {
 }
 
 DBQueries dbQueries = DBQueries();
+double? primaryTextSize;
 
 class PointsPage extends StatefulWidget {
   const PointsPage({super.key});
@@ -25,6 +28,12 @@ class PointsPage extends StatefulWidget {
 
 class PointsPageState extends State<PointsPage> {
   List<Chapter> chapters = List<Chapter>.empty();
+
+    @override
+  void initState() {
+    super.initState();
+    primaryTextSize = BlocProvider.of<TextSizeCubit>(context).state;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,16 +90,17 @@ showChapters(chapters, index, context) {
       backgroundColor: Colors.white30,
       padding: HtmlPaddings.all(15),
       fontFamily: 'Raleway-Regular',
-      fontSize: FontSize(16));
+      fontSize: FontSize(primaryTextSize!));
 
-  final h2 = Style(fontSize: FontSize(18.0));
-  final h3 = Style(fontSize: FontSize(16.0));
+  final h2 = Style(fontSize: FontSize(primaryTextSize! + 2));
+  final h3 = Style(fontSize: FontSize(primaryTextSize!));
+  final h4 = Style(fontSize: FontSize(primaryTextSize! - 2));
   final a =
-      Style(fontSize: FontSize(14.0), textDecoration: TextDecoration.none);
+      Style(fontSize: FontSize(primaryTextSize! -4), textDecoration: TextDecoration.none);
 
   final page0 = Html(
     data: chapters[0].text,
-    style: {"html": html, "h2": h2, "h3": h3, "a": a},
+    style: {"html": html, "h2": h2, "h3": h3, "h4": h4, "a": a},
     onLinkTap: (url, _, __) {
       getVerseByReference(url!).then((value) {
         showVerseDialog(context, value);

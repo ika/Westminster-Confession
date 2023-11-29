@@ -98,7 +98,7 @@ showChapters(chapters, index, context) {
           IconButton(
             icon: const Icon(
               Icons.bookmark_outline_sharp,
-              color: Colors.yellow,
+              color: Colors.white,
             ),
             onPressed: () {
               int pg = pageController.page!.toInt();
