@@ -9,7 +9,7 @@ import 'package:westminster_confession/utils/globals.dart';
 DBQueries dbQueries = DBQueries();
 
 class ECUMain extends StatefulWidget {
-  const ECUMain({Key? key}) : super(key: key);
+  const ECUMain({super.key});
 
   @override
   ECUMainstate createState() => ECUMainstate();
@@ -59,13 +59,15 @@ class ECUMainstate extends State<ECUMain> {
           trailing: const Icon(Icons.keyboard_arrow_right,
               color: Colors.white, size: 30.0),
           onTap: () {
-            Future.delayed(
-              Duration(milliseconds: Globals.navigatorDelay),
-              () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ECUPage(index)));
-              },
-            );
+            Future.delayed(Duration(milliseconds: Globals.navigatorDelay), () {
+              Navigator.of(context)
+                  .pushNamed('/ECUPage', arguments: ECUPageArguments(index));
+            });
+            //  onTap: () {
+            //     Navigator.push(context,
+            //         MaterialPageRoute(builder: (context) => ECUPage(index)));
+            //   },
+            //);
           },
         );
 

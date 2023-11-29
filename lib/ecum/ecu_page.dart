@@ -10,14 +10,15 @@ import 'package:westminster_confession/main/ma_queries.dart';
 // Ecumenical Creeds
 
 DBQueries dbQueries = DBQueries();
-
-int index = 0;
 double? primaryTextSize;
 
+class ECUPageArguments {
+  final int index;
+  ECUPageArguments(this.index);
+}
+
 class ECUPage extends StatefulWidget {
-  ECUPage(int indx, {Key? key}) : super(key: key) {
-    index = indx;
-  }
+  const ECUPage({super.key});
 
   @override
   ECUPageState createState() => ECUPageState();
@@ -30,17 +31,19 @@ class ECUPageState extends State<ECUPage> {
   void initState() {
     super.initState();
     primaryTextSize = BlocProvider.of<TextSizeCubit>(context).state;
-    //debugPrint("PRIMARY TEXT SIZE $primaryTextSize");
   }
 
   @override
   Widget build(BuildContext context) {
+    
+    final args = ModalRoute.of(context)!.settings.arguments as ECUPageArguments;
+
     return FutureBuilder<List<Chapter>>(
       future: dbQueries.getChapters('btexts'),
       builder: (context, AsyncSnapshot<List<Chapter>> snapshot) {
         if (snapshot.hasData) {
           chapters = snapshot.data!;
-          return showChapters(chapters, index, context);
+          return showChapters(chapters, args.index, context);
         } else {
           return const CircularProgressIndicator();
         }

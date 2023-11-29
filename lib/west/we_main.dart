@@ -70,22 +70,22 @@ class WeMainState extends State<WeMain> {
     );
   }
 
-  goToFunction(BuildContext context, Widget route) {
-    //Navigator.pop(context);
-    Future.delayed(
-      Duration(milliseconds: Globals.navigatorDelay),
-      () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => route,
-          ),
-        ).then((value) {
-          setState(() {});
-        });
-      },
-    );
-  }
+  // goToFunction(BuildContext context, Widget route) {
+  //   //Navigator.pop(context);
+  //   Future.delayed(
+  //     Duration(milliseconds: Globals.navigatorDelay),
+  //     () {
+  //       Navigator.push(
+  //         context,
+  //         MaterialPageRoute(
+  //           builder: (context) => route,
+  //         ),
+  //       ).then((value) {
+  //         setState(() {});
+  //       });
+  //     },
+  //   );
+  // }
 
   showChapterList(List<Chapter> chapters, context) {
     ListTile makeListTile(chapters, int index) => ListTile(
@@ -203,7 +203,8 @@ class WeMainState extends State<WeMain> {
                 ),
               ),
               dense: true,
-              onTap: () => {goToFunction(context, const BMMain())},
+              //onTap: () => {goToFunction(context, const BMMain())},
+              onTap: () => {Navigator.of(context).pushNamed(('/BMMain'))},
             ),
             ListTile(
               leading: const Icon(Icons.keyboard_double_arrow_right),
@@ -216,7 +217,8 @@ class WeMainState extends State<WeMain> {
                 ),
               ),
               dense: true,
-              onTap: () => {goToFunction(context, const TextSizePage())},
+              //onTap: () => {goToFunction(context, const TextSizePage())},
+              onTap: () => {Navigator.of(context).pushNamed(('/TextSizePage'))},
             ),
             ListTile(
                 leading: const Icon(Icons.keyboard_double_arrow_right),
@@ -234,7 +236,7 @@ class WeMainState extends State<WeMain> {
                     Duration(milliseconds: Globals.navigatorDelay),
                     () {
                       Navigator.of(context)
-                          .pushNamed('/preFace',
+                          .pushNamed('/PrefPage',
                               arguments: PrefPageArguments(0))
                           .then(
                         (value) {
@@ -285,7 +287,8 @@ class WeMainState extends State<WeMain> {
                 ),
               ),
               dense: true,
-              onTap: () => {goToFunction(context, const ECUMain())},
+              //onTap: () => {goToFunction(context, const ECUMain())},
+              onTap: () => {Navigator.of(context).pushNamed(('/ECUMain'))},
             ),
             ListTile(
               leading: const Icon(Icons.keyboard_double_arrow_right),
@@ -338,7 +341,8 @@ class WeMainState extends State<WeMain> {
                 ),
               ),
               dense: true,
-              onTap: () => {goToFunction(context, const CatMain())},
+              //onTap: () => {goToFunction(context, const CatMain())},
+              onTap: () => {Navigator.of(context).pushNamed(('/CatMain'))},
             ),
             ListTile(
               leading: const Icon(Icons.keyboard_double_arrow_right),

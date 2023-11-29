@@ -9,15 +9,16 @@ import 'package:westminster_confession/main/ma_queries.dart';
 
 // Larger Catechism pages
 
-DBQueries dbQueries = DBQueries();
+class CatPageArguments {
+  final int index;
+  CatPageArguments(this.index);
+}
 
-int index = 0;
+DBQueries dbQueries = DBQueries();
 double? primaryTextSize;
 
 class CatPages extends StatefulWidget {
-  CatPages(int idx, {Key? key}) : super(key: key) {
-    index = idx;
-  }
+  const CatPages({super.key});
 
   @override
   CatPagesState createState() => CatPagesState();
@@ -30,17 +31,19 @@ class CatPagesState extends State<CatPages> {
   void initState() {
     super.initState();
     primaryTextSize = BlocProvider.of<TextSizeCubit>(context).state;
-    //debugPrint("PRIMARY TEXT SIZE $primaryTextSize");
   }
 
   @override
   Widget build(BuildContext context) {
+
+    final args = ModalRoute.of(context)!.settings.arguments as CatPageArguments;
+
     return FutureBuilder<List<Chapter>>(
       future: dbQueries.getChapters('etexts'),
       builder: (context, AsyncSnapshot<List<Chapter>> snapshot) {
         if (snapshot.hasData) {
           chapters = snapshot.data!;
-          return showChapters(chapters, index, context);
+          return showChapters(chapters, args.index, context);
         } else {
           return const CircularProgressIndicator();
         }

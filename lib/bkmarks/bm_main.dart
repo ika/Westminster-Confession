@@ -118,20 +118,29 @@ class BMMainState extends State<BMMain> {
                 break;
 
               case "2": // Ecumenical Creeds
-                Future.delayed(
-                  Duration(milliseconds: Globals.navigatorDelay),
-                  () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ECUPage(goto),
-                      ),
-                    ).then((value) {
+                Future.delayed(Duration(milliseconds: Globals.navigatorDelay),
+                    () {
+                  Navigator.of(context)
+                      .pushNamed('/ECUPage', arguments: PrefPageArguments(goto))
+                      .then(
+                    (value) {
                       int count = 1;
                       Navigator.of(context).popUntil((_) => count++ >= 2);
-                    });
-                  },
-                );
+                    },
+                  );
+                }
+                    // () {
+                    //   Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //       builder: (context) => ECUPage(goto),
+                    //     ),
+                    //   ).then((value) {
+                    //     int count = 1;
+                    //     Navigator.of(context).popUntil((_) => count++ >= 2);
+                    //   });
+                    // },
+                    );
 
                 break;
 
@@ -216,20 +225,29 @@ class BMMainState extends State<BMMain> {
                     );
                 break;
               case "6": // Larger Catechism
-                Future.delayed(
-                  Duration(milliseconds: Globals.navigatorDelay),
-                  () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => CatPages(goto),
-                      ),
-                    ).then((value) {
+                Future.delayed(Duration(milliseconds: Globals.navigatorDelay),
+                    () {
+                  Navigator.of(context)
+                      .pushNamed('/CatPages', arguments: WeProofArguments(goto))
+                      .then(
+                    (value) {
                       int count = 1;
                       Navigator.of(context).popUntil((_) => count++ >= 2);
-                    });
-                  },
-                );
+                    },
+                  );
+                }
+                    // () {
+                    //   Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //       builder: (context) => CatPages(goto),
+                    //     ),
+                    //   ).then((value) {
+                    //     int count = 1;
+                    //     Navigator.of(context).popUntil((_) => count++ >= 2);
+                    //   });
+                    // },
+                    );
                 break;
             }
           },

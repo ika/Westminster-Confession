@@ -12,7 +12,7 @@ import 'cat_pages.dart';
 DBQueries dbQueries = DBQueries();
 
 class CatMain extends StatefulWidget {
-  const CatMain({Key? key}) : super(key: key);
+  const CatMain({super.key});
 
   @override
   CatMainState createState() => CatMainState();
@@ -71,8 +71,10 @@ class CatMainState extends State<CatMain> {
             Future.delayed(
               Duration(milliseconds: Globals.navigatorDelay),
               () {
-                Navigator.push(context,
-                    CupertinoPageRoute(builder: (context) => CatPages(index)));
+                // Navigator.push(context,
+                //     CupertinoPageRoute(builder: (context) => CatPages(index)));
+                Navigator.of(context)
+                    .pushNamed('/CatPages', arguments: CatPageArguments(index));
               },
             );
           },
