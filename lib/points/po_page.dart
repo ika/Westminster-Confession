@@ -6,7 +6,7 @@ import 'package:westminster_confession/bkmarks/bm_model.dart';
 import 'package:westminster_confession/cubit/cub_size.dart';
 import 'package:westminster_confession/main/ma_model.dart';
 import 'package:westminster_confession/bible/bi_verses.dart';
-import 'package:westminster_confession/main/ma_queries.dart';
+import 'package:westminster_confession/points/po_queries.dart';
 import 'package:westminster_confession/utils/globals.dart';
 
 // The five points
@@ -16,7 +16,7 @@ class PointsArguments {
   PointsArguments(this.index);
 }
 
-DBQueries dbQueries = DBQueries();
+POQueries poQueries = POQueries();
 double? primaryTextSize;
 
 class PointsPage extends StatefulWidget {
@@ -29,7 +29,7 @@ class PointsPage extends StatefulWidget {
 class PointsPageState extends State<PointsPage> {
   List<Chapter> chapters = List<Chapter>.empty();
 
-    @override
+  @override
   void initState() {
     super.initState();
     primaryTextSize = BlocProvider.of<TextSizeCubit>(context).state;
@@ -40,7 +40,7 @@ class PointsPageState extends State<PointsPage> {
     final args = ModalRoute.of(context)!.settings.arguments as PointsArguments;
 
     return FutureBuilder<List<Chapter>>(
-      future: dbQueries.getChapters('dtexts'),
+      future: poQueries.getChapters(), // see constants for table name
       builder: (context, AsyncSnapshot<List<Chapter>> snapshot) {
         if (snapshot.hasData) {
           chapters = snapshot.data!;
@@ -95,8 +95,9 @@ showChapters(chapters, index, context) {
   final h2 = Style(fontSize: FontSize(primaryTextSize! + 2));
   final h3 = Style(fontSize: FontSize(primaryTextSize!));
   final h4 = Style(fontSize: FontSize(primaryTextSize! - 2));
-  final a =
-      Style(fontSize: FontSize(primaryTextSize! -4), textDecoration: TextDecoration.none);
+  final a = Style(
+      fontSize: FontSize(primaryTextSize! - 4),
+      textDecoration: TextDecoration.none);
 
   final page0 = Html(
     data: chapters[0].text,

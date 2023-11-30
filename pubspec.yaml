@@ -100,5 +100,6 @@ flutter:
         - asset: fonts/Raleway-Regular.ttf
           style: normal
   assets:
-    - assets/wConb.db
+    - assets/west.db
     - assets/ukjv.db
+    - assets/dtexts.html
