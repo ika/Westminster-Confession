@@ -5,10 +5,10 @@ import 'package:flutter_html_table/flutter_html_table.dart';
 import 'package:westminster_confession/bkmarks/bm_dialog.dart';
 import 'package:westminster_confession/bkmarks/bm_model.dart';
 import 'package:westminster_confession/cubit/cub_size.dart';
-import 'package:westminster_confession/main/ma_model.dart';
-import 'package:westminster_confession/main/ma_queries.dart';
 import 'package:westminster_confession/bible/bi_verses.dart';
 import 'package:westminster_confession/utils/globals.dart';
+import 'package:westminster_confession/west/we_model.dart';
+import 'package:westminster_confession/west/we_queries.dart';
 
 // With Proofs pages
 
@@ -17,7 +17,7 @@ class WeProofArguments {
   WeProofArguments(this.index);
 }
 
-DBQueries dbQueries = DBQueries();
+WEQueries weQueries = WEQueries();
 double? primaryTextSize;
 
 class WeProofsPage extends StatefulWidget {
@@ -28,7 +28,7 @@ class WeProofsPage extends StatefulWidget {
 }
 
 class WeProofsPageState extends State<WeProofsPage> {
-  List<Chapter> chapters = List<Chapter>.empty();
+  List<Wesminster> chapters = List<Wesminster>.empty();
 
   @override
   void initState() {
@@ -40,9 +40,9 @@ class WeProofsPageState extends State<WeProofsPage> {
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as WeProofArguments;
 
-    return FutureBuilder<List<Chapter>>(
-      future: dbQueries.getChapters('ftexts'),
-      builder: (context, AsyncSnapshot<List<Chapter>> snapshot) {
+    return FutureBuilder<List<Wesminster>>(
+      future: weQueries.getChapters('proofs'),
+      builder: (context, AsyncSnapshot<List<Wesminster>> snapshot) {
         if (snapshot.hasData) {
           chapters = snapshot.data!;
           return showChapters(chapters, args.index, context);

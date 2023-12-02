@@ -4,8 +4,8 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:westminster_confession/bkmarks/bm_dialog.dart';
 import 'package:westminster_confession/bkmarks/bm_model.dart';
 import 'package:westminster_confession/cubit/cub_size.dart';
-import 'package:westminster_confession/main/ma_model.dart';
-import 'package:westminster_confession/main/ma_queries.dart';
+import 'package:westminster_confession/ecum/ecu_model.dart';
+import 'package:westminster_confession/ecum/ecu_queries.dart';
 import 'package:westminster_confession/utils/globals.dart';
 
 // Ecumenical Creeds
@@ -15,7 +15,7 @@ class ECUPageArguments {
   ECUPageArguments(this.index);
 }
 
-DBQueries dbQueries = DBQueries();
+CRQueries crQueries = CRQueries();
 double? primaryTextSize;
 
 class ECUPage extends StatefulWidget {
@@ -26,7 +26,7 @@ class ECUPage extends StatefulWidget {
 }
 
 class ECUPageState extends State<ECUPage> {
-  List<Chapter> chapters = List<Chapter>.empty();
+  List<Creeds> chapters = List<Creeds>.empty();
 
   @override
   void initState() {
@@ -38,9 +38,9 @@ class ECUPageState extends State<ECUPage> {
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as ECUPageArguments;
 
-    return FutureBuilder<List<Chapter>>(
-      future: dbQueries.getChapters('btexts'),
-      builder: (context, AsyncSnapshot<List<Chapter>> snapshot) {
+    return FutureBuilder<List<Creeds>>(
+      future: crQueries.getChapters(),
+      builder: (context, AsyncSnapshot<List<Creeds>> snapshot) {
         if (snapshot.hasData) {
           chapters = snapshot.data!;
           return showChapters(chapters, args.index, context);

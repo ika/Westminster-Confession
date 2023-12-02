@@ -4,8 +4,8 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:westminster_confession/bkmarks/bm_dialog.dart';
 import 'package:westminster_confession/bkmarks/bm_model.dart';
 import 'package:westminster_confession/cubit/cub_size.dart';
-import 'package:westminster_confession/main/ma_model.dart';
-import 'package:westminster_confession/main/ma_queries.dart';
+import 'package:westminster_confession/pref/pref_model.dart';
+import 'package:westminster_confession/pref/pref_queries.dart';
 import 'package:westminster_confession/utils/globals.dart';
 
 // Preface
@@ -15,7 +15,7 @@ class PrefPageArguments {
   PrefPageArguments(this.index);
 }
 
-DBQueries dbQueries = DBQueries();
+PRQueries prQueries = PRQueries();
 double? primaryTextSize;
 
 class PrefPage extends StatefulWidget {
@@ -26,7 +26,7 @@ class PrefPage extends StatefulWidget {
 }
 
 class PrefPageState extends State<PrefPage> {
-  List<Chapter> chapters = List<Chapter>.empty();
+  List<Preface> chapters = List<Preface>.empty();
 
   @override
   void initState() {
@@ -39,9 +39,9 @@ class PrefPageState extends State<PrefPage> {
     final args =
         ModalRoute.of(context)!.settings.arguments as PrefPageArguments;
 
-    return FutureBuilder<List<Chapter>>(
-      future: dbQueries.getChapters('ctexts'),
-      builder: (context, AsyncSnapshot<List<Chapter>> snapshot) {
+    return FutureBuilder<List<Preface>>(
+      future: prQueries.getChapters(),
+      builder: (context, AsyncSnapshot<List<Preface>> snapshot) {
         if (snapshot.hasData) {
           chapters = snapshot.data!;
           return showChapters(chapters, args.index, context);

@@ -1,5 +1,5 @@
 import 'package:westminster_confession/bible/bi_model.dart';
-import 'package:westminster_confession/bible/bi_helper.dart';
+import 'package:westminster_confession/bible/bi_provider.dart';
 import 'package:westminster_confession/utils/constants.dart';
 
 BIProvider biProvider = BIProvider();

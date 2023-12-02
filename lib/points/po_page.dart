@@ -4,8 +4,8 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:westminster_confession/bkmarks/bm_dialog.dart';
 import 'package:westminster_confession/bkmarks/bm_model.dart';
 import 'package:westminster_confession/cubit/cub_size.dart';
-import 'package:westminster_confession/main/ma_model.dart';
 import 'package:westminster_confession/bible/bi_verses.dart';
+import 'package:westminster_confession/points/po_model.dart';
 import 'package:westminster_confession/points/po_queries.dart';
 import 'package:westminster_confession/utils/globals.dart';
 
@@ -27,7 +27,7 @@ class PointsPage extends StatefulWidget {
 }
 
 class PointsPageState extends State<PointsPage> {
-  List<Chapter> chapters = List<Chapter>.empty();
+  List<Points> chapters = List<Points>.empty();
 
   @override
   void initState() {
@@ -39,9 +39,9 @@ class PointsPageState extends State<PointsPage> {
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as PointsArguments;
 
-    return FutureBuilder<List<Chapter>>(
+    return FutureBuilder<List<Points>>(
       future: poQueries.getChapters(), // see constants for table name
-      builder: (context, AsyncSnapshot<List<Chapter>> snapshot) {
+      builder: (context, AsyncSnapshot<List<Points>> snapshot) {
         if (snapshot.hasData) {
           chapters = snapshot.data!;
           return showChapters(chapters, args.index, context);

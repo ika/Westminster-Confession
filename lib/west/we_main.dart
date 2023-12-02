@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:westminster_confession/main/ma_model.dart';
-import 'package:westminster_confession/main/ma_queries.dart';
 import 'package:westminster_confession/points/po_page.dart';
 import 'package:westminster_confession/pref/pref_page.dart';
 import 'package:westminster_confession/utils/globals.dart';
+import 'package:westminster_confession/west/we_model.dart';
 import 'package:westminster_confession/west/we_plain.dart';
 import 'package:westminster_confession/west/we_proofs.dart';
+import 'package:westminster_confession/west/we_queries.dart';
 
 // The Westminster Confession
 
-DBQueries dbQueries = DBQueries();
+WEQueries weQueries = WEQueries();
 
 int r = 0;
 
@@ -36,7 +36,7 @@ class WeMain extends StatefulWidget {
 }
 
 class WeMainState extends State<WeMain> {
-  List<Chapter> chapters = List<Chapter>.empty();
+  List<Wesminster> chapters = List<Wesminster>.empty();
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -53,9 +53,9 @@ class WeMainState extends State<WeMain> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<Chapter>>(
-      future: dbQueries.getTitleList('atexts'),
-      builder: (context, AsyncSnapshot<List<Chapter>> snapshot) {
+    return FutureBuilder<List<Wesminster>>(
+      future: weQueries.getTitleList('plain'),
+      builder: (context, AsyncSnapshot<List<Wesminster>> snapshot) {
         if (snapshot.hasData) {
           chapters = snapshot.data!;
           return showChapterList(chapters, context);
@@ -66,7 +66,7 @@ class WeMainState extends State<WeMain> {
     );
   }
 
-  showChapterList(List<Chapter> chapters, context) {
+  showChapterList(List<Wesminster> chapters, context) {
     ListTile makeListTile(chapters, int index) => ListTile(
           contentPadding:
               const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),

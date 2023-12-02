@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:sqflite/sqflite.dart';
-import 'package:westminster_confession/bkmarks/bm_helper.dart';
+import 'package:westminster_confession/bkmarks/bm_provider.dart';
 import 'package:westminster_confession/bkmarks/bm_model.dart';
 import 'package:westminster_confession/utils/constants.dart';
 

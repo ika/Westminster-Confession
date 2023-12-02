@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:westminster_confession/cat/cat_model.dart';
 import 'package:westminster_confession/cat/cat_pages.dart';
-import 'package:westminster_confession/main/ma_helper.dart';
-import 'package:westminster_confession/main/ma_model.dart';
-import 'package:westminster_confession/main/ma_queries.dart';
+import 'package:westminster_confession/cat/cat_queries.dart';
 import 'package:westminster_confession/utils/globals.dart';
 
 // The Larger Catachism
 
-DBQueries dbQueries = DBQueries();
+CAQueries caQueries = CAQueries();
 
 class CatMain extends StatefulWidget {
   const CatMain({super.key});
@@ -17,8 +16,8 @@ class CatMain extends StatefulWidget {
 }
 
 class CatMainState extends State<CatMain> {
-  DBProvider dbProvider = DBProvider();
-  List<Chapter> chapters = List<Chapter>.empty();
+
+  List<Catachism> chapters = List<Catachism>.empty();
 
   @override
   void initState() {
@@ -27,9 +26,9 @@ class CatMainState extends State<CatMain> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<Chapter>>(
-      future: dbQueries.getTitleList('etexts'),
-      builder: (context, AsyncSnapshot<List<Chapter>> snapshot) {
+    return FutureBuilder<List<Catachism>>(
+      future: caQueries.getTitleList(),
+      builder: (context, AsyncSnapshot<List<Catachism>> snapshot) {
         if (snapshot.hasData) {
           chapters = snapshot.data!;
           return showChapterList(chapters, context);
@@ -40,7 +39,7 @@ class CatMainState extends State<CatMain> {
     );
   }
 
-  showChapterList(List<Chapter> chapters, context) {
+  showChapterList(List<Catachism> chapters, context) {
     ListTile makeListTile(chapters, int index) => ListTile(
           contentPadding:
               const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
@@ -69,8 +68,6 @@ class CatMainState extends State<CatMain> {
             Future.delayed(
               Duration(milliseconds: Globals.navigatorDelay),
               () {
-                // Navigator.push(context,
-                //     CupertinoPageRoute(builder: (context) => CatPages(index)));
                 Navigator.of(context)
                     .pushNamed('/CatPages', arguments: CatPageArguments(index));
               },

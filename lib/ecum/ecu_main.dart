@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:westminster_confession/main/ma_model.dart';
+import 'package:westminster_confession/ecum/ecu_model.dart';
+import 'package:westminster_confession/ecum/ecu_queries.dart';
 import 'package:westminster_confession/ecum/ecu_page.dart';
-import 'package:westminster_confession/main/ma_queries.dart';
 import 'package:westminster_confession/utils/globals.dart';
 
 // Ecumenical Creeds
 
-DBQueries dbQueries = DBQueries();
+CRQueries crQueries = CRQueries();
 
 class ECUMain extends StatefulWidget {
   const ECUMain({super.key});
@@ -16,13 +16,13 @@ class ECUMain extends StatefulWidget {
 }
 
 class ECUMainstate extends State<ECUMain> {
-  List<Chapter> chapters = List<Chapter>.empty();
+  List<Creeds> chapters = List<Creeds>.empty();
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<Chapter>>(
-      future: dbQueries.getTitleList('btexts'),
-      builder: (context, AsyncSnapshot<List<Chapter>> snapshot) {
+    return FutureBuilder<List<Creeds>>(
+      future: crQueries.getTitleList(),
+      builder: (context, AsyncSnapshot<List<Creeds>> snapshot) {
         if (snapshot.hasData) {
           chapters = snapshot.data!;
           return showChapterList(chapters, context);

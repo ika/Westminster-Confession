@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:westminster_confession/bkmarks/bm_dialog.dart';
 import 'package:westminster_confession/bkmarks/bm_model.dart';
+import 'package:westminster_confession/cat/cat_model.dart';
+import 'package:westminster_confession/cat/cat_queries.dart';
 import 'package:westminster_confession/cubit/cub_size.dart';
-import 'package:westminster_confession/main/ma_model.dart';
-import 'package:westminster_confession/main/ma_queries.dart';
 import 'package:westminster_confession/utils/globals.dart';
 
 // Larger Catechism pages
@@ -15,7 +15,7 @@ class CatPageArguments {
   CatPageArguments(this.index);
 }
 
-DBQueries dbQueries = DBQueries();
+CAQueries caQueries = CAQueries();
 double? primaryTextSize;
 
 class CatPages extends StatefulWidget {
@@ -26,7 +26,7 @@ class CatPages extends StatefulWidget {
 }
 
 class CatPagesState extends State<CatPages> {
-  List<Chapter> chapters = List<Chapter>.empty();
+  List<Catachism> chapters = List<Catachism>.empty();
 
   @override
   void initState() {
@@ -38,9 +38,9 @@ class CatPagesState extends State<CatPages> {
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as CatPageArguments;
 
-    return FutureBuilder<List<Chapter>>(
-      future: dbQueries.getChapters('etexts'),
-      builder: (context, AsyncSnapshot<List<Chapter>> snapshot) {
+    return FutureBuilder<List<Catachism>>(
+      future: caQueries.getChapters(),
+      builder: (context, AsyncSnapshot<List<Catachism>> snapshot) {
         if (snapshot.hasData) {
           chapters = snapshot.data!;
           return showChapters(chapters, args.index, context);
