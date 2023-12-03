@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:westminster_confession/bkmarks/bm_model.dart';
 import 'package:westminster_confession/bkmarks/bm_queries.dart';
 import 'package:westminster_confession/cat/cat_pages.dart';
+import 'package:westminster_confession/ecum/ecu_page.dart';
 import 'package:westminster_confession/points/po_page.dart';
 import 'package:westminster_confession/pref/pref_page.dart';
 import 'package:westminster_confession/utils/globals.dart';
@@ -112,7 +113,7 @@ class BMMainState extends State<BMMain> {
                   () {
                     Navigator.of(context)
                         .pushNamed('/ECUPage',
-                            arguments: PrefPageArguments(goto))
+                            arguments: ECUPageArguments(goto))
                         .then(
                       (value) {
                         int count = 1;

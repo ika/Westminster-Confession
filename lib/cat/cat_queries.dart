@@ -2,8 +2,6 @@ import 'package:westminster_confession/cat/cat_provider.dart';
 import 'package:westminster_confession/cat/cat_model.dart';
 import 'package:westminster_confession/utils/constants.dart';
 
-// 5 points database queries
-
 CAProvider caProvider = CAProvider();
 const String dbTable = Constants.CA_TBNAME;
 
@@ -12,14 +10,15 @@ class CAQueries {
     final db = await caProvider.database;
 
     final List<Map<String, dynamic>> maps =
-        await db.rawQuery("SELECT title FROM $dbTable");
+        await db.rawQuery("SELECT id,chap,title FROM $dbTable");
 
     List<Catachism> list = maps.isNotEmpty
         ? List.generate(
             maps.length,
             (i) {
               return Catachism(
-                  //id: maps[i]['id'],
+                  id: maps[i]['id'],
+                  chap: maps[i]['chap'],
                   title: maps[i]['title']
                   //text: maps[i]['text']
                   );
@@ -34,7 +33,7 @@ class CAQueries {
     final db = await caProvider.database;
 
     final List<Map<String, dynamic>> maps =
-        await db.rawQuery("SELECT id,title,text FROM $dbTable");
+        await db.rawQuery("SELECT id,chap,title,text FROM $dbTable");
 
     List<Catachism> list = maps.isNotEmpty
         ? List.generate(
@@ -42,6 +41,7 @@ class CAQueries {
             (i) {
               return Catachism(
                 id: maps[i]['id'],
+                chap: maps[i]['chap'],
                 title: maps[i]['title'],
                 text: maps[i]['text'],
               );

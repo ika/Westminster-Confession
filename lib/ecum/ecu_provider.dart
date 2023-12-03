@@ -1,4 +1,3 @@
-
 import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:path/path.dart';
@@ -6,17 +5,17 @@ import 'package:sqflite/sqflite.dart';
 import 'package:westminster_confession/utils/constants.dart';
 
 class CRProvider {
+  final int newDbVerson = 1;
+
   final String _dbName = Constants.CR_DBNAME;
 
-  static CRProvider? _dbProvider;
-  static Database? _database;
+  CRProvider.internal();
 
-  CRProvider._createInstance();
+  static dynamic _database;
 
-  factory CRProvider() {
-    _dbProvider ??= CRProvider._createInstance();
-    return _dbProvider!;
-  }
+  static final CRProvider _instance = CRProvider.internal();
+
+  factory CRProvider() => _instance;
 
   Future<Database> get database async {
     _database ??= await initDB();
@@ -27,9 +26,13 @@ class CRProvider {
     var databasesPath = await getDatabasesPath();
     var path = join(databasesPath, _dbName);
 
-    var exists = await databaseExists(path);
+    Database db = await openDatabase(path);
 
-    if (!exists) {
+    // not exists returns zero
+    if (await db.getVersion() < newDbVerson) {
+      db.close();
+      await deleteDatabase(path);
+
       try {
         await Directory(dirname(path)).create(recursive: true);
       } catch (_) {}
@@ -37,11 +40,13 @@ class CRProvider {
       ByteData data = await rootBundle.load(join("assets", _dbName));
       List<int> bytes =
           data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
-
       await File(path).writeAsBytes(bytes, flush: true);
-    }
 
-    return await openDatabase(path);
+      db = await openDatabase(path);
+
+      db.setVersion(newDbVerson);
+    }
+    return db;
   }
 
   Future close() async {

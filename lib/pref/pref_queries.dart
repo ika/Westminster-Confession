@@ -20,6 +20,7 @@ class PRQueries {
             (i) {
               return Preface(
                 id: maps[i]['id'],
+                title: maps[i]['title'],
                 text: maps[i]['text'],
               );
             },

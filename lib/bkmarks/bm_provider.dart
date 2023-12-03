@@ -5,42 +5,41 @@ import 'package:westminster_confession/utils/constants.dart';
 // Bookmarks database helper
 
 class BMProvider {
+  final int newDbVerson = 1;
+
   final String _dbName = Constants.BM_DBNAME;
   final String _dbTable = Constants.BM_TBNAME;
 
-  static final BMProvider _instance = BMProvider.internal();
-
-  factory BMProvider() {
-    return _instance;
-  }
+  BMProvider.internal();
 
   static dynamic _database;
 
-  Future<Database> get db async {
-    if (_database != null) {
-      return _database;
-    }
-    _database = await initDB();
-    return _database;
-  }
+  static final BMProvider _instance = BMProvider.internal();
 
-  BMProvider.internal();
+  factory BMProvider() => _instance;
 
-  Future close() async {
-    return _database.close();
+  Future<Database> get database async {
+    _database ??= await initDB();
+    return _database!;
   }
 
   Future<Database> initDB() async {
     var databasesPath = await getDatabasesPath();
     var path = join(databasesPath, _dbName);
 
-    return await openDatabase(
-      path,
-      version: 1,
-      onOpen: (db) async {},
-      onCreate: (Database db, int version) async {
-        // Create the note table
-        await db.execute('''
+    Database db = await openDatabase(path);
+
+    // not exists returns zero
+    if (await db.getVersion() < newDbVerson) {
+      db.close();
+      await deleteDatabase(path);
+
+      db = await openDatabase(
+        path,
+        version: newDbVerson,
+        onOpen: (db) async {},
+        onCreate: (Database db, int version) async {
+          await db.execute('''
                 CREATE TABLE IF NOT EXISTS $_dbTable (
                     id INTEGER PRIMARY KEY,
                     title TEXT DEFAULT '',
@@ -49,7 +48,13 @@ class BMProvider {
                     page TEXT DEFAULT ''
                 )
             ''');
-      },
-    );
+        },
+      );
+    }
+    return db;
+  }
+
+  Future close() async {
+    return _database!.close();
   }
 }

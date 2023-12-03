@@ -104,5 +104,5 @@ flutter:
     - assets/west.db
     - assets/cat.db
     - assets/creeds.db
-    - assets/preface.db
     - assets/points.html
+    - assets/preface.html

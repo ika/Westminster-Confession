@@ -11,7 +11,7 @@ class BMQueries {
   final BMProvider provider = BMProvider();
 
   Future<void> saveBookMark(BMModel model) async {
-    final db = await provider.db;
+    final db = await provider.database;
     await db.insert(
       _dbTable,
       model.toMap(),
@@ -20,12 +20,12 @@ class BMQueries {
   }
 
   Future<void> deleteBookMark(int id) async {
-    final db = await provider.db;
+    final db = await provider.database;
     await db.delete(_dbTable, where: "id = ?", whereArgs: [id]);
   }
 
   Future<List<BMModel>> getBookMarkList() async {
-    final db = await provider.db;
+    final db = await provider.database;
 
     final List<Map<String, dynamic>> maps = await db.rawQuery(
         "SELECT id, title, subtitle, detail, page FROM $_dbTable ORDER BY id DESC");
@@ -48,7 +48,7 @@ class BMQueries {
   }
 
   Future<int> getBookMarkExists(String detail, String page) async {
-    final db = await provider.db;
+    final db = await provider.database;
 
     var cnt = Sqflite.firstIntValue(
       await db.rawQuery(

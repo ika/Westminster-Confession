@@ -8,48 +8,59 @@ Future<String> loadAsset() async {
 }
 
 class PRProvider {
+  final int newDbVerson = 1;
+
   final String _dbName = Constants.PR_DBNAME;
   final String _dbTable = Constants.PR_TBNAME;
 
-  static PRProvider? _dbProvider;
-  static Database? _database;
+  PRProvider.internal();
 
-  PRProvider._createInstance();
+  static dynamic _database;
 
-  factory PRProvider() {
-    _dbProvider ??= PRProvider._createInstance();
-    return _dbProvider!;
-  }
+  static final PRProvider _instance = PRProvider.internal();
+
+  factory PRProvider() => _instance;
 
   Future<Database> get database async {
     _database ??= await initDB();
     return _database!;
   }
 
-  Future close() async {
-    return _database!.close();
-  }
-
   Future<Database> initDB() async {
-    var contents = await loadAsset();
-
     var databasesPath = await getDatabasesPath();
     var path = join(databasesPath, _dbName);
 
-    return await openDatabase(
-      path,
-      version: 2,
-      onOpen: (db) async {},
-      onCreate: (Database db, int version) async {
-        await db.execute('''
+    Database db = await openDatabase(path);
+
+    // not exists returns zero
+    if (await db.getVersion() < newDbVerson) {
+      db.close();
+      await deleteDatabase(path);
+
+      var contents = await loadAsset();
+
+      db = await openDatabase(
+        path,
+        version: newDbVerson,
+        onOpen: (db) async {},
+        onCreate: (Database db, int version) async {
+          await db.execute('''
                 CREATE TABLE IF NOT EXISTS $_dbTable (
                     id INTEGER PRIMARY KEY,
+                    title TEXT DEFAULT '',
                     text TEXT DEFAULT ''
                 )
             ''');
-        await db.execute(
-            '''INSERT INTO $_dbTable ('text') VALUES (?)''', [contents]);
-      },
-    );
+          await db.execute(
+              '''INSERT INTO $_dbTable ('title', 'text') VALUES (?,?)''',
+              ['Historical background', contents]);
+        },
+      );
+    }
+    return db;
+  }
+
+  Future close() async {
+    return _database!.close();
   }
 }
