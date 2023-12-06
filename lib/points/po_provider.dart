@@ -3,8 +3,6 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:westminster_confession/utils/constants.dart';
 
-// Main database helper
-
 Future<String> loadAsset() async {
   return await rootBundle.loadString('assets/points.html');
 }

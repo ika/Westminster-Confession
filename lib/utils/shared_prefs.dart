@@ -10,10 +10,10 @@ class SharedPrefs {
   //   prefs.setString(key, value);
   // }
 
-  // Future<void> setIntPref(String key, int value) async {
-  //   final prefs = await sharedPrefs;
-  //   prefs.setInt(key, value);
-  // }
+  Future<void> setIntPref(String key, int value) async {
+    final prefs = await sharedPrefs;
+    prefs.setInt(key, value);
+  }
 
   Future<bool> setDoublePref(String key, double value) async {
     final prefs = await sharedPrefs;
@@ -27,10 +27,10 @@ class SharedPrefs {
   //   return prefs.getString(key);
   // }
 
-  // Future<int?> getIntPref(String key) async {
-  //   final prefs = await sharedPrefs;
-  //   return prefs.getInt(key);
-  // }
+  Future<int?> getIntPref(String key) async {
+    final prefs = await sharedPrefs;
+    return prefs.getInt(key);
+  }
 
   Future<double?> getDoublePref(String key) async {
     final prefs = await sharedPrefs;
