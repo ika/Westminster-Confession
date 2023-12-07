@@ -27,6 +27,7 @@ class WePlainPage extends StatefulWidget {
 
 class WePlainPageState extends State<WePlainPage> {
   List<Wesminster> chapters = List<Wesminster>.empty();
+  String chap = "Chapter";
 
   @override
   void initState() {
@@ -43,7 +44,86 @@ class WePlainPageState extends State<WePlainPage> {
       builder: (context, AsyncSnapshot<List<Wesminster>> snapshot) {
         if (snapshot.hasData) {
           chapters = snapshot.data!;
-          return showChapters(chapters, args.index, context);
+          PageController pageController =
+              PageController(initialPage: chapters[args.index].id!);
+
+          final html = Style(
+              backgroundColor: Colors.white30,
+              padding: HtmlPaddings.all(15),
+              fontFamily: 'Raleway-Regular',
+              fontSize: FontSize(primaryTextSize!));
+
+          final h2 = Style(fontSize: FontSize(primaryTextSize! + 2));
+          final h3 = Style(fontSize: FontSize(primaryTextSize!));
+          return Scaffold(
+            appBar: AppBar(
+              // elevation: 0.1,
+              // backgroundColor: const Color.fromRGBO(58, 66, 86, 1.0),
+              leading: GestureDetector(
+                child: IconButton(
+                  icon: const Icon(
+                    Icons.arrow_back_ios_new_sharp,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    Future.delayed(
+                      Duration(milliseconds: Globals.navigatorDelay),
+                      () {
+                        Navigator.pop(context);
+                      },
+                    );
+                  },
+                ),
+              ),
+              title: const Text(
+                'Westminster Confession',
+                // style: TextStyle(
+                //   color: Colors.yellow,
+                // ),
+              ),
+              centerTitle: true,
+              actions: [
+                IconButton(
+                  icon: const Icon(
+                    Icons.bookmark_outline_sharp,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    int pg = pageController.page!.toInt();
+
+                    final model = BMModel(
+                        title: "$chap ${pg + 1}",
+                        subtitle: "${chapters[pg].title}",
+                        detail: "1",
+                        page: "$pg");
+
+                    BMDialog().bMWrapper(context, model);
+                  },
+                ),
+              ],
+            ),
+            body: PageView.builder(
+              itemCount: 33,
+              controller: pageController,
+              scrollDirection: Axis.horizontal,
+              pageSnapping: true,
+              itemBuilder: (BuildContext context, int index) {
+                return SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                    child: Html(
+                      data: chapters[index].text,
+                      style: {
+                        "html": html,
+                        "h2": h2,
+                        "h3": h3,
+                      },
+                    ),
+                  ),
+                );
+              },
+            ),
+          );
         } else {
           return const CircularProgressIndicator();
         }
@@ -52,90 +132,90 @@ class WePlainPageState extends State<WePlainPage> {
   }
 }
 
-showChapters(chapters, index, context) {
-  String chap = "Chapter";
+//showChapters(chapters, index, context) {
+  // String chap = "Chapter";
 
-  PageController pageController =
-      PageController(initialPage: chapters[index].id);
+  // PageController pageController =
+  //     PageController(initialPage: chapters[index].id);
 
-  final html = Style(
-      backgroundColor: Colors.white30,
-      padding: HtmlPaddings.all(15),
-      fontFamily: 'Raleway-Regular',
-      fontSize: FontSize(primaryTextSize!));
+  // final html = Style(
+  //     backgroundColor: Colors.white30,
+  //     padding: HtmlPaddings.all(15),
+  //     fontFamily: 'Raleway-Regular',
+  //     fontSize: FontSize(primaryTextSize!));
 
-  final h2 = Style(fontSize: FontSize(primaryTextSize! + 2));
-  final h3 = Style(fontSize: FontSize(primaryTextSize!));
+  // final h2 = Style(fontSize: FontSize(primaryTextSize! + 2));
+  // final h3 = Style(fontSize: FontSize(primaryTextSize!));
 
-  topAppBar(context) => AppBar(
-        elevation: 0.1,
-        backgroundColor: const Color.fromRGBO(58, 66, 86, 1.0),
-        leading: GestureDetector(
-          child: IconButton(
-            icon: const Icon(
-              Icons.arrow_back_ios_new_sharp,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              Future.delayed(
-                Duration(milliseconds: Globals.navigatorDelay),
-                () {
-                  Navigator.pop(context);
-                },
-              );
-            },
-          ),
-        ),
-        title: const Text(
-          'Westminster Confession',
-          style: TextStyle(
-            color: Colors.yellow,
-          ),
-        ),
-        centerTitle: true,
-        actions: [
-          IconButton(
-            icon: const Icon(
-              Icons.bookmark_outline_sharp,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              int pg = pageController.page!.toInt();
+  // topAppBar(context) => AppBar(
+  //       elevation: 0.1,
+  //       backgroundColor: const Color.fromRGBO(58, 66, 86, 1.0),
+  //       leading: GestureDetector(
+  //         child: IconButton(
+  //           icon: const Icon(
+  //             Icons.arrow_back_ios_new_sharp,
+  //             color: Colors.white,
+  //           ),
+  //           onPressed: () {
+  //             Future.delayed(
+  //               Duration(milliseconds: Globals.navigatorDelay),
+  //               () {
+  //                 Navigator.pop(context);
+  //               },
+  //             );
+  //           },
+  //         ),
+  //       ),
+  //       title: const Text(
+  //         'Westminster Confession',
+  //         style: TextStyle(
+  //           color: Colors.yellow,
+  //         ),
+  //       ),
+  //       centerTitle: true,
+  //       actions: [
+  //         IconButton(
+  //           icon: const Icon(
+  //             Icons.bookmark_outline_sharp,
+  //             color: Colors.white,
+  //           ),
+  //           onPressed: () {
+  //             int pg = pageController.page!.toInt();
 
-              final model = BMModel(
-                  title: "$chap ${pg + 1}",
-                  subtitle: "${chapters[pg].title}",
-                  detail: "1",
-                  page: "$pg");
+  //             final model = BMModel(
+  //                 title: "$chap ${pg + 1}",
+  //                 subtitle: "${chapters[pg].title}",
+  //                 detail: "1",
+  //                 page: "$pg");
 
-              BMDialog().bMWrapper(context, model);
-            },
-          ),
-        ],
-      );
+  //             BMDialog().bMWrapper(context, model);
+  //           },
+  //         ),
+  //       ],
+  //     );
 
-  return Scaffold(
-    appBar: topAppBar(context),
-    body: PageView.builder(
-      itemCount: 33,
-      controller: pageController,
-      scrollDirection: Axis.horizontal,
-      pageSnapping: true,
-      itemBuilder: (BuildContext context, int index) {
-        return SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 4.0),
-            child: Html(
-              data: chapters[index].text,
-              style: {
-                "html": html,
-                "h2": h2,
-                "h3": h3,
-              },
-            ),
-          ),
-        );
-      },
-    ),
-  );
-}
+  // return Scaffold(
+  //   appBar: topAppBar(context),
+  //   body: PageView.builder(
+  //     itemCount: 33,
+  //     controller: pageController,
+  //     scrollDirection: Axis.horizontal,
+  //     pageSnapping: true,
+  //     itemBuilder: (BuildContext context, int index) {
+  //       return SingleChildScrollView(
+  //         child: Padding(
+  //           padding: const EdgeInsets.symmetric(horizontal: 4.0),
+  //           child: Html(
+  //             data: chapters[index].text,
+  //             style: {
+  //               "html": html,
+  //               "h2": h2,
+  //               "h3": h3,
+  //             },
+  //           ),
+  //         ),
+  //       );
+  //     },
+  //   ),
+  // );
+//}

@@ -28,6 +28,7 @@ class PointsPage extends StatefulWidget {
 
 class PointsPageState extends State<PointsPage> {
   List<Points> chapters = List<Points>.empty();
+  String heading = "TULIP";
 
   @override
   void initState() {
@@ -35,25 +36,7 @@ class PointsPageState extends State<PointsPage> {
     primaryTextSize = BlocProvider.of<TextSizeCubit>(context).state;
   }
 
-  @override
-  Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as PointsArguments;
-
-    return FutureBuilder<List<Points>>(
-      future: poQueries.getChapters(), // see constants for table name
-      builder: (context, AsyncSnapshot<List<Points>> snapshot) {
-        if (snapshot.hasData) {
-          chapters = snapshot.data!;
-          return showChapters(chapters, args.index, context);
-        } else {
-          return const CircularProgressIndicator();
-        }
-      },
-    );
-  }
-}
-
-showVerseDialog(BuildContext context, data) {
+  showVerseDialog(BuildContext context, data) {
   return showDialog<void>(
     context: context,
     barrierDismissible: false, // user must tap button!
@@ -80,91 +63,191 @@ showVerseDialog(BuildContext context, data) {
   );
 }
 
-showChapters(chapters, index, context) {
-  String heading = "TULIP";
+  @override
+  Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments as PointsArguments;
 
-  PageController pageController =
-      PageController(initialPage: chapters[index].id);
+    return FutureBuilder<List<Points>>(
+      future: poQueries.getChapters(), // see constants for table name
+      builder: (context, AsyncSnapshot<List<Points>> snapshot) {
+        if (snapshot.hasData) {
+          chapters = snapshot.data!;
+          PageController pageController =
+              PageController(initialPage: chapters[args.index].id!);
 
-  final html = Style(
-      backgroundColor: Colors.white30,
-      padding: HtmlPaddings.all(15),
-      fontFamily: 'Raleway-Regular',
-      fontSize: FontSize(primaryTextSize!));
+          final html = Style(
+              backgroundColor: Colors.grey[200],
+              padding: HtmlPaddings.all(15),
+              fontFamily: 'Raleway-Regular',
+              fontSize: FontSize(primaryTextSize!));
 
-  final h2 = Style(fontSize: FontSize(primaryTextSize! + 2));
-  final h3 = Style(fontSize: FontSize(primaryTextSize!));
-  final h4 = Style(fontSize: FontSize(primaryTextSize! - 2));
-  final a = Style(
-      fontSize: FontSize(primaryTextSize! - 4),
-      textDecoration: TextDecoration.none);
+          final h2 = Style(fontSize: FontSize(primaryTextSize! + 2));
+          final h3 = Style(fontSize: FontSize(primaryTextSize!));
+          final h4 = Style(fontSize: FontSize(primaryTextSize! - 2));
+          final a = Style(
+              fontSize: FontSize(primaryTextSize! - 4),
+              textDecoration: TextDecoration.none);
 
-  final page0 = Html(
-    data: chapters[0].text,
-    style: {"html": html, "h2": h2, "h3": h3, "h4": h4, "a": a},
-    onLinkTap: (url, _, __) {
-      getVerseByReference(url!).then((value) {
-        showVerseDialog(context, value);
-      });
-    },
-  );
-
-  topAppBar(context) => AppBar(
-        elevation: 0.1,
-        backgroundColor: const Color.fromRGBO(58, 66, 86, 1.0),
-        leading: GestureDetector(
-          child: IconButton(
-            icon: const Icon(
-              Icons.arrow_back_ios_new_sharp,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              Future.delayed(
-                Duration(milliseconds: Globals.navigatorDelay),
-                () {
-                  Navigator.pop(context);
-                },
-              );
+          final page0 = Html(
+            data: chapters[0].text,
+            style: {"html": html, "h2": h2, "h3": h3, "h4": h4, "a": a},
+            onLinkTap: (url, _, __) {
+              getVerseByReference(url!).then((value) {
+                showVerseDialog(context, value);
+              });
             },
-          ),
-        ),
-        title: Text(
-          heading,
-          style: const TextStyle(
-            color: Colors.yellow,
-          ),
-        ),
-        centerTitle: true,
-        actions: [
-          IconButton(
-            icon: const Icon(
-              Icons.bookmark_outline_sharp,
-              color: Colors.white,
+          );
+          return Scaffold(
+            appBar: AppBar(
+              // elevation: 0.1,
+              // backgroundColor: const Color.fromRGBO(58, 66, 86, 1.0),
+              leading: GestureDetector(
+                child: IconButton(
+                  icon: const Icon(
+                    Icons.arrow_back_ios_new_sharp,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    Future.delayed(
+                      Duration(milliseconds: Globals.navigatorDelay),
+                      () {
+                        Navigator.pop(context);
+                      },
+                    );
+                  },
+                ),
+              ),
+              title: Text(
+                heading,
+                // style: const TextStyle(
+                //   color: Colors.yellow,
+                // ),
+              ),
+              centerTitle: true,
+              actions: [
+                IconButton(
+                  icon: const Icon(
+                    Icons.bookmark_outline_sharp,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    final model = BMModel(
+                        title: heading,
+                        subtitle: "The Five Points",
+                        detail: "4",
+                        page: "0");
+
+                    BMDialog().bMWrapper(context, model);
+                  },
+                ),
+              ],
             ),
-            onPressed: () {
-              final model = BMModel(
-                  title: heading,
-                  subtitle: "The Five Points",
-                  detail: "4",
-                  page: "0");
-
-              BMDialog().bMWrapper(context, model);
-            },
-          ),
-        ],
-      );
-
-  return Scaffold(
-    appBar: topAppBar(context),
-    body: PageView(
-      controller: pageController,
-      scrollDirection: Axis.horizontal,
-      pageSnapping: true,
-      children: [
-        SingleChildScrollView(
-          child: page0,
-        ),
-      ],
-    ),
-  );
+            body: PageView(
+              controller: pageController,
+              scrollDirection: Axis.horizontal,
+              pageSnapping: true,
+              children: [
+                SingleChildScrollView(
+                  child: page0,
+                ),
+              ],
+            ),
+          );
+        } else {
+          return const CircularProgressIndicator();
+        }
+      },
+    );
+  }
 }
+
+
+
+// showChapters(chapters, index, context) {
+//   // String heading = "TULIP";
+
+//   PageController pageController =
+//       PageController(initialPage: chapters[index].id);
+
+//   final html = Style(
+//       backgroundColor: Colors.white30,
+//       padding: HtmlPaddings.all(15),
+//       fontFamily: 'Raleway-Regular',
+//       fontSize: FontSize(primaryTextSize!));
+
+//   final h2 = Style(fontSize: FontSize(primaryTextSize! + 2));
+//   final h3 = Style(fontSize: FontSize(primaryTextSize!));
+//   final h4 = Style(fontSize: FontSize(primaryTextSize! - 2));
+//   final a = Style(
+//       fontSize: FontSize(primaryTextSize! - 4),
+//       textDecoration: TextDecoration.none);
+
+//   final page0 = Html(
+//     data: chapters[0].text,
+//     style: {"html": html, "h2": h2, "h3": h3, "h4": h4, "a": a},
+//     onLinkTap: (url, _, __) {
+//       getVerseByReference(url!).then((value) {
+//         showVerseDialog(context, value);
+//       });
+//     },
+//   );
+
+  // topAppBar(context) => AppBar(
+  //       elevation: 0.1,
+  //       backgroundColor: const Color.fromRGBO(58, 66, 86, 1.0),
+  //       leading: GestureDetector(
+  //         child: IconButton(
+  //           icon: const Icon(
+  //             Icons.arrow_back_ios_new_sharp,
+  //             color: Colors.white,
+  //           ),
+  //           onPressed: () {
+  //             Future.delayed(
+  //               Duration(milliseconds: Globals.navigatorDelay),
+  //               () {
+  //                 Navigator.pop(context);
+  //               },
+  //             );
+  //           },
+  //         ),
+  //       ),
+  //       title: Text(
+  //         heading,
+  //         style: const TextStyle(
+  //           color: Colors.yellow,
+  //         ),
+  //       ),
+  //       centerTitle: true,
+  //       actions: [
+  //         IconButton(
+  //           icon: const Icon(
+  //             Icons.bookmark_outline_sharp,
+  //             color: Colors.white,
+  //           ),
+  //           onPressed: () {
+  //             final model = BMModel(
+  //                 title: heading,
+  //                 subtitle: "The Five Points",
+  //                 detail: "4",
+  //                 page: "0");
+
+  //             BMDialog().bMWrapper(context, model);
+  //           },
+  //         ),
+  //       ],
+  //     );
+
+  // return Scaffold(
+  //   appBar: topAppBar(context),
+  //   body: PageView(
+  //     controller: pageController,
+  //     scrollDirection: Axis.horizontal,
+  //     pageSnapping: true,
+  //     children: [
+  //       SingleChildScrollView(
+  //         child: page0,
+  //       ),
+  //     ],
+  //   ),
+  // );
+//}

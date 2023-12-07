@@ -20,9 +20,10 @@ class _TextSizePageState extends State<TextSizePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 0.1,
-        backgroundColor: const Color.fromRGBO(64, 75, 96, .9),
-                leading: GestureDetector(
+        // elevation: 0.1,
+        // backgroundColor: const Color.fromRGBO(64, 75, 96, .9),
+        centerTitle: true,
+        leading: GestureDetector(
           child: IconButton(
             icon: const Icon(
               Icons.arrow_back_ios_new_sharp,
@@ -40,9 +41,9 @@ class _TextSizePageState extends State<TextSizePage> {
         ),
         title: const Text(
           'Text Size',
-          style: TextStyle(
-            color: Colors.yellow,
-          ),
+          // style: TextStyle(
+          //   color: Colors.yellow,
+          // ),
         ),
       ),
       body: Center(
@@ -66,7 +67,7 @@ class _TextSizePageState extends State<TextSizePage> {
                 child: Container(
                   margin: const EdgeInsets.only(bottom: 8, left: 20, right: 20),
                   height: 55,
-                  color: Colors.yellow,
+                  color: Colors.blue[100],
                   child: Center(
                     child: Text(
                       'In the beginning',

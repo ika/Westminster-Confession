@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:westminster_confession/bkmarks/bm_main.dart';
@@ -15,7 +14,6 @@ import 'package:westminster_confession/utils/shared_prefs.dart';
 import 'package:westminster_confession/west/we_main.dart';
 import 'package:westminster_confession/west/we_plain.dart';
 import 'package:westminster_confession/west/we_proofs.dart';
-import 'package:flex_color_scheme/flex_color_scheme.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -54,11 +52,53 @@ class WestMinsterConfession extends StatelessWidget {
       // child: BlocBuilder<ColorsCubit, ColorsState>(
       //   builder: ((context, state) {
       child: MaterialApp(
-        // theme: FlexThemeData.light(scheme: FlexScheme.blumineBlue),
-        // darkTheme: FlexThemeData.dark(scheme: FlexScheme.blumineBlue),
-        // themeMode: ThemeMode.system,
         debugShowCheckedModeBanner: false,
         title: 'Westminster Confession',
+        // theme: FlexThemeData.light(scheme: FlexScheme.blumineBlue),
+        // darkTheme: FlexThemeData.dark(scheme: FlexScheme.blumineBlue),
+
+        theme: ThemeData.light().copyWith(
+          scaffoldBackgroundColor: Colors.grey[200],
+          appBarTheme: const AppBarTheme(
+            backgroundColor: Colors.blueAccent,
+            foregroundColor: Colors.white,
+          ),
+          //textTheme: const TextTheme(),
+          // colorScheme: const ColorScheme(
+          //   brightness: Brightness.light,
+          //   primary: Color(0xff19647e),
+          //   onPrimary: Color(0xffffffff),
+          //   primaryContainer: Color(0xffa1cbcf),
+          //   onPrimaryContainer: Color(0xff0e1111),
+          //   secondary: Color(0xfffeb716),
+          //   onSecondary: Color(0xff000000),
+          //   secondaryContainer: Color(0xffffdea5),
+          //   onSecondaryContainer: Color(0xff14120e),
+          //   tertiary: Color(0xff0093c7),
+          //   onTertiary: Color(0xffffffff),
+          //   tertiaryContainer: Color(0xffc3e7ff),
+          //   onTertiaryContainer: Color(0xff101314),
+          //   error: Color(0xffb00020),
+          //   onError: Color(0xffffffff),
+          //   errorContainer: Color(0xfffcd8df),
+          //   onErrorContainer: Color(0xff141213),
+          //   background: Color(0xfff8fafb),
+          //   onBackground: Color(0xff090909),
+          //   surface: Color(0xfff8fafb),
+          //   onSurface: Color(0xff090909),
+          //   surfaceVariant: Color(0xffe2e6e7),
+          //   onSurfaceVariant: Color(0xff111212),
+          //   outline: Color(0xff7c7c7c),
+          //   outlineVariant: Color(0xffc8c8c8),
+          //   shadow: Color(0xff000000),
+          //   scrim: Color(0xff000000),
+          //   inverseSurface: Color(0xff111313),
+          //   onInverseSurface: Color(0xfff5f5f5),
+          //   inversePrimary: Color(0xffa9dbed),
+          //   surfaceTint: Color(0xff19647e),
+          // ),
+        ),
+        themeMode: ThemeMode.light,
         initialRoute: '/WeMain',
         routes: {
           '/WeMain': (context) => const WeMain(),

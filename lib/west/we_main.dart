@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:westminster_confession/colors/col_palette.dart';
 import 'package:westminster_confession/points/po_page.dart';
 import 'package:westminster_confession/pref/pref_page.dart';
 import 'package:westminster_confession/utils/globals.dart';
@@ -274,19 +273,34 @@ class WeMainState extends State<WeMain> {
           chapters = snapshot.data!;
           return Scaffold(
             key: scaffoldKey,
-            backgroundColor: Colors.white, //flexSchemeLight.surfaceVariant,
             appBar: AppBar(
               centerTitle: true,
-              backgroundColor: flexSchemeLight.primary,
-              leading: IconButton(
-                icon: Icon(Icons.menu, color: flexSchemeLight.tertiary),
-                onPressed: () {
-                  scaffoldKey.currentState!.openDrawer();
-                },
+              //backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+              // leading: IconButton(
+              //   icon: const Icon(Icons.menu),
+              //   onPressed: () {
+              //     scaffoldKey.currentState!.openDrawer();
+              //   },
+              // ),
+              leading: GestureDetector(
+                child: IconButton(
+                  icon: const Icon(
+                    Icons.menu,
+                    color: Colors.black,
+                  ),
+                  onPressed: () {
+                    Future.delayed(
+                      Duration(milliseconds: Globals.navigatorDelay),
+                      () {
+                        scaffoldKey.currentState!.openDrawer();
+                      },
+                    );
+                  },
+                ),
               ),
               title: const Text(
                 'Westminster Confession',
-                style: TextStyle(color: Colors.white),
+                //style: TextStyle(color: Theme.of(context).appBarTheme.foregroundColor),
               ),
             ),
             drawer: drawerCode(),
@@ -297,11 +311,11 @@ class WeMainState extends State<WeMain> {
                   //selectedColor: flexSchemeLight.primaryContainer,
                   title: Text(
                     chapters[index].chap!,
-                    style: const TextStyle(color: Colors.black),
+                    //style: const TextStyle(color: Colors.black),
                   ),
                   subtitle: Row(
                     children: [
-                      Icon(Icons.linear_scale, color: flexSchemeLight.tertiary),
+                      const Icon(Icons.linear_scale),
                       Flexible(
                         child: RichText(
                           overflow: TextOverflow.ellipsis,

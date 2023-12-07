@@ -16,13 +16,12 @@ class CatMain extends StatefulWidget {
 }
 
 class CatMainState extends State<CatMain> {
-
   List<Catachism> chapters = List<Catachism>.empty();
 
-  @override
-  void initState() {
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -31,100 +30,172 @@ class CatMainState extends State<CatMain> {
       builder: (context, AsyncSnapshot<List<Catachism>> snapshot) {
         if (snapshot.hasData) {
           chapters = snapshot.data!;
-          return showChapterList(chapters, context);
+          //return showChapterList(chapters, context);
+          return Scaffold(
+            //backgroundColor: const Color.fromRGBO(58, 66, 86, 1.0),
+
+            appBar: AppBar(
+              // elevation: 0.1,
+              // backgroundColor: const Color.fromRGBO(64, 75, 96, .9),
+              centerTitle: true,
+              leading: GestureDetector(
+                child: IconButton(
+                  icon: const Icon(
+                    Icons.arrow_back_ios_new_sharp,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    Future.delayed(
+                      Duration(milliseconds: Globals.navigatorDelay),
+                      () {
+                        Navigator.pop(context);
+                      },
+                    );
+                  },
+                ),
+              ),
+              title: const Text(
+                'Larger Catechism',
+                // style: TextStyle(
+                //   color: Colors.yellow,
+                // ),
+              ),
+            ),
+            body: ListView.separated(
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              itemCount: chapters.length,
+              itemBuilder: (BuildContext context, int index) {
+                return ListTile(
+                  contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 20.0, vertical: 10.0),
+                  title: Text(
+                    chapters[index].chap!,
+                    style: const TextStyle(
+                        color: Colors.black, fontWeight: FontWeight.bold),
+                  ),
+                  subtitle: Row(
+                    children: [
+                      const Icon(Icons.linear_scale,
+                          color: Colors.black),
+                      Flexible(
+                        child: RichText(
+                          overflow: TextOverflow.ellipsis,
+                          strutStyle: const StrutStyle(fontSize: 12.0),
+                          text: TextSpan(
+                              style: const TextStyle(color: Colors.black),
+                              text: " ${chapters[index].title}"),
+                        ),
+                      ),
+                    ],
+                  ),
+                  trailing: const Icon(Icons.keyboard_arrow_right,
+                      color: Colors.black, size: 20.0),
+                  onTap: () {
+                    Future.delayed(
+                      Duration(milliseconds: Globals.navigatorDelay),
+                      () {
+                        Navigator.of(context).pushNamed('/CatPages',
+                            arguments: CatPageArguments(index));
+                      },
+                    );
+                  },
+                );
+              },
+              separatorBuilder: (context, index) {
+                return const Divider();
+              },
+            ),
+          );
         } else {
           return const CircularProgressIndicator();
         }
       },
     );
   }
-
-  showChapterList(List<Catachism> chapters, context) {
-    ListTile makeListTile(chapters, int index) => ListTile(
-          contentPadding:
-              const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-          title: Text(
-            chapters[index].chap,
-            style: const TextStyle(
-                color: Colors.white, fontWeight: FontWeight.bold),
-          ),
-          subtitle: Row(
-            children: <Widget>[
-              const Icon(Icons.linear_scale, color: Colors.yellowAccent),
-              Flexible(
-                child: RichText(
-                  overflow: TextOverflow.ellipsis,
-                  strutStyle: const StrutStyle(fontSize: 12.0),
-                  text: TextSpan(
-                      style: const TextStyle(color: Colors.white),
-                      text: " ${chapters[index].title}"),
-                ),
-              ),
-            ],
-          ),
-          trailing: const Icon(Icons.keyboard_arrow_right,
-              color: Colors.white, size: 30.0),
-          onTap: () {
-            Future.delayed(
-              Duration(milliseconds: Globals.navigatorDelay),
-              () {
-                Navigator.of(context)
-                    .pushNamed('/CatPages', arguments: CatPageArguments(index));
-              },
-            );
-          },
-        );
-
-    Card makeCard(chapters, int index) => Card(
-          elevation: 8.0,
-          margin: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 2.0),
-          child: Container(
-            decoration:
-                const BoxDecoration(color: Color.fromRGBO(64, 75, 96, .9)),
-            child: makeListTile(chapters, index),
-          ),
-        );
-
-    final makeBody = ListView.builder(
-      scrollDirection: Axis.vertical,
-      shrinkWrap: true,
-      itemCount: chapters.length,
-      itemBuilder: (BuildContext context, int index) {
-        return makeCard(chapters, index);
-      },
-    );
-
-    final topAppBar = AppBar(
-      elevation: 0.1,
-      backgroundColor: const Color.fromRGBO(64, 75, 96, .9),
-      leading: GestureDetector(
-        child: IconButton(
-          icon: const Icon(
-            Icons.arrow_back_ios_new_sharp,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            Future.delayed(
-              Duration(milliseconds: Globals.navigatorDelay),
-              () {
-                Navigator.pop(context);
-              },
-            );
-          },
-        ),
-      ),
-      title: const Text(
-        'Larger Catechism',
-        style: TextStyle(
-          color: Colors.yellow,
-        ),
-      ),
-    );
-
-    return Scaffold(
-      backgroundColor: const Color.fromRGBO(58, 66, 86, 1.0),
-      appBar: topAppBar,
-      body: makeBody,
-    );
-  }
 }
+
+  // showChapterList(List<Catachism> chapters, context) {
+  //   ListTile makeListTile(chapters, int index) => ListTile(
+  //         contentPadding:
+  //             const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+  //         title: Text(
+  //           chapters[index].chap,
+  //           style: const TextStyle(
+  //               color: Colors.white, fontWeight: FontWeight.bold),
+  //         ),
+  //         subtitle: Row(
+  //           children: <Widget>[
+  //             const Icon(Icons.linear_scale, color: Colors.yellowAccent),
+  //             Flexible(
+  //               child: RichText(
+  //                 overflow: TextOverflow.ellipsis,
+  //                 strutStyle: const StrutStyle(fontSize: 12.0),
+  //                 text: TextSpan(
+  //                     style: const TextStyle(color: Colors.white),
+  //                     text: " ${chapters[index].title}"),
+  //               ),
+  //             ),
+  //           ],
+  //         ),
+  //         trailing: const Icon(Icons.keyboard_arrow_right,
+  //             color: Colors.white, size: 30.0),
+  //         onTap: () {
+  //           Future.delayed(
+  //             Duration(milliseconds: Globals.navigatorDelay),
+  //             () {
+  //               Navigator.of(context)
+  //                   .pushNamed('/CatPages', arguments: CatPageArguments(index));
+  //             },
+  //           );
+  //         },
+  //       );
+
+  // Card makeCard(chapters, int index) => Card(
+  //       elevation: 8.0,
+  //       margin: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 2.0),
+  //       child: Container(
+  //         decoration:
+  //             const BoxDecoration(color: Color.fromRGBO(64, 75, 96, .9)),
+  //         child: makeListTile(chapters, index),
+  //       ),
+  //     );
+
+  // final makeBody = ListView.builder(
+  //   scrollDirection: Axis.vertical,
+  //   shrinkWrap: true,
+  //   itemCount: chapters.length,
+  //   itemBuilder: (BuildContext context, int index) {
+  //     return makeCard(chapters, index);
+  //   },
+  // );
+
+  // final topAppBar = AppBar(
+  //   // elevation: 0.1,
+  //   // backgroundColor: const Color.fromRGBO(64, 75, 96, .9),
+  //   centerTitle: true,
+  //   leading: GestureDetector(
+  //     child: IconButton(
+  //       icon: const Icon(
+  //         Icons.arrow_back_ios_new_sharp,
+  //         color: Colors.white,
+  //       ),
+  //       onPressed: () {
+  //         Future.delayed(
+  //           Duration(milliseconds: Globals.navigatorDelay),
+  //           () {
+  //             Navigator.pop(context);
+  //           },
+  //         );
+  //       },
+  //     ),
+  //   ),
+  //   title: const Text(
+  //     'Larger Catechism',
+  //     style: TextStyle(
+  //       color: Colors.yellow,
+  //     ),
+  //   ),
+  // );
+//   }
+//}
