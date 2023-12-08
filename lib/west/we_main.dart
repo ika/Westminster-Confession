@@ -67,24 +67,27 @@ class WeMainState extends State<WeMain> {
           SizedBox(
             height: 120.0,
             child: DrawerHeader(
-              decoration: BoxDecoration(
-                  //color: Color.fromRGBO(64, 75, 96, .9),
-                  color: Theme.of(context).drawerTheme.backgroundColor),
+              decoration:
+                  BoxDecoration(color: Theme.of(context).colorScheme.tertiary),
               child: Baseline(
                 baseline: 50,
                 baselineType: TextBaseline.alphabetic,
                 child: Text(
                   'Index',
-                  style: Theme.of(context).textTheme.headlineLarge,
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onTertiary,
+                    fontFamily: 'Raleway-Regular',
+                    fontSize: 32,
+                  ),
                 ),
               ),
             ),
           ),
           ListTile(
             leading: const Icon(Icons.keyboard_double_arrow_right),
-            title: Text(
+            title: const Text(
               'Bookmarks',
-              style: Theme.of(context).textTheme.bodyLarge,
+              //style: Theme.of(context).textTheme.bodyLarge,
               // style: TextStyle(
               //   color: Colors.black87,
               //   fontFamily: 'Raleway-Regular',
@@ -96,9 +99,9 @@ class WeMainState extends State<WeMain> {
           ),
           ListTile(
             leading: const Icon(Icons.keyboard_double_arrow_right),
-            title: Text(
+            title: const Text(
               'Text Size',
-              style: Theme.of(context).textTheme.bodyLarge,
+              //style: Theme.of(context).textTheme.bodyLarge,
               // style: TextStyle(
               //   color: Colors.black87,
               //   fontFamily: 'Raleway-Regular',
@@ -123,9 +126,9 @@ class WeMainState extends State<WeMain> {
           // ),
           ListTile(
             leading: const Icon(Icons.keyboard_double_arrow_right),
-            title: Text(
+            title: const Text(
               'Preface',
-              style: Theme.of(context).textTheme.bodyLarge,
+              //style: Theme.of(context).textTheme.bodyLarge,
               // style: TextStyle(
               //   color: Colors.black87,
               //   fontFamily: 'Raleway-Regular',
@@ -150,9 +153,9 @@ class WeMainState extends State<WeMain> {
           ),
           ListTile(
             leading: const Icon(Icons.keyboard_double_arrow_right),
-            title: Text(
+            title: const Text(
               'Five Points',
-              style: Theme.of(context).textTheme.bodyLarge,
+              //style: Theme.of(context).textTheme.bodyLarge,
               // style: TextStyle(
               //   color: Colors.black87,
               //   fontFamily: 'Raleway-Regular',
@@ -177,9 +180,9 @@ class WeMainState extends State<WeMain> {
           ),
           ListTile(
             leading: const Icon(Icons.keyboard_double_arrow_right),
-            title: Text(
+            title: const Text(
               'Ecumenical Creeds',
-              style: Theme.of(context).textTheme.bodyLarge,
+              // style: Theme.of(context).textTheme.bodyLarge,
               // style: TextStyle(
               //   color: Colors.black87,
               //   fontFamily: 'Raleway-Regular',
@@ -191,9 +194,9 @@ class WeMainState extends State<WeMain> {
           ),
           ListTile(
             leading: const Icon(Icons.keyboard_double_arrow_right),
-            title: Text(
+            title: const Text(
               'Larger Catechism',
-              style: Theme.of(context).textTheme.bodyLarge,
+              //style: Theme.of(context).textTheme.bodyLarge,
               // style: TextStyle(
               //   color: Colors.black87,
               //   fontFamily: 'Raleway-Regular',
@@ -206,18 +209,18 @@ class WeMainState extends State<WeMain> {
           ListTile(
             leading: const Icon(Icons.keyboard_double_arrow_right),
             title: r == 0
-                ? Text(
+                ? const Text(
                     'With Proofs',
-                    style: Theme.of(context).textTheme.bodyLarge,
+                    //style: Theme.of(context).textTheme.bodyLarge,
                     // style: TextStyle(
                     //   color: Colors.black87,
                     //   fontFamily: 'Raleway-Regular',
                     //   fontSize: 16,
                     // ),
                   )
-                : Text(
+                : const Text(
                     'Without Proofs',
-                    style: Theme.of(context).textTheme.bodyLarge,
+                    //style: Theme.of(context).textTheme.bodyLarge,
                     // style: TextStyle(
                     //   color: Colors.black87,
                     //   fontFamily: 'Raleway-Regular',
@@ -247,9 +250,9 @@ class WeMainState extends State<WeMain> {
           ),
           ListTile(
             leading: const Icon(Icons.keyboard_double_arrow_right),
-            title: Text(
+            title: const Text(
               'Share',
-              style: Theme.of(context).textTheme.bodyLarge,
+              //style: Theme.of(context).textTheme.bodyLarge,
               // style: TextStyle(
               //   color: Colors.black87,
               //   fontFamily: 'Raleway-Regular',
@@ -274,20 +277,9 @@ class WeMainState extends State<WeMain> {
           return Scaffold(
             key: scaffoldKey,
             appBar: AppBar(
-              centerTitle: true,
-              //backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
-              // leading: IconButton(
-              //   icon: const Icon(Icons.menu),
-              //   onPressed: () {
-              //     scaffoldKey.currentState!.openDrawer();
-              //   },
-              // ),
               leading: GestureDetector(
                 child: IconButton(
-                  icon: const Icon(
-                    Icons.menu,
-                    color: Colors.black,
-                  ),
+                  icon: const Icon(Icons.menu),
                   onPressed: () {
                     Future.delayed(
                       Duration(milliseconds: Globals.navigatorDelay),
@@ -298,55 +290,50 @@ class WeMainState extends State<WeMain> {
                   },
                 ),
               ),
-              title: const Text(
-                'Westminster Confession',
-                //style: TextStyle(color: Theme.of(context).appBarTheme.foregroundColor),
-              ),
+              title: const Text('Westminster Confession'),
             ),
             drawer: drawerCode(),
-            body: ListView.separated(
-              itemCount: chapters.length,
-              itemBuilder: (BuildContext context, int index) {
-                return ListTile(
-                  //selectedColor: flexSchemeLight.primaryContainer,
-                  title: Text(
-                    chapters[index].chap!,
-                    //style: const TextStyle(color: Colors.black),
-                  ),
-                  subtitle: Row(
-                    children: [
-                      const Icon(Icons.linear_scale),
-                      Flexible(
-                        child: RichText(
-                          overflow: TextOverflow.ellipsis,
-                          //strutStyle: const StrutStyle(fontSize: 12.0),
-                          text: TextSpan(
-                            text: " ${chapters[index].title!}",
-                            style: const TextStyle(color: Colors.black),
+            body: Center(
+              child: ListView.separated(
+                itemCount: chapters.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return ListTile(
+                    title: Text(chapters[index].chap!),
+                    subtitle: Row(
+                      children: [
+                        const Icon(Icons.linear_scale),
+                        Flexible(
+                          child: RichText(
+                            overflow: TextOverflow.ellipsis,
+                            //strutStyle: const StrutStyle(fontSize: 12.0),
+                            text: TextSpan(
+                              text: " ${chapters[index].title!}",
+                              style: const TextStyle(color: Colors.black),
+                            ),
                           ),
-                        ),
-                      )
-                    ],
-                  ),
-                  trailing: const Icon(Icons.keyboard_arrow_right,
-                      color: Colors.black, size: 20.0),
-                  onTap: () {
-                    Future.delayed(
-                      Duration(milliseconds: Globals.navigatorDelay),
-                      () {
-                        (r == 0)
-                            ? Navigator.of(context).pushNamed('/WePlainPage',
-                                arguments: WePlainArguments(index))
-                            : Navigator.of(context).pushNamed('/WeProofsPage',
-                                arguments: WeProofArguments(index));
-                      },
-                    );
-                  },
-                );
-              },
-              separatorBuilder: (context, index) {
-                return const Divider();
-              },
+                        )
+                      ],
+                    ),
+                    trailing: const Icon(Icons.keyboard_arrow_right,
+                        color: Colors.black, size: 20.0),
+                    onTap: () {
+                      Future.delayed(
+                        Duration(milliseconds: Globals.navigatorDelay),
+                        () {
+                          (r == 0)
+                              ? Navigator.of(context).pushNamed('/WePlainPage',
+                                  arguments: WePlainArguments(index))
+                              : Navigator.of(context).pushNamed('/WeProofsPage',
+                                  arguments: WeProofArguments(index));
+                        },
+                      );
+                    },
+                  );
+                },
+                separatorBuilder: (context, index) {
+                  return const Divider();
+                },
+              ),
             ),
           );
         } else {

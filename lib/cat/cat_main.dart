@@ -32,8 +32,6 @@ class CatMainState extends State<CatMain> {
           chapters = snapshot.data!;
           return Scaffold(
             appBar: AppBar(
-              // elevation: 0.1,
-              // backgroundColor: const Color.fromRGBO(64, 75, 96, .9),
               centerTitle: true,
               leading: GestureDetector(
                 child: IconButton(
@@ -68,19 +66,20 @@ class CatMainState extends State<CatMain> {
                       horizontal: 20.0, vertical: 10.0),
                   title: Text(
                     chapters[index].chap!,
-                    style: const TextStyle(
-                        color: Colors.black, fontWeight: FontWeight.bold),
+                    // style: const TextStyle(
+                    //     color: Colors.black, fontWeight: FontWeight.bold),
                   ),
                   subtitle: Row(
                     children: [
-                      const Icon(Icons.linear_scale, color: Colors.black),
+                      const Icon(Icons.linear_scale),
                       Flexible(
                         child: RichText(
                           overflow: TextOverflow.ellipsis,
-                          strutStyle: const StrutStyle(fontSize: 12.0),
+                          //strutStyle: const StrutStyle(fontSize: 12.0),
                           text: TextSpan(
-                              style: const TextStyle(color: Colors.black),
-                              text: " ${chapters[index].title}"),
+                            text: " ${chapters[index].title!}",
+                            style: const TextStyle(color: Colors.black),
+                          ),
                         ),
                       ),
                     ],

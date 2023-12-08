@@ -56,8 +56,6 @@ class CatPagesState extends State<CatPages> {
           final h3 = Style(fontSize: FontSize(primaryTextSize!));
           return Scaffold(
             appBar: AppBar(
-              // elevation: 0.1,
-              // backgroundColor: const Color.fromRGBO(58, 66, 86, 1.0),
               centerTitle: true,
               leading: GestureDetector(
                 child: IconButton(
@@ -81,7 +79,6 @@ class CatPagesState extends State<CatPages> {
                 //   color: Colors.yellow,
                 // ),
               ),
-
               actions: [
                 IconButton(
                   icon: const Icon(

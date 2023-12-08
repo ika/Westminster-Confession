@@ -28,13 +28,11 @@ class ECUMainstate extends State<ECUMain> {
           return Scaffold(
             appBar: AppBar(
               centerTitle: true,
-              //   //elevation: 0.1,
-              //   //backgroundColor: const Color.fromRGBO(64, 75, 96, .9),
               leading: GestureDetector(
                 child: IconButton(
                   icon: const Icon(
                     Icons.arrow_back_ios_new_sharp,
-                    color: Colors.black,
+                    //color: Colors.black,
                   ),
                   onPressed: () {
                     Future.delayed(
@@ -66,14 +64,15 @@ class ECUMainstate extends State<ECUMain> {
                   ),
                   subtitle: Row(
                     children: [
-                      const Icon(Icons.linear_scale, color: Colors.black),
+                      const Icon(Icons.linear_scale),
                       Flexible(
                         child: RichText(
                           overflow: TextOverflow.ellipsis,
                           //strutStyle: const StrutStyle(fontSize: 12.0),
                           text: TextSpan(
-                              // style: const TextStyle(color: Colors.black),
-                              text: " ${chapters[index].title}"),
+                              text: " ${chapters[index].title}",
+                              style: const TextStyle(color: Colors.black),
+                          ),
                         ),
                       ),
                     ],

@@ -27,6 +27,7 @@ class ECUPage extends StatefulWidget {
 
 class ECUPageState extends State<ECUPage> {
   List<Creeds> chapters = List<Creeds>.empty();
+  String heading = "Ecumenical Creeds";
 
   @override
   void initState() {
@@ -43,99 +44,81 @@ class ECUPageState extends State<ECUPage> {
       builder: (context, AsyncSnapshot<List<Creeds>> snapshot) {
         if (snapshot.hasData) {
           chapters = snapshot.data!;
-          return showChapters(chapters, args.index, context);
+          PageController pageController =
+              PageController(initialPage: chapters[args.index].id!);
+
+          final html = Style(
+              padding: HtmlPaddings.all(15),
+              fontSize: FontSize(primaryTextSize!));
+
+          final h2 = Style(fontSize: FontSize(primaryTextSize! + 2));
+          final h3 = Style(fontSize: FontSize(primaryTextSize!));
+          final i = Style(
+              fontSize: FontSize(primaryTextSize!),
+              fontStyle: FontStyle.italic);
+          return Scaffold(
+            appBar: AppBar(
+              // elevation: 0.1,
+              // backgroundColor: const Color.fromRGBO(58, 66, 86, 1.0),
+              leading: GestureDetector(
+                child: IconButton(
+                  icon: const Icon(Icons.arrow_back_ios_new_sharp),
+                  onPressed: () {
+                    Future.delayed(
+                      Duration(milliseconds: Globals.navigatorDelay),
+                      () {
+                        Navigator.pop(context);
+                      },
+                    );
+                  },
+                ),
+              ),
+              title: const Text(
+                'Ecumenical Creeds',
+                // style: TextStyle(
+                //   color: Colors.yellow,
+                // ),
+              ),
+              // centerTitle: true,
+              actions: [
+                IconButton(
+                  icon: const Icon(Icons.bookmark_outline_sharp),
+                  onPressed: () {
+                    int pg = pageController.page!.toInt();
+
+                    final model = BMModel(
+                        title: heading,
+                        subtitle: "${chapters[pg].title}",
+                        detail: "2",
+                        page: "$pg");
+
+                    BMDialog().bMWrapper(context, model);
+                  },
+                ),
+              ],
+            ),
+            body: PageView.builder(
+              itemCount: 3,
+              controller: pageController,
+              scrollDirection: Axis.horizontal,
+              pageSnapping: true,
+              itemBuilder: (BuildContext context, int index) {
+                return SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                    child: Html(
+                      data: chapters[index].text,
+                      style: {"html": html, "h2": h2, "h3": h3, "i": i},
+                    ),
+                  ),
+                );
+              },
+            ),
+          );
         } else {
           return const CircularProgressIndicator();
         }
       },
     );
   }
-}
-
-showChapters(chapters, index, context) {
-  String heading = "Ecumenical Creeds";
-
-  PageController pageController =
-      PageController(initialPage: chapters[index].id);
-
-  final html = Style(
-      backgroundColor: Colors.white30,
-      padding: HtmlPaddings.all(15),
-      fontFamily: 'Raleway-Regular',
-      fontSize: FontSize(primaryTextSize!));
-
-  final h2 = Style(fontSize: FontSize(primaryTextSize! + 2));
-  final h3 = Style(fontSize: FontSize(primaryTextSize!));
-  final i = Style(
-      fontSize: FontSize(primaryTextSize!),
-      fontStyle: FontStyle.italic,
-      color: Colors.blue);
-
-  topAppBar(context) => AppBar(
-        elevation: 0.1,
-        backgroundColor: const Color.fromRGBO(58, 66, 86, 1.0),
-        leading: GestureDetector(
-          child: IconButton(
-            icon: const Icon(
-              Icons.arrow_back_ios_new_sharp,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              Future.delayed(
-                Duration(milliseconds: Globals.navigatorDelay),
-                () {
-                  Navigator.pop(context);
-                },
-              );
-            },
-          ),
-        ),
-        title: const Text(
-          'Ecumenical Creeds',
-          style: TextStyle(
-            color: Colors.yellow,
-          ),
-        ),
-        centerTitle: true,
-        actions: [
-          IconButton(
-            icon: const Icon(
-              Icons.bookmark_outline_sharp,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              int pg = pageController.page!.toInt();
-
-              final model = BMModel(
-                  title: heading,
-                  subtitle: "${chapters[pg].title}",
-                  detail: "2",
-                  page: "$pg");
-
-              BMDialog().bMWrapper(context, model);
-            },
-          ),
-        ],
-      );
-
-  return Scaffold(
-    appBar: topAppBar(context),
-    body: PageView.builder(
-      itemCount: 3,
-      controller: pageController,
-      scrollDirection: Axis.horizontal,
-      pageSnapping: true,
-      itemBuilder: (BuildContext context, int index) {
-        return SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 4.0),
-            child: Html(
-              data: chapters[index].text,
-              style: {"html": html, "h2": h2, "h3": h3, "i": i},
-            ),
-          ),
-        );
-      },
-    ),
-  );
 }

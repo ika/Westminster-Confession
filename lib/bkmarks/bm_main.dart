@@ -53,20 +53,12 @@ class BMMainState extends State<BMMain> {
       builder: (context, AsyncSnapshot<List<BMModel>> snapshot) {
         if (snapshot.hasData) {
           list = snapshot.data!;
-          //return showChapterList(list, context);
           return Scaffold(
-            //backgroundColor: const Color.fromRGBO(58, 66, 86, 1.0),
-            
             appBar: AppBar(
-              //elevation: 0.1,
-              //backgroundColor: const Color.fromRGBO(64, 75, 96, .9),
               centerTitle: true,
               leading: GestureDetector(
                 child: IconButton(
-                  icon: const Icon(
-                    Icons.arrow_back_ios_new_sharp,
-                    color: Colors.white,
-                  ),
+                  icon: const Icon(Icons.arrow_back_ios_new_sharp),
                   onPressed: () {
                     Future.delayed(
                       Duration(milliseconds: Globals.navigatorDelay),
@@ -92,26 +84,26 @@ class BMMainState extends State<BMMain> {
                       horizontal: 20.0, vertical: 10.0),
                   title: Text(
                     list[index].title,
-                    style: const TextStyle(
-                        color: Colors.black, fontWeight: FontWeight.bold),
+                    // style: const TextStyle(
+                    //     color: Colors.black, fontWeight: FontWeight.bold),
                   ),
                   subtitle: Row(
-                    children: <Widget>[
-                      const Icon(Icons.linear_scale,
-                          color: Colors.black),
+                    children: [
+                      const Icon(Icons.linear_scale),
                       Flexible(
                         child: RichText(
                           overflow: TextOverflow.ellipsis,
-                          strutStyle: const StrutStyle(fontSize: 12.0),
+                          //strutStyle: const StrutStyle(fontSize: 12.0),
                           text: TextSpan(
-                              style: const TextStyle(color: Colors.black),
-                              text: " ${list[index].subtitle}"),
+                            text: " ${list[index].subtitle}",
+                            style: const TextStyle(color: Colors.black),
+                          ),
                         ),
                       ),
                     ],
                   ),
                   trailing: const Icon(Icons.keyboard_arrow_right,
-                      color: Colors.white, size: 30.0),
+                      color: Colors.white, size: 20.0),
                   onTap: () {
                     int goto = int.parse(list[index].page);
 
@@ -237,200 +229,4 @@ class BMMainState extends State<BMMain> {
       },
     );
   }
-
-  //showChapterList(list, context) {
-  // ListTile makeListTile(list, int index) => ListTile(
-  //       contentPadding:
-  //           const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-  //       title: Text(
-  //         list[index].title,
-  //         style: const TextStyle(
-  //             color: Colors.white, fontWeight: FontWeight.bold),
-  //       ),
-  //       subtitle: Row(
-  //         children: <Widget>[
-  //           const Icon(Icons.linear_scale, color: Colors.yellowAccent),
-  //           Flexible(
-  //             child: RichText(
-  //               overflow: TextOverflow.ellipsis,
-  //               strutStyle: const StrutStyle(fontSize: 12.0),
-  //               text: TextSpan(
-  //                   style: const TextStyle(color: Colors.white),
-  //                   text: " ${list[index].subtitle}"),
-  //             ),
-  //           ),
-  //         ],
-  //       ),
-  //       trailing: const Icon(Icons.keyboard_arrow_right,
-  //           color: Colors.white, size: 30.0),
-  //       onTap: () {
-  //         int goto = int.parse(list[index].page);
-
-  //         switch (list[index].detail) {
-  //           case "1": // Westminster plain text
-  //             Future.delayed(
-  //               Duration(milliseconds: Globals.navigatorDelay),
-  //               () {
-  //                 Navigator.of(context)
-  //                     .pushNamed('/WePlainPage',
-  //                         arguments: WePlainArguments(goto))
-  //                     .then(
-  //                   (value) {
-  //                     int count = 1;
-  //                     Navigator.of(context).popUntil((_) => count++ >= 2);
-  //                   },
-  //                 );
-  //               },
-  //             );
-  //             break;
-
-  //           case "2": // Ecumenical Creeds
-  //             Future.delayed(
-  //               Duration(milliseconds: Globals.navigatorDelay),
-  //               () {
-  //                 Navigator.of(context)
-  //                     .pushNamed('/ECUPage',
-  //                         arguments: ECUPageArguments(goto))
-  //                     .then(
-  //                   (value) {
-  //                     int count = 1;
-  //                     Navigator.of(context).popUntil((_) => count++ >= 2);
-  //                   },
-  //                 );
-  //               },
-  //             );
-
-  //             break;
-
-  //           case "3": // Preface
-  //             Future.delayed(
-  //               Duration(milliseconds: Globals.navigatorDelay),
-  //               () {
-  //                 Navigator.of(context)
-  //                     .pushNamed('/PrefPage',
-  //                         arguments: PrefPageArguments(goto))
-  //                     .then(
-  //                   (value) {
-  //                     int count = 1;
-  //                     Navigator.of(context).popUntil((_) => count++ >= 2);
-  //                   },
-  //                 );
-  //               },
-  //             );
-  //             break;
-
-  //           case "4": // Five Points
-  //             Future.delayed(
-  //               Duration(milliseconds: Globals.navigatorDelay),
-  //               () {
-  //                 Navigator.of(context)
-  //                     .pushNamed('/PointsPage',
-  //                         arguments: PointsArguments(goto))
-  //                     .then(
-  //                   (value) {
-  //                     int count = 1;
-  //                     Navigator.of(context).popUntil((_) => count++ >= 2);
-  //                   },
-  //                 );
-  //               },
-  //             );
-  //             break;
-  //           case "5": // Westminster with proofs
-  //             Future.delayed(
-  //               Duration(milliseconds: Globals.navigatorDelay),
-  //               () {
-  //                 Navigator.of(context)
-  //                     .pushNamed('/WeProofsPage',
-  //                         arguments: WeProofArguments(goto))
-  //                     .then(
-  //                   (value) {
-  //                     int count = 1;
-  //                     Navigator.of(context).popUntil((_) => count++ >= 2);
-  //                   },
-  //                 );
-  //               },
-  //             );
-  //             break;
-  //           case "6": // Larger Catechism
-  //             Future.delayed(
-  //               Duration(milliseconds: Globals.navigatorDelay),
-  //               () {
-  //                 Navigator.of(context)
-  //                     .pushNamed('/CatPages',
-  //                         arguments: CatPageArguments(goto))
-  //                     .then(
-  //                   (value) {
-  //                     int count = 1;
-  //                     Navigator.of(context).popUntil((_) => count++ >= 2);
-  //                   },
-  //                 );
-  //               },
-  //             );
-  //             break;
-  //         }
-  //       },
-  //     );
-
-  // Card makeCard(list, int index) => Card(
-  //       elevation: 8.0,
-  //       margin: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 2.0),
-  //       child: Container(
-  //         decoration:
-  //             const BoxDecoration(color: Color.fromRGBO(64, 75, 96, .9)),
-  //         child: makeListTile(list, index),
-  //       ),
-  //     );
-
-  // final makeBody = ListView.builder(
-  //   scrollDirection: Axis.vertical,
-  //   shrinkWrap: true,
-  //   itemCount: list.length,
-  //   itemBuilder: (BuildContext context, int index) {
-  //     return GestureDetector(
-  //         onHorizontalDragEnd: (DragEndDetails details) {
-  //           if (details.primaryVelocity! > 0 ||
-  //               details.primaryVelocity! < 0) {
-  //             confirmDialog(context, list, index).then((value) {
-  //               if (value) {
-  //                 bmQueries.deleteBookMark(list[index].id).then((value) {
-  //                   setState(() {
-  //                     list.removeAt(index);
-  //                   });
-  //                 });
-  //               }
-  //             });
-  //           }
-  //         },
-  //         child: makeCard(list, index));
-  //   },
-  // );
-
-  // final topAppBar = AppBar(
-  //   elevation: 0.1,
-  //   backgroundColor: const Color.fromRGBO(64, 75, 96, .9),
-  //   leading: GestureDetector(
-  //     child: IconButton(
-  //       icon: const Icon(
-  //         Icons.arrow_back_ios_new_sharp,
-  //         color: Colors.white,
-  //       ),
-  //       onPressed: () {
-  //         Future.delayed(
-  //           Duration(milliseconds: Globals.navigatorDelay),
-  //           () {
-  //             Navigator.pop(context);
-  //           },
-  //         );
-  //       },
-  //     ),
-  //   ),
-  //   title: const Text(
-  //     'Bookmarks',
-  //     style: TextStyle(
-  //       color: Colors.yellow,
-  //     ),
-  //   ),
-  // );
-
-  //}
 }

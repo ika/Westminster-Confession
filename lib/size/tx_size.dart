@@ -18,11 +18,13 @@ class _TextSizePageState extends State<TextSizePage> {
 
   @override
   Widget build(BuildContext context) {
+        final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
     return Scaffold(
       appBar: AppBar(
         // elevation: 0.1,
         // backgroundColor: const Color.fromRGBO(64, 75, 96, .9),
-        centerTitle: true,
+        //centerTitle: true,
         leading: GestureDetector(
           child: IconButton(
             icon: const Icon(
@@ -42,7 +44,7 @@ class _TextSizePageState extends State<TextSizePage> {
         title: const Text(
           'Text Size',
           // style: TextStyle(
-          //   color: Colors.yellow,
+          //   color: colorScheme.primary,
           // ),
         ),
       ),
@@ -67,13 +69,13 @@ class _TextSizePageState extends State<TextSizePage> {
                 child: Container(
                   margin: const EdgeInsets.only(bottom: 8, left: 20, right: 20),
                   height: 55,
-                  color: Colors.blue[100],
+                  color: colorScheme.secondaryContainer,
                   child: Center(
                     child: Text(
                       'In the beginning',
                       style: TextStyle(
                         fontSize: sizesList[i],
-                        color: Colors.black,
+                        color: colorScheme.secondary,
                       ),
                     ),
                   ),
