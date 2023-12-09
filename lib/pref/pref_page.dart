@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:westminster_confession/bkmarks/bm_dialog.dart';
 import 'package:westminster_confession/bkmarks/bm_model.dart';
-import 'package:westminster_confession/cubit/cub_size.dart';
 import 'package:westminster_confession/pref/pref_model.dart';
 import 'package:westminster_confession/pref/pref_queries.dart';
 import 'package:westminster_confession/utils/globals.dart';
@@ -29,11 +27,11 @@ class PrefPageState extends State<PrefPage> {
   List<Preface> chapters = List<Preface>.empty();
   String heading = "Preface";
 
-  @override
-  void initState() {
-    super.initState();
-    primaryTextSize = BlocProvider.of<TextSizeCubit>(context).state;
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   primaryTextSize = BlocProvider.of<TextSizeCubit>(context).state;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -54,8 +52,9 @@ class PrefPageState extends State<PrefPage> {
               fontFamily: 'Raleway-Regular',
               fontSize: FontSize(primaryTextSize!));
 
-          final h2 = Style(fontSize: FontSize(primaryTextSize! + 2));
-          final h3 = Style(fontSize: FontSize(primaryTextSize!));
+          final h2 = Style(fontSize: FontSize(Globals.initialTextSize + 2));
+          final h3 = Style(fontSize: FontSize(Globals.initialTextSize));
+
           return Scaffold(
             appBar: AppBar(
               // elevation: 0.1,

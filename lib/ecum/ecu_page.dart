@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:westminster_confession/bkmarks/bm_dialog.dart';
 import 'package:westminster_confession/bkmarks/bm_model.dart';
-import 'package:westminster_confession/cubit/cub_size.dart';
 import 'package:westminster_confession/ecum/ecu_model.dart';
 import 'package:westminster_confession/ecum/ecu_queries.dart';
 import 'package:westminster_confession/utils/globals.dart';
@@ -29,11 +27,11 @@ class ECUPageState extends State<ECUPage> {
   List<Creeds> chapters = List<Creeds>.empty();
   String heading = "Ecumenical Creeds";
 
-  @override
-  void initState() {
-    super.initState();
-    primaryTextSize = BlocProvider.of<TextSizeCubit>(context).state;
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   primaryTextSize = BlocProvider.of<TextSizeCubit>(context).state;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -51,11 +49,12 @@ class ECUPageState extends State<ECUPage> {
               padding: HtmlPaddings.all(15),
               fontSize: FontSize(primaryTextSize!));
 
-          final h2 = Style(fontSize: FontSize(primaryTextSize! + 2));
-          final h3 = Style(fontSize: FontSize(primaryTextSize!));
+          final h2 = Style(fontSize: FontSize(Globals.initialTextSize + 2));
+          final h3 = Style(fontSize: FontSize(Globals.initialTextSize));
           final i = Style(
-              fontSize: FontSize(primaryTextSize!),
+              fontSize: FontSize(Globals.initialTextSize),
               fontStyle: FontStyle.italic);
+              
           return Scaffold(
             appBar: AppBar(
               // elevation: 0.1,

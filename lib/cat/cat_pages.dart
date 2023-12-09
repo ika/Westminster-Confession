@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:westminster_confession/bkmarks/bm_dialog.dart';
 import 'package:westminster_confession/bkmarks/bm_model.dart';
 import 'package:westminster_confession/cat/cat_model.dart';
 import 'package:westminster_confession/cat/cat_queries.dart';
-import 'package:westminster_confession/cubit/cub_size.dart';
 import 'package:westminster_confession/utils/globals.dart';
 
 // Larger Catechism pages
@@ -16,7 +14,6 @@ class CatPageArguments {
 }
 
 CAQueries caQueries = CAQueries();
-double? primaryTextSize;
 
 class CatPages extends StatefulWidget {
   const CatPages({super.key});
@@ -29,11 +26,11 @@ class CatPagesState extends State<CatPages> {
   List<Catachism> chapters = List<Catachism>.empty();
   String heading = "Larger Catechism";
 
-  @override
-  void initState() {
-    super.initState();
-    primaryTextSize = BlocProvider.of<TextSizeCubit>(context).state;
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   primaryTextSize = BlocProvider.of<TextSizeCubit>(context).state;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -44,16 +41,15 @@ class CatPagesState extends State<CatPages> {
       builder: (context, AsyncSnapshot<List<Catachism>> snapshot) {
         if (snapshot.hasData) {
           chapters = snapshot.data!;
+
           PageController pageController =
               PageController(initialPage: chapters[args.index].id!);
-          final html = Style(
-              backgroundColor: Colors.white30,
-              padding: HtmlPaddings.all(15),
-              fontFamily: 'Raleway-Regular',
-              fontSize: FontSize(primaryTextSize!));
 
-          final h2 = Style(fontSize: FontSize(primaryTextSize! + 2));
-          final h3 = Style(fontSize: FontSize(primaryTextSize!));
+          final html = Style(padding: HtmlPaddings.all(15));
+
+          final h2 = Style(fontSize: FontSize(Globals.initialTextSize + 2));
+          final h3 = Style(fontSize: FontSize(Globals.initialTextSize));
+
           return Scaffold(
             appBar: AppBar(
               centerTitle: true,

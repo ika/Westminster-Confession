@@ -97,20 +97,20 @@ class WeMainState extends State<WeMain> {
             dense: true,
             onTap: () => {Navigator.of(context).pushNamed(('/BMMain'))},
           ),
-          ListTile(
-            leading: const Icon(Icons.keyboard_double_arrow_right),
-            title: const Text(
-              'Text Size',
-              //style: Theme.of(context).textTheme.bodyLarge,
-              // style: TextStyle(
-              //   color: Colors.black87,
-              //   fontFamily: 'Raleway-Regular',
-              //   fontSize: 16,
-              // ),
-            ),
-            dense: true,
-            onTap: () => {Navigator.of(context).pushNamed(('/TextSizePage'))},
-          ),
+          // ListTile(
+          //   leading: const Icon(Icons.keyboard_double_arrow_right),
+          //   title: const Text(
+          //     'Text Size',
+          //     //style: Theme.of(context).textTheme.bodyLarge,
+          //     // style: TextStyle(
+          //     //   color: Colors.black87,
+          //     //   fontFamily: 'Raleway-Regular',
+          //     //   fontSize: 16,
+          //     // ),
+          //   ),
+          //   dense: true,
+          //   onTap: () => {Navigator.of(context).pushNamed(('/TextSizePage'))},
+          // ),
           // ListTile(
           //   leading: const Icon(Icons.keyboard_double_arrow_right),
           //   title: const Text(
