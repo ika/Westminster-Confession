@@ -14,7 +14,6 @@ class ECUPageArguments {
 }
 
 CRQueries crQueries = CRQueries();
-double? primaryTextSize;
 
 class ECUPage extends StatefulWidget {
   const ECUPage({super.key});
@@ -47,7 +46,7 @@ class ECUPageState extends State<ECUPage> {
 
           final html = Style(
               padding: HtmlPaddings.all(15),
-              fontSize: FontSize(primaryTextSize!));
+              fontSize: FontSize(Globals.initialTextSize));
 
           final h2 = Style(fontSize: FontSize(Globals.initialTextSize + 2));
           final h3 = Style(fontSize: FontSize(Globals.initialTextSize));

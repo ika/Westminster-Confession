@@ -7,8 +7,8 @@ import 'package:westminster_confession/utils/constants.dart';
 // Bookmarks database helper
 
 class BMQueries {
-  final String _dbTable = Constants.BM_TBNAME;
   final BMProvider provider = BMProvider();
+  final String _dbTable = Constants.BM_TBNAME;
 
   Future<void> saveBookMark(BMModel model) async {
     final db = await provider.database;
@@ -21,7 +21,7 @@ class BMQueries {
 
   Future<void> deleteBookMark(int id) async {
     final db = await provider.database;
-    await db.delete(_dbTable, where: "id = ?", whereArgs: [id]);
+    await db.rawQuery('''DELETE FROM $_dbTable WHERE id=?''', [id]);
   }
 
   Future<List<BMModel>> getBookMarkList() async {

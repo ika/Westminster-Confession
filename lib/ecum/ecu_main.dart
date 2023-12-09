@@ -27,7 +27,6 @@ class ECUMainstate extends State<ECUMain> {
           chapters = snapshot.data!;
           return Scaffold(
             appBar: AppBar(
-              centerTitle: true,
               leading: GestureDetector(
                 child: IconButton(
                   icon: const Icon(

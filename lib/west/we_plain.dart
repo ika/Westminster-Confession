@@ -77,7 +77,6 @@ class WePlainPageState extends State<WePlainPage> {
                 //   color: Colors.yellow,
                 // ),
               ),
-              centerTitle: true,
               actions: [
                 IconButton(
                   icon: const Icon(

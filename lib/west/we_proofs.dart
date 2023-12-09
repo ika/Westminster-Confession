@@ -99,7 +99,6 @@ class WeProofsPageState extends State<WeProofsPage> {
                 //   color: Colors.yellow,
                 // ),
               ),
-              centerTitle: true,
               actions: [
                 IconButton(
                   icon: const Icon(

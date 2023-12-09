@@ -12,7 +12,6 @@ import 'package:westminster_confession/west/we_queries.dart';
 // The Westminster Confession
 
 WEQueries weQueries = WEQueries();
-MaterialColor? primarySwatch;
 
 int r = 0;
 

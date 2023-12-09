@@ -15,7 +15,6 @@ class PointsArguments {
 }
 
 POQueries poQueries = POQueries();
-double? primaryTextSize;
 
 class PointsPage extends StatefulWidget {
   const PointsPage({super.key});
@@ -77,7 +76,7 @@ class PointsPageState extends State<PointsPage> {
               backgroundColor: Colors.grey[200],
               padding: HtmlPaddings.all(15),
               fontFamily: 'Raleway-Regular',
-              fontSize: FontSize(primaryTextSize!));
+              fontSize: FontSize(Globals.initialTextSize));
 
           final h2 = Style(fontSize: FontSize(Globals.initialTextSize + 2));
           final h3 = Style(fontSize: FontSize(Globals.initialTextSize));
@@ -121,7 +120,6 @@ class PointsPageState extends State<PointsPage> {
                 //   color: Colors.yellow,
                 // ),
               ),
-              centerTitle: true,
               actions: [
                 IconButton(
                   icon: const Icon(

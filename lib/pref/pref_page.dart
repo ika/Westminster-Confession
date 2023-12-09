@@ -14,7 +14,6 @@ class PrefPageArguments {
 }
 
 PRQueries prQueries = PRQueries();
-double? primaryTextSize;
 
 class PrefPage extends StatefulWidget {
   const PrefPage({super.key});
@@ -47,10 +46,8 @@ class PrefPageState extends State<PrefPage> {
               PageController(initialPage: chapters[args.index].id!);
 
           final html = Style(
-              backgroundColor: Colors.white30,
               padding: HtmlPaddings.all(15),
-              fontFamily: 'Raleway-Regular',
-              fontSize: FontSize(primaryTextSize!));
+              fontSize: FontSize(Globals.initialTextSize));
 
           final h2 = Style(fontSize: FontSize(Globals.initialTextSize + 2));
           final h3 = Style(fontSize: FontSize(Globals.initialTextSize));
@@ -81,7 +78,6 @@ class PrefPageState extends State<PrefPage> {
                 //   color: Colors.yellow,
                 // ),
               ),
-              centerTitle: true,
               actions: [
                 IconButton(
                   icon: const Icon(
