@@ -5,7 +5,7 @@
 class Constants {
   
   // database names
-  static const String BM_DBNAME = "bMara.db"; // bookmarks
+  static const String BM_DBNAME = "bmarks.db"; // bookmarks
   static const String CR_DBNAME = "creeds.db"; // btexts.html
   static const String PR_DBNAME = "preface.db"; // ctexts.html
   static const String PO_DBNAME = "points.db"; // dtexts.html

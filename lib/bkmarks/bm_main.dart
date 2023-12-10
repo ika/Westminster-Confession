@@ -84,7 +84,7 @@ class BMMainState extends State<BMMain> {
                         details.primaryVelocity! < 0) {
                       confirmDialog(context, list, index).then((value) {
                         if (value) {
-                          bmQueries.deleteBookMark(index).then((value) {
+                          bmQueries.deleteBookMark(list[index].id!).then((value) {
                             setState(() {});
                           });
                         }
