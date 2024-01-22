@@ -52,11 +52,12 @@ class CatPagesState extends State<CatPages> {
 
           return Scaffold(
             appBar: AppBar(
+              centerTitle: true,
               leading: GestureDetector(
                 child: IconButton(
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.arrow_back_ios_new_sharp,
-                    color: Colors.white,
+                    color: Theme.of(context).colorScheme.primary,
                   ),
                   onPressed: () {
                     Future.delayed(

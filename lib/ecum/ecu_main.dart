@@ -27,11 +27,11 @@ class ECUMainstate extends State<ECUMain> {
           chapters = snapshot.data!;
           return Scaffold(
             appBar: AppBar(
+              centerTitle: true,
               leading: GestureDetector(
                 child: IconButton(
                   icon: const Icon(
                     Icons.arrow_back_ios_new_sharp,
-                    //color: Colors.black,
                   ),
                   onPressed: () {
                     Future.delayed(
@@ -50,48 +50,51 @@ class ECUMainstate extends State<ECUMain> {
                 // ),
               ),
             ),
-            body: ListView.separated(
-              itemCount: chapters.length,
-              itemBuilder: (BuildContext context, int index) {
-                return ListTile(
-                  contentPadding: const EdgeInsets.symmetric(
-                      horizontal: 20.0, vertical: 10.0),
-                  title: Text(
-                    chapters[index].chap!,
-                    //style: const TextStyle(
-                    //    color: Colors.black, fontWeight: FontWeight.bold),
-                  ),
-                  subtitle: Row(
-                    children: [
-                      const Icon(Icons.linear_scale),
-                      Flexible(
-                        child: RichText(
-                          overflow: TextOverflow.ellipsis,
-                          //strutStyle: const StrutStyle(fontSize: 12.0),
-                          text: TextSpan(
-                              text: " ${chapters[index].title}",
-                              style: const TextStyle(color: Colors.black),
+            body: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: ListView.separated(
+                itemCount: chapters.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return ListTile(
+                    // contentPadding: const EdgeInsets.symmetric(
+                    //     horizontal: 20.0, vertical: 10.0),
+                    title: Text(
+                      chapters[index].chap!,
+                      //style: const TextStyle(
+                      //    color: Colors.black, fontWeight: FontWeight.bold),
+                    ),
+                    subtitle: Row(
+                      children: [
+                        const Icon(Icons.linear_scale),
+                        Flexible(
+                          child: RichText(
+                            overflow: TextOverflow.ellipsis,
+                            //strutStyle: const StrutStyle(fontSize: 12.0),
+                            text: TextSpan(
+                                text: " ${chapters[index].title}",
+                                //style: const TextStyle(color: Colors.black),
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  trailing: const Icon(Icons.keyboard_arrow_right,
-                      color: Colors.black, size: 20.0),
-                  onTap: () {
-                    Future.delayed(
-                      Duration(milliseconds: Globals.navigatorDelay),
-                      () {
-                        Navigator.of(context).pushNamed('/ECUPage',
-                            arguments: ECUPageArguments(index));
-                      },
-                    );
-                  },
-                );
-              },
-              separatorBuilder: (context, index) {
-                return const Divider();
-              },
+                      ],
+                    ),
+                    trailing: Icon(Icons.keyboard_arrow_right,
+                        color: Theme.of(context).colorScheme.primary, size: 20.0),
+                    onTap: () {
+                      Future.delayed(
+                        Duration(milliseconds: Globals.navigatorDelay),
+                        () {
+                          Navigator.of(context).pushNamed('/ECUPage',
+                              arguments: ECUPageArguments(index));
+                        },
+                      );
+                    },
+                  );
+                },
+                separatorBuilder: (context, index) {
+                  return const Divider();
+                },
+              ),
             ),
           );
         } else {

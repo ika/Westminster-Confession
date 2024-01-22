@@ -54,8 +54,7 @@ class PrefPageState extends State<PrefPage> {
 
           return Scaffold(
             appBar: AppBar(
-              // elevation: 0.1,
-              // backgroundColor: const Color.fromRGBO(58, 66, 86, 1.0),
+              centerTitle: true,
               leading: GestureDetector(
                 child: IconButton(
                   icon: const Icon(
@@ -82,7 +81,6 @@ class PrefPageState extends State<PrefPage> {
                 IconButton(
                   icon: const Icon(
                     Icons.bookmark_outline_sharp,
-                    color: Colors.white,
                   ),
                   onPressed: () {
                     int pg = pageController.page!.toInt();

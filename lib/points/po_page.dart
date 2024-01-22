@@ -75,7 +75,6 @@ class PointsPageState extends State<PointsPage> {
           final html = Style(
               backgroundColor: Colors.grey[200],
               padding: HtmlPaddings.all(15),
-              fontFamily: 'Raleway-Regular',
               fontSize: FontSize(Globals.initialTextSize));
 
           final h2 = Style(fontSize: FontSize(Globals.initialTextSize + 2));

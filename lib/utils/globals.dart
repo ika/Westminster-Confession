@@ -6,5 +6,5 @@ class Globals {
   static double initialTextSize = 16.0;
 
   // Colour list number
-  static int colorListNumber = 4; // Amber
+ // static int colorListNumber = 4; // Amber
 }

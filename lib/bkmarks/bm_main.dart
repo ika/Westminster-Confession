@@ -55,9 +55,12 @@ class BMMainState extends State<BMMain> {
           list = snapshot.data!;
           return Scaffold(
             appBar: AppBar(
+              centerTitle: true,
               leading: GestureDetector(
                 child: IconButton(
-                  icon: const Icon(Icons.arrow_back_ios_new_sharp),
+                  icon: const Icon(
+                    Icons.arrow_back_ios_new_sharp,
+                  ),
                   onPressed: () {
                     Future.delayed(
                       Duration(milliseconds: Globals.navigatorDelay),
@@ -75,165 +78,171 @@ class BMMainState extends State<BMMain> {
                 // ),
               ),
             ),
-            body: ListView.separated(
-              itemCount: list.length,
-              itemBuilder: (BuildContext context, int index) {
-                return GestureDetector(
-                  onHorizontalDragEnd: (DragEndDetails details) {
-                    if (details.primaryVelocity! > 0 ||
-                        details.primaryVelocity! < 0) {
-                      confirmDialog(context, list, index).then((value) {
-                        if (value) {
-                          bmQueries.deleteBookMark(list[index].id!).then((value) {
-                            setState(() {});
-                          });
-                        }
-                      });
-                    }
-                  },
-                  child: ListTile(
-                    contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 20.0, vertical: 10.0),
-                    title: Text(
-                      list[index].title,
-                      // style: const TextStyle(
-                      //     color: Colors.black, fontWeight: FontWeight.bold),
-                    ),
-                    subtitle: Row(
-                      children: [
-                        const Icon(Icons.linear_scale),
-                        Flexible(
-                          child: RichText(
-                            overflow: TextOverflow.ellipsis,
-                            //strutStyle: const StrutStyle(fontSize: 12.0),
-                            text: TextSpan(
-                              text: " ${list[index].subtitle}",
-                              style: const TextStyle(color: Colors.black),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    trailing: const Icon(Icons.keyboard_arrow_right,
-                        color: Colors.white, size: 20.0),
-                    onTap: () {
-                      int goto = int.parse(list[index].page);
-
-                      switch (list[index].detail) {
-                        case "1": // Westminster plain text
-                          Future.delayed(
-                            Duration(milliseconds: Globals.navigatorDelay),
-                            () {
-                              Navigator.of(context)
-                                  .pushNamed('/WePlainPage',
-                                      arguments: WePlainArguments(goto))
-                                  .then(
-                                (value) {
-                                  int count = 1;
-                                  Navigator.of(context)
-                                      .popUntil((_) => count++ >= 2);
-                                },
-                              );
-                            },
-                          );
-                          break;
-
-                        case "2": // Ecumenical Creeds
-                          Future.delayed(
-                            Duration(milliseconds: Globals.navigatorDelay),
-                            () {
-                              Navigator.of(context)
-                                  .pushNamed('/ECUPage',
-                                      arguments: ECUPageArguments(goto))
-                                  .then(
-                                (value) {
-                                  int count = 1;
-                                  Navigator.of(context)
-                                      .popUntil((_) => count++ >= 2);
-                                },
-                              );
-                            },
-                          );
-
-                          break;
-
-                        case "3": // Preface
-                          Future.delayed(
-                            Duration(milliseconds: Globals.navigatorDelay),
-                            () {
-                              Navigator.of(context)
-                                  .pushNamed('/PrefPage',
-                                      arguments: PrefPageArguments(goto))
-                                  .then(
-                                (value) {
-                                  int count = 1;
-                                  Navigator.of(context)
-                                      .popUntil((_) => count++ >= 2);
-                                },
-                              );
-                            },
-                          );
-                          break;
-
-                        case "4": // Five Points
-                          Future.delayed(
-                            Duration(milliseconds: Globals.navigatorDelay),
-                            () {
-                              Navigator.of(context)
-                                  .pushNamed('/PointsPage',
-                                      arguments: PointsArguments(goto))
-                                  .then(
-                                (value) {
-                                  int count = 1;
-                                  Navigator.of(context)
-                                      .popUntil((_) => count++ >= 2);
-                                },
-                              );
-                            },
-                          );
-                          break;
-                        case "5": // Westminster with proofs
-                          Future.delayed(
-                            Duration(milliseconds: Globals.navigatorDelay),
-                            () {
-                              Navigator.of(context)
-                                  .pushNamed('/WeProofsPage',
-                                      arguments: WeProofArguments(goto))
-                                  .then(
-                                (value) {
-                                  int count = 1;
-                                  Navigator.of(context)
-                                      .popUntil((_) => count++ >= 2);
-                                },
-                              );
-                            },
-                          );
-                          break;
-                        case "6": // Larger Catechism
-                          Future.delayed(
-                            Duration(milliseconds: Globals.navigatorDelay),
-                            () {
-                              Navigator.of(context)
-                                  .pushNamed('/CatPages',
-                                      arguments: CatPageArguments(goto))
-                                  .then(
-                                (value) {
-                                  int count = 1;
-                                  Navigator.of(context)
-                                      .popUntil((_) => count++ >= 2);
-                                },
-                              );
-                            },
-                          );
-                          break;
+            body: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: ListView.separated(
+                itemCount: list.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return GestureDetector(
+                    onHorizontalDragEnd: (DragEndDetails details) {
+                      if (details.primaryVelocity! > 0 ||
+                          details.primaryVelocity! < 0) {
+                        confirmDialog(context, list, index).then((value) {
+                          if (value) {
+                            bmQueries
+                                .deleteBookMark(list[index].id!)
+                                .then((value) {
+                              setState(() {});
+                            });
+                          }
+                        });
                       }
                     },
-                  ),
-                );
-              },
-              separatorBuilder: (context, index) {
-                return const Divider();
-              },
+                    child: ListTile(
+                      // contentPadding: const EdgeInsets.symmetric(
+                      //     horizontal: 20.0, vertical: 10.0),
+                      title: Text(
+                        list[index].title,
+                        style: Theme.of(context).textTheme.bodyLarge,
+                      ),
+                      subtitle: Row(
+                        children: [
+                          Icon(Icons.linear_scale,
+                              color: Theme.of(context).colorScheme.primary),
+                          Flexible(
+                            child: RichText(
+                              overflow: TextOverflow.ellipsis,
+                              //strutStyle: const StrutStyle(fontSize: 12.0),
+                              text: TextSpan(
+                                text: " ${list[index].subtitle}",
+                                style: Theme.of(context).textTheme.bodyMedium,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      trailing: Icon(Icons.keyboard_arrow_right,
+                          color: Theme.of(context).colorScheme.primary,
+                          size: 20.0),
+                      onTap: () {
+                        int goto = int.parse(list[index].page);
+
+                        switch (list[index].detail) {
+                          case "1": // Westminster plain text
+                            Future.delayed(
+                              Duration(milliseconds: Globals.navigatorDelay),
+                              () {
+                                Navigator.of(context)
+                                    .pushNamed('/WePlainPage',
+                                        arguments: WePlainArguments(goto))
+                                    .then(
+                                  (value) {
+                                    int count = 1;
+                                    Navigator.of(context)
+                                        .popUntil((_) => count++ >= 2);
+                                  },
+                                );
+                              },
+                            );
+                            break;
+
+                          case "2": // Ecumenical Creeds
+                            Future.delayed(
+                              Duration(milliseconds: Globals.navigatorDelay),
+                              () {
+                                Navigator.of(context)
+                                    .pushNamed('/ECUPage',
+                                        arguments: ECUPageArguments(goto))
+                                    .then(
+                                  (value) {
+                                    int count = 1;
+                                    Navigator.of(context)
+                                        .popUntil((_) => count++ >= 2);
+                                  },
+                                );
+                              },
+                            );
+
+                            break;
+
+                          case "3": // Preface
+                            Future.delayed(
+                              Duration(milliseconds: Globals.navigatorDelay),
+                              () {
+                                Navigator.of(context)
+                                    .pushNamed('/PrefPage',
+                                        arguments: PrefPageArguments(goto))
+                                    .then(
+                                  (value) {
+                                    int count = 1;
+                                    Navigator.of(context)
+                                        .popUntil((_) => count++ >= 2);
+                                  },
+                                );
+                              },
+                            );
+                            break;
+
+                          case "4": // Five Points
+                            Future.delayed(
+                              Duration(milliseconds: Globals.navigatorDelay),
+                              () {
+                                Navigator.of(context)
+                                    .pushNamed('/PointsPage',
+                                        arguments: PointsArguments(goto))
+                                    .then(
+                                  (value) {
+                                    int count = 1;
+                                    Navigator.of(context)
+                                        .popUntil((_) => count++ >= 2);
+                                  },
+                                );
+                              },
+                            );
+                            break;
+                          case "5": // Westminster with proofs
+                            Future.delayed(
+                              Duration(milliseconds: Globals.navigatorDelay),
+                              () {
+                                Navigator.of(context)
+                                    .pushNamed('/WeProofsPage',
+                                        arguments: WeProofArguments(goto))
+                                    .then(
+                                  (value) {
+                                    int count = 1;
+                                    Navigator.of(context)
+                                        .popUntil((_) => count++ >= 2);
+                                  },
+                                );
+                              },
+                            );
+                            break;
+                          case "6": // Larger Catechism
+                            Future.delayed(
+                              Duration(milliseconds: Globals.navigatorDelay),
+                              () {
+                                Navigator.of(context)
+                                    .pushNamed('/CatPages',
+                                        arguments: CatPageArguments(goto))
+                                    .then(
+                                  (value) {
+                                    int count = 1;
+                                    Navigator.of(context)
+                                        .popUntil((_) => count++ >= 2);
+                                  },
+                                );
+                              },
+                            );
+                            break;
+                        }
+                      },
+                    ),
+                  );
+                },
+                separatorBuilder: (context, index) {
+                  return const Divider();
+                },
+              ),
             ),
           );
         } else {
