@@ -16,12 +16,11 @@ class ThemePageState extends State<ThemePage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        //backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         leading: GestureDetector(
           child: IconButton(
             icon: const Icon(
-              Icons.arrow_back_ios_new_sharp,
-              color: Colors.white,
+              Icons.arrow_back_ios_new_sharp
             ),
             onPressed: () {
               Future.delayed(

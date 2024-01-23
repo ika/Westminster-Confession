@@ -72,7 +72,8 @@ class BMMainState extends State<BMMain> {
                 ),
               ),
               title: const Text(
-                'Bookmarks',
+                'Bookmarks', style: TextStyle(fontWeight: FontWeight.w700)
+                
                 // style: TextStyle(
                 //   color: Colors.yellow,
                 // ),

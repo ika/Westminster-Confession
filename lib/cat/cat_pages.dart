@@ -55,9 +55,8 @@ class CatPagesState extends State<CatPages> {
               centerTitle: true,
               leading: GestureDetector(
                 child: IconButton(
-                  icon: Icon(
-                    Icons.arrow_back_ios_new_sharp,
-                    color: Theme.of(context).colorScheme.primary,
+                  icon: const Icon(
+                    Icons.arrow_back_ios_new_sharp
                   ),
                   onPressed: () {
                     Future.delayed(
@@ -71,6 +70,7 @@ class CatPagesState extends State<CatPages> {
               ),
               title: Text(
                 heading,
+                style: const TextStyle(fontWeight: FontWeight.w700)
                 // style: const TextStyle(
                 //   color: Colors.yellow,
                 // ),
@@ -78,8 +78,7 @@ class CatPagesState extends State<CatPages> {
               actions: [
                 IconButton(
                   icon: const Icon(
-                    Icons.bookmark_outline_sharp,
-                    color: Colors.white,
+                    Icons.bookmark_outline_sharp
                   ),
                   onPressed: () {
                     int pg = pageController.page!.toInt();

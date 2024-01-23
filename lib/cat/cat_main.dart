@@ -49,7 +49,7 @@ class CatMainState extends State<CatMain> {
                 ),
               ),
               title: const Text(
-                'Larger Catechism',
+                'Larger Catechism', style: TextStyle(fontWeight: FontWeight.w700)
                 // style: TextStyle(
                 //   color: Colors.yellow,
                 // ),
@@ -67,6 +67,7 @@ class CatMainState extends State<CatMain> {
                     //     horizontal: 20.0, vertical: 10.0),
                     title: Text(
                       chapters[index].chap!,
+                      style: Theme.of(context).textTheme.bodyLarge
                       // style: const TextStyle(
                       //     color: Colors.black, fontWeight: FontWeight.bold),
                     ),
@@ -79,6 +80,7 @@ class CatMainState extends State<CatMain> {
                             //strutStyle: const StrutStyle(fontSize: 12.0),
                             text: TextSpan(
                               text: " ${chapters[index].title!}",
+                              style: Theme.of(context).textTheme.bodyMedium
                               //style: const TextStyle(color: Colors.black),
                             ),
                           ),

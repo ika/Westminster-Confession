@@ -53,13 +53,13 @@ class WePlainPageState extends State<WePlainPage> {
 
           return Scaffold(
             appBar: AppBar(
+              centerTitle: true,
               // elevation: 0.1,
               // backgroundColor: const Color.fromRGBO(58, 66, 86, 1.0),
               leading: GestureDetector(
                 child: IconButton(
                   icon: const Icon(
-                    Icons.arrow_back_ios_new_sharp,
-                    color: Colors.white,
+                    Icons.arrow_back_ios_new_sharp
                   ),
                   onPressed: () {
                     Future.delayed(
@@ -72,7 +72,7 @@ class WePlainPageState extends State<WePlainPage> {
                 ),
               ),
               title: const Text(
-                'Westminster Confession',
+                'Westminster Confession', style: TextStyle(fontWeight: FontWeight.w700)
                 // style: TextStyle(
                 //   color: Colors.yellow,
                 // ),
@@ -80,8 +80,7 @@ class WePlainPageState extends State<WePlainPage> {
               actions: [
                 IconButton(
                   icon: const Icon(
-                    Icons.bookmark_outline_sharp,
-                    color: Colors.white,
+                    Icons.bookmark_outline_sharp
                   ),
                   onPressed: () {
                     int pg = pageController.page!.toInt();

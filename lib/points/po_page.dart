@@ -73,7 +73,6 @@ class PointsPageState extends State<PointsPage> {
               PageController(initialPage: chapters[args.index].id!);
 
           final html = Style(
-              backgroundColor: Colors.grey[200],
               padding: HtmlPaddings.all(15),
               fontSize: FontSize(Globals.initialTextSize));
 
@@ -82,7 +81,8 @@ class PointsPageState extends State<PointsPage> {
           final h4 = Style(fontSize: FontSize(Globals.initialTextSize));
           final a = Style(
               fontSize: FontSize(Globals.initialTextSize - 2),
-              textDecoration: TextDecoration.none);
+              textDecoration: TextDecoration.none
+              );
 
           final page0 = Html(
             data: chapters[0].text,
@@ -95,13 +95,13 @@ class PointsPageState extends State<PointsPage> {
           );
           return Scaffold(
             appBar: AppBar(
+              centerTitle: true,
               // elevation: 0.1,
               // backgroundColor: const Color.fromRGBO(58, 66, 86, 1.0),
               leading: GestureDetector(
                 child: IconButton(
                   icon: const Icon(
-                    Icons.arrow_back_ios_new_sharp,
-                    color: Colors.white,
+                    Icons.arrow_back_ios_new_sharp
                   ),
                   onPressed: () {
                     Future.delayed(
@@ -114,7 +114,7 @@ class PointsPageState extends State<PointsPage> {
                 ),
               ),
               title: Text(
-                heading,
+                heading, style: const TextStyle(fontWeight: FontWeight.w700)
                 // style: const TextStyle(
                 //   color: Colors.yellow,
                 // ),

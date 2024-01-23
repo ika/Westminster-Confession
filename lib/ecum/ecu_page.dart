@@ -56,6 +56,7 @@ class ECUPageState extends State<ECUPage> {
               
           return Scaffold(
             appBar: AppBar(
+              centerTitle: true,
               // elevation: 0.1,
               // backgroundColor: const Color.fromRGBO(58, 66, 86, 1.0),
               leading: GestureDetector(
@@ -72,7 +73,7 @@ class ECUPageState extends State<ECUPage> {
                 ),
               ),
               title: const Text(
-                'Ecumenical Creeds',
+                'Ecumenical Creeds', style: TextStyle(fontWeight: FontWeight.w700)
                 // style: TextStyle(
                 //   color: Colors.yellow,
                 // ),

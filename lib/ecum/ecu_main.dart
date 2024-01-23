@@ -44,7 +44,7 @@ class ECUMainstate extends State<ECUMain> {
                 ),
               ),
               title: const Text(
-                'Ecumenical Creeds',
+                'Ecumenical Creeds', style: TextStyle(fontWeight: FontWeight.w700)
                 // style: TextStyle(
                 // color: Colors.black,
                 // ),
@@ -60,18 +60,21 @@ class ECUMainstate extends State<ECUMain> {
                     //     horizontal: 20.0, vertical: 10.0),
                     title: Text(
                       chapters[index].chap!,
+                      style: Theme.of(context).textTheme.bodyLarge
                       //style: const TextStyle(
                       //    color: Colors.black, fontWeight: FontWeight.bold),
                     ),
                     subtitle: Row(
                       children: [
-                        const Icon(Icons.linear_scale),
+                          Icon(Icons.linear_scale,
+                              color: Theme.of(context).colorScheme.primary),
                         Flexible(
                           child: RichText(
                             overflow: TextOverflow.ellipsis,
                             //strutStyle: const StrutStyle(fontSize: 12.0),
                             text: TextSpan(
                                 text: " ${chapters[index].title}",
+                                style: Theme.of(context).textTheme.bodyMedium
                                 //style: const TextStyle(color: Colors.black),
                             ),
                           ),

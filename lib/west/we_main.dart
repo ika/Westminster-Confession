@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:share/share.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:westminster_confession/points/po_page.dart';
 import 'package:westminster_confession/pref/pref_page.dart';
-import 'package:westminster_confession/theme/theme.dart';
 import 'package:westminster_confession/utils/globals.dart';
 import 'package:westminster_confession/west/we_model.dart';
 import 'package:westminster_confession/west/we_plain.dart';
@@ -67,23 +66,25 @@ class WeMainState extends State<WeMain> {
           SizedBox(
             height: 200.0,
             child: DrawerHeader(
-              decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.inversePrimary),
+              decoration: const BoxDecoration(
+                  //color: Theme.of(context).colorScheme.inversePrimary
+                  ),
               child: Baseline(
                 baseline: 50,
                 baselineType: TextBaseline.alphabetic,
                 child: Text(
-                  'Index',
+                  'Index', 
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.primary,
                     fontSize: 32,
+                    fontWeight: FontWeight.w700
                   ),
                 ),
               ),
             ),
           ),
           ListTile(
-            leading: const Icon(Icons.keyboard_double_arrow_right),
+            leading: Icon(Icons.keyboard_double_arrow_right, color: Theme.of(context).colorScheme.primary,),
             title: Text(
               'Bookmarks',
               style: Theme.of(context).textTheme.bodyLarge,
@@ -124,7 +125,7 @@ class WeMainState extends State<WeMain> {
           //   onTap: () => {Navigator.of(context).pushNamed(('/ColorsPage'))},
           // ),
           ListTile(
-            leading: const Icon(Icons.keyboard_double_arrow_right),
+            leading: Icon(Icons.keyboard_double_arrow_right, color: Theme.of(context).colorScheme.primary,),
             title: Text(
               'Preface',
               style: Theme.of(context).textTheme.bodyLarge,
@@ -151,7 +152,7 @@ class WeMainState extends State<WeMain> {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.keyboard_double_arrow_right),
+            leading: Icon(Icons.keyboard_double_arrow_right, color: Theme.of(context).colorScheme.primary,),
             title: Text(
               'Five Points',
               style: Theme.of(context).textTheme.bodyLarge,
@@ -178,7 +179,7 @@ class WeMainState extends State<WeMain> {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.keyboard_double_arrow_right),
+            leading: Icon(Icons.keyboard_double_arrow_right, color: Theme.of(context).colorScheme.primary,),
             title: Text(
               'Ecumenical Creeds',
               style: Theme.of(context).textTheme.bodyLarge,
@@ -192,7 +193,7 @@ class WeMainState extends State<WeMain> {
             onTap: () => {Navigator.of(context).pushNamed(('/ECUMain'))},
           ),
           ListTile(
-            leading: const Icon(Icons.keyboard_double_arrow_right),
+            leading: Icon(Icons.keyboard_double_arrow_right, color: Theme.of(context).colorScheme.primary,),
             title: Text(
               'Larger Catechism',
               style: Theme.of(context).textTheme.bodyLarge,
@@ -206,7 +207,7 @@ class WeMainState extends State<WeMain> {
             onTap: () => {Navigator.of(context).pushNamed(('/CatMain'))},
           ),
           ListTile(
-            leading: const Icon(Icons.keyboard_double_arrow_right),
+            leading: Icon(Icons.keyboard_double_arrow_right, color: Theme.of(context).colorScheme.primary,),
             title: r == 0
                 ? Text(
                     'With Proofs',
@@ -248,7 +249,7 @@ class WeMainState extends State<WeMain> {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.keyboard_double_arrow_right),
+            leading: Icon(Icons.keyboard_double_arrow_right, color: Theme.of(context).colorScheme.primary,),
             title: Text(
               'Theme',
               style: Theme.of(context).textTheme.bodyLarge,
@@ -262,7 +263,7 @@ class WeMainState extends State<WeMain> {
             onTap: () => {Navigator.of(context).pushNamed(('/ThemePage'))},
           ),
           ListTile(
-            leading: const Icon(Icons.keyboard_double_arrow_right),
+            leading: Icon(Icons.keyboard_double_arrow_right, color: Theme.of(context).colorScheme.primary,),
             title: Text(
               'Share',
               style: Theme.of(context).textTheme.bodyLarge,
@@ -304,7 +305,7 @@ class WeMainState extends State<WeMain> {
                   },
                 ),
               ),
-              title: const Text('Westminster Confession'),
+              title: const Text('Westminster Confession',style: TextStyle(fontWeight: FontWeight.w700)),
             ),
             drawer: drawerCode(),
             body: Padding(
@@ -319,7 +320,8 @@ class WeMainState extends State<WeMain> {
                       ),
                       subtitle: Row(
                         children: [
-                          const Icon(Icons.linear_scale),
+                          Icon(Icons.linear_scale,
+                              color: Theme.of(context).colorScheme.primary),
                           Flexible(
                             child: RichText(
                               overflow: TextOverflow.ellipsis,
@@ -332,8 +334,8 @@ class WeMainState extends State<WeMain> {
                           )
                         ],
                       ),
-                      trailing: const Icon(Icons.keyboard_arrow_right,
-                          color: Colors.black, size: 20.0),
+                      trailing: Icon(Icons.keyboard_arrow_right,
+                          color: Theme.of(context).colorScheme.primary, size: 20.0),
                       onTap: () {
                         Future.delayed(
                           Duration(milliseconds: Globals.navigatorDelay),
