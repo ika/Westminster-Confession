@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:westminster_confession/bkmarks/bm_dialog.dart';
@@ -54,13 +56,12 @@ class WePlainPageState extends State<WePlainPage> {
           return Scaffold(
             appBar: AppBar(
               centerTitle: true,
+              backgroundColor: Theme.of(context).colorScheme.inversePrimary,
               // elevation: 0.1,
               // backgroundColor: const Color.fromRGBO(58, 66, 86, 1.0),
               leading: GestureDetector(
                 child: IconButton(
-                  icon: const Icon(
-                    Icons.arrow_back_ios_new_sharp
-                  ),
+                  icon: const Icon(Icons.arrow_back_ios_new_sharp),
                   onPressed: () {
                     Future.delayed(
                       Duration(milliseconds: Globals.navigatorDelay),
@@ -71,17 +72,15 @@ class WePlainPageState extends State<WePlainPage> {
                   },
                 ),
               ),
-              title: const Text(
-                'Westminster Confession', style: TextStyle(fontWeight: FontWeight.w700)
-                // style: TextStyle(
-                //   color: Colors.yellow,
-                // ),
-              ),
+              title: const Text('Westminster Confession',
+                  style: TextStyle(fontWeight: FontWeight.w700)
+                  // style: TextStyle(
+                  //   color: Colors.yellow,
+                  // ),
+                  ),
               actions: [
                 IconButton(
-                  icon: const Icon(
-                    Icons.bookmark_outline_sharp
-                  ),
+                  icon: const Icon(Icons.bookmark_outline_sharp),
                   onPressed: () {
                     int pg = pageController.page!.toInt();
 
@@ -96,26 +95,32 @@ class WePlainPageState extends State<WePlainPage> {
                 ),
               ],
             ),
-            body: PageView.builder(
-              itemCount: 33,
-              controller: pageController,
-              scrollDirection: Axis.horizontal,
-              pageSnapping: true,
-              itemBuilder: (BuildContext context, int index) {
-                return SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                    child: Html(
-                      data: chapters[index].text,
-                      style: {
-                        "html": html,
-                        "h2": h2,
-                        "h3": h3,
-                      },
+            body: ScrollConfiguration(
+              behavior: ScrollConfiguration.of(context).copyWith(dragDevices: {
+                PointerDeviceKind.touch,
+                PointerDeviceKind.mouse,
+              }),
+              child: PageView.builder(
+                itemCount: 33,
+                controller: pageController,
+                scrollDirection: Axis.horizontal,
+                pageSnapping: true,
+                itemBuilder: (BuildContext context, int index) {
+                  return SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                      child: Html(
+                        data: chapters[index].text,
+                        style: {
+                          "html": html,
+                          "h2": h2,
+                          "h3": h3,
+                        },
+                      ),
                     ),
-                  ),
-                );
-              },
+                  );
+                },
+              ),
             ),
           );
         } else {
@@ -125,7 +130,3 @@ class WePlainPageState extends State<WePlainPage> {
     );
   }
 }
-
-
-
-

@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_html_table/flutter_html_table.dart';
@@ -76,13 +78,12 @@ class WeProofsPageState extends State<WeProofsPage> {
           return Scaffold(
             appBar: AppBar(
               centerTitle: true,
+              backgroundColor: Theme.of(context).colorScheme.inversePrimary,
               // elevation: 0.1,
               // backgroundColor: const Color.fromRGBO(58, 66, 86, 1.0),
               leading: GestureDetector(
                 child: IconButton(
-                  icon: const Icon(
-                    Icons.arrow_back_ios_new_sharp
-                  ),
+                  icon: const Icon(Icons.arrow_back_ios_new_sharp),
                   onPressed: () {
                     Future.delayed(
                       Duration(milliseconds: Globals.navigatorDelay),
@@ -93,17 +94,15 @@ class WeProofsPageState extends State<WeProofsPage> {
                   },
                 ),
               ),
-              title: const Text(
-                'Westminster Confession', style: TextStyle(fontWeight: FontWeight.w700)
-                // style: TextStyle(
-                //   color: Colors.yellow,
-                // ),
-              ),
+              title: const Text('Westminster Confession',
+                  style: TextStyle(fontWeight: FontWeight.w700)
+                  // style: TextStyle(
+                  //   color: Colors.yellow,
+                  // ),
+                  ),
               actions: [
                 IconButton(
-                  icon: const Icon(
-                    Icons.bookmark_outline_sharp
-                  ),
+                  icon: const Icon(Icons.bookmark_outline_sharp),
                   onPressed: () {
                     int pg = pageController.page!.toInt();
 
@@ -118,73 +117,82 @@ class WeProofsPageState extends State<WeProofsPage> {
                 ),
               ],
             ),
-            body: PageView.builder(
-              itemCount: 33,
-              controller: pageController,
-              scrollDirection: Axis.horizontal,
-              pageSnapping: true,
-              itemBuilder: (BuildContext context, int index) {
-                return SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                    child: Html(
-                      data: chapters[index].text,
-                      extensions: const [
-                        TableHtmlExtension(),
-                      ],
-                      style: {
-                        "html": Style(
-                          padding: HtmlPaddings.all(15),
-                          fontSize: FontSize(primaryTextSize!),
-                        ),
-                        "h2": Style(
-                          fontSize: FontSize(primaryTextSize! + 2),
-                        ),
-                        "h3": Style(
-                          fontSize: FontSize(primaryTextSize!),
-                        ),
-                        "sup": Style(
-                          verticalAlign: VerticalAlign.sup,
-                          fontSize: FontSize(primaryTextSize! - 4),
-                          color: Colors.red,
-                        ),
-                        "a": Style(
-                          fontSize: FontSize(14.0),
-                          textDecoration: TextDecoration.none,
-                        ),
-                        "table": Style(
-                          border: Border.all(color: Colors.blueGrey),
-                          padding: HtmlPaddings.all(5),
-                          margin: Margins.only(bottom: 10),
-                          backgroundColor: Colors.blueGrey[50],
-                          //const Color.fromARGB(0x50, 0xee, 0xee, 0xee),
-                          //width: Width(20, Unit.percent)
-                        ),
-                        "tr": Style(
-                          border: const Border(
-                              bottom: BorderSide(color: Colors.black54)),
-                        ),
-                        "th": Style(
-                          color: Colors.blueGrey,
-                          padding: HtmlPaddings.all(4),
-                          alignment: Alignment.topLeft,
-                          width: Width(50, Unit.percent),
-                          backgroundColor: Colors.blueGrey[100],
-                        ),
-                        "td": Style(
-                          padding: HtmlPaddings.all(8),
-                          alignment: Alignment.center,
-                        ),
-                      },
-                      onLinkTap: (url, _, __) {
-                        getVerseByReference(url!).then((value) {
-                          showVerseDialog(context, value);
-                        });
-                      },
+            body: ScrollConfiguration(
+              behavior: ScrollConfiguration.of(context).copyWith(dragDevices: {
+                PointerDeviceKind.touch,
+                PointerDeviceKind.mouse,
+              }),
+              child: PageView.builder(
+                itemCount: 33,
+                controller: pageController,
+                scrollDirection: Axis.horizontal,
+                pageSnapping: true,
+                itemBuilder: (BuildContext context, int index) {
+                  return SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                      child: Html(
+                        data: chapters[index].text,
+                        extensions: const [
+                          TableHtmlExtension(),
+                        ],
+                        style: {
+                          "html": Style(
+                            padding: HtmlPaddings.all(15),
+                            fontSize: FontSize(primaryTextSize!),
+                          ),
+                          "h2": Style(
+                            fontSize: FontSize(primaryTextSize! + 2),
+                          ),
+                          "h3": Style(
+                            fontSize: FontSize(primaryTextSize!),
+                          ),
+                          "sup": Style(
+                            verticalAlign: VerticalAlign.sup,
+                            fontSize: FontSize(primaryTextSize! - 4),
+                            color: Theme.of(context).colorScheme.error,
+                          ),
+                          "a": Style(
+                              fontSize: FontSize(14.0),
+                              textDecoration: TextDecoration.none,
+                              color: Theme.of(context).colorScheme.primary),
+                          "table": Style(
+                            border: Border.all(color: Colors.blueGrey),
+                            padding: HtmlPaddings.all(5),
+                            margin: Margins.only(bottom: 10),
+                            backgroundColor:
+                                Theme.of(context).colorScheme.inversePrimary,
+                            //const Color.fromARGB(0x50, 0xee, 0xee, 0xee),
+                            //width: Width(20, Unit.percent)
+                          ),
+                          "tr": Style(
+                            border: Border(
+                                bottom: BorderSide(
+                                    color:
+                                        Theme.of(context).colorScheme.primary)),
+                          ),
+                          "th": Style(
+                            color: Theme.of(context).colorScheme.primary,
+                            padding: HtmlPaddings.all(4),
+                            alignment: Alignment.topLeft,
+                            width: Width(50, Unit.percent),
+                            backgroundColor: Theme.of(context).colorScheme.errorContainer,
+                          ),
+                          "td": Style(
+                            padding: HtmlPaddings.all(8),
+                            alignment: Alignment.center,
+                          ),
+                        },
+                        onLinkTap: (url, _, __) {
+                          getVerseByReference(url!).then((value) {
+                            showVerseDialog(context, value);
+                          });
+                        },
+                      ),
                     ),
-                  ),
-                );
-              },
+                  );
+                },
+              ),
             ),
           );
         } else {

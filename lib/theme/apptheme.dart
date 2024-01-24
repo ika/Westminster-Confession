@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 ThemeData lightTheme = ThemeData(
-  useMaterial3: false,
+  useMaterial3: true,
   colorScheme: lightColorScheme,
   fontFamily: 'Raleway',
 );
 
 ThemeData darkTheme = ThemeData(
-  useMaterial3: false,
+  useMaterial3: true,
   colorScheme: darkColorScheme,
   fontFamily: 'Raleway',
 );

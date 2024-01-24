@@ -1,5 +1,6 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:share_plus/share_plus.dart';
+import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:westminster_confession/points/po_page.dart';
 import 'package:westminster_confession/pref/pref_page.dart';
@@ -52,8 +53,10 @@ class WeMainState extends State<WeMain> {
   }
 
   onShareLink() async {
-    await Share.share(
-        'The Westminster Confession https://play.google.com/store/apps/details?id=org.armstrong.ika.westminster_confession');
+    //String subject = 'Westminster Confession';
+    String uri =
+        'https://play.google.com/store/apps/details?id=org.armstrong.ika.westminster_confession';
+    await Share.share(uri);
   }
 
   drawerCode() {
@@ -73,18 +76,20 @@ class WeMainState extends State<WeMain> {
                 baseline: 50,
                 baselineType: TextBaseline.alphabetic,
                 child: Text(
-                  'Index', 
+                  'Index',
                   style: TextStyle(
-                    color: Theme.of(context).colorScheme.primary,
-                    fontSize: 32,
-                    fontWeight: FontWeight.w700
-                  ),
+                      color: Theme.of(context).colorScheme.primary,
+                      fontSize: 32,
+                      fontWeight: FontWeight.w700),
                 ),
               ),
             ),
           ),
           ListTile(
-            leading: Icon(Icons.keyboard_double_arrow_right, color: Theme.of(context).colorScheme.primary,),
+            leading: Icon(
+              Icons.keyboard_double_arrow_right,
+              color: Theme.of(context).colorScheme.primary,
+            ),
             title: Text(
               'Bookmarks',
               style: Theme.of(context).textTheme.bodyLarge,
@@ -125,7 +130,10 @@ class WeMainState extends State<WeMain> {
           //   onTap: () => {Navigator.of(context).pushNamed(('/ColorsPage'))},
           // ),
           ListTile(
-            leading: Icon(Icons.keyboard_double_arrow_right, color: Theme.of(context).colorScheme.primary,),
+            leading: Icon(
+              Icons.keyboard_double_arrow_right,
+              color: Theme.of(context).colorScheme.primary,
+            ),
             title: Text(
               'Preface',
               style: Theme.of(context).textTheme.bodyLarge,
@@ -152,7 +160,10 @@ class WeMainState extends State<WeMain> {
             },
           ),
           ListTile(
-            leading: Icon(Icons.keyboard_double_arrow_right, color: Theme.of(context).colorScheme.primary,),
+            leading: Icon(
+              Icons.keyboard_double_arrow_right,
+              color: Theme.of(context).colorScheme.primary,
+            ),
             title: Text(
               'Five Points',
               style: Theme.of(context).textTheme.bodyLarge,
@@ -179,7 +190,10 @@ class WeMainState extends State<WeMain> {
             },
           ),
           ListTile(
-            leading: Icon(Icons.keyboard_double_arrow_right, color: Theme.of(context).colorScheme.primary,),
+            leading: Icon(
+              Icons.keyboard_double_arrow_right,
+              color: Theme.of(context).colorScheme.primary,
+            ),
             title: Text(
               'Ecumenical Creeds',
               style: Theme.of(context).textTheme.bodyLarge,
@@ -193,7 +207,10 @@ class WeMainState extends State<WeMain> {
             onTap: () => {Navigator.of(context).pushNamed(('/ECUMain'))},
           ),
           ListTile(
-            leading: Icon(Icons.keyboard_double_arrow_right, color: Theme.of(context).colorScheme.primary,),
+            leading: Icon(
+              Icons.keyboard_double_arrow_right,
+              color: Theme.of(context).colorScheme.primary,
+            ),
             title: Text(
               'Larger Catechism',
               style: Theme.of(context).textTheme.bodyLarge,
@@ -207,7 +224,10 @@ class WeMainState extends State<WeMain> {
             onTap: () => {Navigator.of(context).pushNamed(('/CatMain'))},
           ),
           ListTile(
-            leading: Icon(Icons.keyboard_double_arrow_right, color: Theme.of(context).colorScheme.primary,),
+            leading: Icon(
+              Icons.keyboard_double_arrow_right,
+              color: Theme.of(context).colorScheme.primary,
+            ),
             title: r == 0
                 ? Text(
                     'With Proofs',
@@ -249,7 +269,10 @@ class WeMainState extends State<WeMain> {
             },
           ),
           ListTile(
-            leading: Icon(Icons.keyboard_double_arrow_right, color: Theme.of(context).colorScheme.primary,),
+            leading: Icon(
+              Icons.keyboard_double_arrow_right,
+              color: Theme.of(context).colorScheme.primary,
+            ),
             title: Text(
               'Theme',
               style: Theme.of(context).textTheme.bodyLarge,
@@ -262,20 +285,25 @@ class WeMainState extends State<WeMain> {
             dense: true,
             onTap: () => {Navigator.of(context).pushNamed(('/ThemePage'))},
           ),
-          ListTile(
-            leading: Icon(Icons.keyboard_double_arrow_right, color: Theme.of(context).colorScheme.primary,),
-            title: Text(
-              'Share',
-              style: Theme.of(context).textTheme.bodyLarge,
-              // style: TextStyle(
-              //   color: Colors.black87,
-              //   fontFamily: 'Raleway-Regular',
-              //   fontSize: 16,
-              // ),
-            ),
-            dense: true,
-            onTap: () => {Navigator.pop(context), onShareLink()},
-          ),
+          (Platform.isAndroid)
+              ? ListTile(
+                  leading: Icon(
+                    Icons.keyboard_double_arrow_right,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                  title: Text(
+                    'Share',
+                    style: Theme.of(context).textTheme.bodyLarge,
+                    // style: TextStyle(
+                    //   color: Colors.black87,
+                    //   fontFamily: 'Raleway-Regular',
+                    //   fontSize: 16,
+                    // ),
+                  ),
+                  dense: true,
+                  onTap: () => {Navigator.pop(context), onShareLink()},
+                )
+              : Container()
         ],
       ),
     );
@@ -292,6 +320,7 @@ class WeMainState extends State<WeMain> {
             key: scaffoldKey,
             appBar: AppBar(
               centerTitle: true,
+              backgroundColor: Theme.of(context).colorScheme.inversePrimary,
               leading: GestureDetector(
                 child: IconButton(
                   icon: const Icon(Icons.menu),
@@ -305,7 +334,8 @@ class WeMainState extends State<WeMain> {
                   },
                 ),
               ),
-              title: const Text('Westminster Confession',style: TextStyle(fontWeight: FontWeight.w700)),
+              title: const Text('Westminster Confession',
+                  style: TextStyle(fontWeight: FontWeight.w700)),
             ),
             drawer: drawerCode(),
             body: Padding(
@@ -315,8 +345,9 @@ class WeMainState extends State<WeMain> {
                   itemCount: chapters.length,
                   itemBuilder: (BuildContext context, int index) {
                     return ListTile(
-                      title: Text(chapters[index].chap!,
-                      style: Theme.of(context).textTheme.bodyLarge,
+                      title: Text(
+                        chapters[index].chap!,
+                        style: Theme.of(context).textTheme.bodyLarge,
                       ),
                       subtitle: Row(
                         children: [
@@ -335,7 +366,8 @@ class WeMainState extends State<WeMain> {
                         ],
                       ),
                       trailing: Icon(Icons.keyboard_arrow_right,
-                          color: Theme.of(context).colorScheme.primary, size: 20.0),
+                          color: Theme.of(context).colorScheme.primary,
+                          size: 20.0),
                       onTap: () {
                         Future.delayed(
                           Duration(milliseconds: Globals.navigatorDelay),
