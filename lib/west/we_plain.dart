@@ -56,7 +56,8 @@ class WePlainPageState extends State<WePlainPage> {
           return Scaffold(
             appBar: AppBar(
               centerTitle: true,
-              backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+              elevation: 5,
+              //backgroundColor: Theme.of(context).colorScheme.inversePrimary,
               // elevation: 0.1,
               // backgroundColor: const Color.fromRGBO(58, 66, 86, 1.0),
               leading: GestureDetector(

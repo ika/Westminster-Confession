@@ -55,7 +55,8 @@ class PrefPageState extends State<PrefPage> {
           return Scaffold(
             appBar: AppBar(
               centerTitle: true,
-              backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+              elevation: 5,
+              //backgroundColor: Theme.of(context).colorScheme.inversePrimary,
               leading: GestureDetector(
                 child: IconButton(
                   icon: const Icon(

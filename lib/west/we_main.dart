@@ -320,7 +320,8 @@ class WeMainState extends State<WeMain> {
             key: scaffoldKey,
             appBar: AppBar(
               centerTitle: true,
-              backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+              elevation: 5,
+              //backgroundColor: Theme.of(context).colorScheme.inversePrimary,
               leading: GestureDetector(
                 child: IconButton(
                   icon: const Icon(Icons.menu),

@@ -33,7 +33,8 @@ class CatMainState extends State<CatMain> {
           return Scaffold(
             appBar: AppBar(
               centerTitle: true,
-              backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+              //backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+              elevation: 5,
               leading: GestureDetector(
                 child: IconButton(
                   icon: const Icon(
