@@ -1,73 +1,125 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:sqflite_common_ffi/sqflite_ffi.dart';
-import 'package:westminster_confession/bkmarks/bm_main.dart';
-import 'package:westminster_confession/bloc/bloc_theme.dart';
-import 'package:westminster_confession/cat/cat_main.dart';
-import 'package:westminster_confession/cat/cat_pages.dart';
-import 'package:westminster_confession/ecum/ecu_main.dart';
-import 'package:westminster_confession/ecum/ecu_page.dart';
-import 'package:westminster_confession/points/po_page.dart';
-import 'package:westminster_confession/pref/pref_page.dart';
-import 'package:westminster_confession/theme/apptheme.dart';
-import 'package:westminster_confession/theme/theme.dart';
-import 'package:westminster_confession/west/we_main.dart';
-import 'package:westminster_confession/west/we_plain.dart';
-import 'package:westminster_confession/west/we_proofs.dart';
+import 'package:westminster_confession/main/proofs.dart';
+import 'package:westminster_confession/utils/globals.dart';
+import 'package:westminster_confession/utils/utils.dart';
 
-Future<void> main() async {
-
-  WidgetsFlutterBinding.ensureInitialized();
-
-  if (Platform.isWindows || Platform.isLinux) {
-    sqfliteFfiInit();
-    databaseFactory = databaseFactoryFfi;
-  }
-
-  HydratedBloc.storage = await HydratedStorage.build(
-    storageDirectory: await getApplicationDocumentsDirectory(),
-  );
-
-  runApp(const WestMinsterConfession());
+void main() {
+  runApp(const MyApp());
 }
 
-class WestMinsterConfession extends StatelessWidget {
-  const WestMinsterConfession({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<ThemeBloc>(create: (context) => ThemeBloc()),
-      ],
-      child: BlocBuilder<ThemeBloc, bool>(
-        builder: (context, state) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: 'Westminster Confession',
-            theme: lightTheme,
-            darkTheme: darkTheme,
-            themeMode: state ? ThemeMode.light : ThemeMode.dark,
-            initialRoute: '/WeMain',
-            routes: {
-              '/WeMain': (context) => const WeMain(),
-              '/WePlainPage': (context) => const WePlainPage(),
-              '/WeProofsPage': (context) => const WeProofsPage(),
-              '/BMMain': (context) => const BMMain(),
-              '/PrefPage': (context) => const PrefPage(),
-              '/PointsPage': (context) => const PointsPage(),
-              '/ECUMain': (context) => const ECUMain(),
-              '/ECUPage': (context) => const ECUPage(),
-              '/CatMain': (context) => const CatMain(),
-              '/ThemePage': (context) => const ThemePage(),
-              '/CatPages': (context) => const CatPages()
-            },
-          );
-        },
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
       ),
+      home: const MyHomePage(title: 'Index'),
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key, required this.title});
+
+  final String title;
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  List<String> westindex = [];
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<List<String>>(
+      future: Utils().getTitleList(),
+      builder: (context, AsyncSnapshot<List<String>> snapshot) {
+        if (snapshot.hasData) {
+          westindex = snapshot.data!;
+          return Scaffold(
+            appBar: AppBar(
+              centerTitle: true,
+              elevation: 5,
+              leading: GestureDetector(
+                child: IconButton(
+                  icon: const Icon(Icons.menu),
+                  onPressed: () {
+                    Future.delayed(
+                      Duration(milliseconds: Globals.navigatorDelay),
+                      () {
+                        //scaffoldKey.currentState!.openDrawer();
+                      },
+                    );
+                  },
+                ),
+              ),
+              title: Text(
+                widget.title,
+                style: const TextStyle(fontWeight: FontWeight.w700),
+              ),
+            ),
+            body: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Center(
+                child: ListView.separated(
+                  itemCount: westindex.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    int num = index + 1;
+                    return ListTile(
+                      title: Text(
+                        "Chapter $num:",
+                        style: Theme.of(context).textTheme.bodyLarge,
+                      ),
+                      subtitle: Row(
+                        children: [
+                          Icon(Icons.linear_scale,
+                              color: Theme.of(context).colorScheme.primary),
+                          Flexible(
+                            child: RichText(
+                              overflow: TextOverflow.ellipsis,
+                              text: TextSpan(
+                                text: " ${westindex[index]}",
+                                style: Theme.of(context).textTheme.bodyMedium,
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                      trailing: Icon(Icons.keyboard_arrow_right,
+                          color: Theme.of(context).colorScheme.primary,
+                          size: 20.0),
+                      onTap: () {
+                        Future.delayed(
+                          Duration(milliseconds: Globals.navigatorDelay),
+                          () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const ProofsPage(),
+                              ),
+                            );
+                          },
+                        );
+                      },
+                    );
+                  },
+                  separatorBuilder: (BuildContext context, int index) {
+                    return const Divider();
+                  },
+                ),
+              ),
+            ),
+          );
+        } else {
+          return const CircularProgressIndicator();
+        }
+      },
     );
   }
 }

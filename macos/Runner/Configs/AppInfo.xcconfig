@@ -11,4 +11,4 @@ PRODUCT_NAME = westminster_confession
 PRODUCT_BUNDLE_IDENTIFIER = org.armstrong.ika.westminsterConfession
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2023 org.armstrong.ika. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2024 org.armstrong.ika. All rights reserved.

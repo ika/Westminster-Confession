@@ -93,7 +93,7 @@ BEGIN
             VALUE "FileDescription", "westminster_confession" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
             VALUE "InternalName", "westminster_confession" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2023 org.armstrong.ika. All rights reserved." "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2024 org.armstrong.ika. All rights reserved." "\0"
             VALUE "OriginalFilename", "westminster_confession.exe" "\0"
             VALUE "ProductName", "westminster_confession" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
