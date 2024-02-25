@@ -22,6 +22,7 @@ class _ProofsPageState extends State<ProofsPage> {
       builder: (context, AsyncSnapshot<List<Wesminster>> snapshot) {
         if (snapshot.hasData) {
           chapters = snapshot.data!;
+          PageController pageController = PageController(initialPage: 1);
           return Scaffold(
             appBar: AppBar(
               centerTitle: true,
@@ -34,36 +35,32 @@ class _ProofsPageState extends State<ProofsPage> {
             body: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Center(
-                child: ListView.builder(
-                  itemCount: chapters.length,
+                child: PageView.builder(
+                  itemCount: 33,
+                  controller: pageController,
+                  scrollDirection: Axis.horizontal,
+                  pageSnapping: true,
                   itemBuilder: (BuildContext context, int index) {
-                    
-                    bool plain = false;
+                    // bool plain = false;
 
-                    String result = (plain == true)
-                        ? "${chapters[index].t}".replaceAll(RegExp(r'#\d+'), '')
-                        : "${chapters[index].t}";
+                    // String result = (plain == true)
+                    //     ? "${chapters[index].t}".replaceAll(RegExp(r'#\d+'), '')
+                    //     : "${chapters[index].t}";
 
-                    // RegExp regExp = RegExp(r'\d+');
-                    // Iterable allMatches =
-                    //     regExp.allMatches("${chapters[index].t}");
-                    // for (RegExpMatch match in allMatches) {
-                    //   debugPrint("${match[0]}");
-                    // }
-
-                    //String result = "${chapters[index].t}";
-                    // return ListTile(
-                    //   title: Text("${chapters[index].t}"),
-                    // );
-                    return ListTile(
-                      title: LinkifyText(
-                        result,
-                        linkStyle: const TextStyle(color: Colors.red),
-                        linkTypes: const [LinkType.hashTag],
-                        onTap: (link) {
-                          debugPrint(link.value!.toString());
-                        },
-                      ),
+                    return ListView.builder(
+                      itemBuilder: (BuildContext context, int index) {
+                        
+                        return ListTile(
+                          title: LinkifyText(
+                            "${chapters[index].t}",
+                            linkStyle: const TextStyle(color: Colors.red),
+                            linkTypes: const [LinkType.hashTag],
+                            onTap: (link) {
+                              debugPrint(link.value!.toString());
+                            },
+                          ),
+                        );
+                      },
                     );
                   },
                 ),

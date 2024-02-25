@@ -8,7 +8,7 @@ import 'package:westminster_confession/utils/const.dart';
 
 class WeProvider {
 
-  final int newDbVerson = 2;
+  final int newDbVerson = 3;
   final String _dbName = Constants.proofsDatabase;
 
   WeProvider.internal();

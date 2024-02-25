@@ -12,13 +12,14 @@ final String _tableName = Constants.proofsTable;
     final db = await WeProvider().database;
 
     final List<Map<String, dynamic>> maps =
-        await db.rawQuery("SELECT * FROM $_tableName");
+        await db.rawQuery("SELECT * FROM $_tableName WHERE c = 1");
 
     List<Wesminster> list = maps.isNotEmpty
         ? List.generate(
             maps.length,
             (i) {
               return Wesminster(
+                id: maps[i]['rowid'],
                 c: maps[i]['c'],
                 v: maps[i]['v'],
                 t: maps[i]['t'],
