@@ -34,36 +34,63 @@ class _ProofsPageState extends State<ProofsPage> {
             ),
             body: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Center(
-                child: PageView.builder(
-                  itemCount: 33,
-                  controller: pageController,
-                  scrollDirection: Axis.horizontal,
-                  pageSnapping: true,
-                  itemBuilder: (BuildContext context, int index) {
-                    // bool plain = false;
-
-                    // String result = (plain == true)
-                    //     ? "${chapters[index].t}".replaceAll(RegExp(r'#\d+'), '')
-                    //     : "${chapters[index].t}";
-
-                    return ListView.builder(
+              child: Column(
+                children: [
+                  Expanded(
+                    child: PageView.builder(
+                      itemCount: 33,
+                      controller: pageController,
+                      scrollDirection: Axis.horizontal,
+                      pageSnapping: true,
                       itemBuilder: (BuildContext context, int index) {
-                        
-                        return ListTile(
-                          title: LinkifyText(
-                            "${chapters[index].t}",
-                            linkStyle: const TextStyle(color: Colors.red),
-                            linkTypes: const [LinkType.hashTag],
-                            onTap: (link) {
-                              debugPrint(link.value!.toString());
-                            },
-                          ),
+                        return ListView.builder(
+                          itemCount: chapters[index].v!,
+                          itemBuilder: (BuildContext context, int index) {
+                            return ListTile(
+                              title: LinkifyText(
+                                "${chapters[index].t}",
+                                linkStyle: const TextStyle(color: Colors.red),
+                                linkTypes: const [LinkType.hashTag],
+                                onTap: (link) {
+                                  debugPrint(link.value!.toString());
+                                },
+                              ),
+                            );
+                          },
                         );
                       },
-                    );
-                  },
-                ),
+                    ),
+                  )
+                ],
+                // child: PageView.builder(
+                //   itemCount: 33,
+                //   controller: pageController,
+                //   scrollDirection: Axis.horizontal,
+                //   pageSnapping: true,
+                //   itemBuilder: (BuildContext context, int index) {
+                //     // bool plain = false;
+
+                //     // String result = (plain == true)
+                //     //     ? "${chapters[index].t}".replaceAll(RegExp(r'#\d+'), '')
+                //     //     : "${chapters[index].t}";
+
+                //     return ListView.builder(
+                //       itemBuilder: (BuildContext context, int index) {
+
+                //         return ListTile(
+                //           title: LinkifyText(
+                //             "${chapters[index].t}",
+                //             linkStyle: const TextStyle(color: Colors.red),
+                //             linkTypes: const [LinkType.hashTag],
+                //             onTap: (link) {
+                //               debugPrint(link.value!.toString());
+                //             },
+                //           ),
+                //         );
+                //       },
+                //     );
+                //   },
+                // ),
               ),
             ),
           );
