@@ -1,18 +1,15 @@
-
-
 import 'package:westminster_confession/main/model.dart';
 import 'package:westminster_confession/main/provider.dart';
 import 'package:westminster_confession/utils/const.dart';
 
 class WeQueries {
+  final String _tableName = Constants.proofsTable;
 
-final String _tableName = Constants.proofsTable;
-
-  Future<List<Wesminster>> getChapters() async {
+  Future<List<Wesminster>> getChapter(int chap) async {
     final db = await WeProvider().database;
 
     final List<Map<String, dynamic>> maps =
-        await db.rawQuery("SELECT * FROM $_tableName WHERE c = 1");
+        await db.rawQuery('''SELECT * FROM $_tableName WHERE c=?''', [chap]);
 
     List<Wesminster> list = maps.isNotEmpty
         ? List.generate(
@@ -30,6 +27,4 @@ final String _tableName = Constants.proofsTable;
 
     return list;
   }
-
-
 }
