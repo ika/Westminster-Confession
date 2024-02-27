@@ -71,33 +71,34 @@ class _ProofsPageState extends State<ProofsPage> {
                 future: WeQueries().getChapter(index + 1),
                 initialData: const [],
                 builder: (context, snapshot) {
-                  return snapshot.hasData
-                      ? ListView.builder(
-                          itemCount: snapshot.data!.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            final chapter = snapshot.data![index];
-                            if (refsAreOn) {
-                              return ListTile(
-                                title: LinkifyText(
-                                  "${chapter.t}",
-                                  linkStyle: const TextStyle(color: Colors.red),
-                                  linkTypes: const [LinkType.hashTag],
-                                  onTap: (link) {
-                                    debugPrint(link.value!.toString());
-                                  },
-                                ),
-                              );
-                            } else {
-                              String result = "${chapter.t}".replaceAll(RegExp(r"#\d+"), "");
-                              return ListTile(
-                                title: Text(result),
-                              );
-                            }
-                          },
-                        )
-                      : const Center(
-                          child: CircularProgressIndicator(),
-                        );
+                  if (snapshot.hasData) {
+                    return ListView.builder(
+                      itemCount: snapshot.data!.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final chapter = snapshot.data![index];
+                        if (refsAreOn) {
+                          return ListTile(
+                            title: LinkifyText(
+                              "${chapter.t}",
+                              linkStyle: const TextStyle(color: Colors.red),
+                              linkTypes: const [LinkType.hashTag],
+                              onTap: (link) {
+                                debugPrint(link.value!.toString());
+                              },
+                            ),
+                          );
+                        } else {
+                          String result =
+                              "${chapter.t}".replaceAll(RegExp(r"#\d+"), "");
+                          return ListTile(
+                            title: Text(result),
+                          );
+                        }
+                      },
+                    );
+                  } else {
+                    return const CircularProgressIndicator();
+                  }
                 },
               ),
             );
