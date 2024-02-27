@@ -1,6 +1,7 @@
 import 'package:westminster_confession/main/model.dart';
 import 'package:westminster_confession/main/provider.dart';
 import 'package:westminster_confession/utils/const.dart';
+import 'package:westminster_confession/utils/utils.dart';
 
 class WeQueries {
   final String _tableName = Constants.proofsTable;
@@ -24,6 +25,15 @@ class WeQueries {
             },
           )
         : [];
+
+    final model = Wesminster(
+      id: 0,
+      c: 0,
+      v: 0,
+      t: "Chapter $chap:\n${westindex[chap -1]}",
+    );
+
+    list.insert(0, model);
 
     return list;
   }

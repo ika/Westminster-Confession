@@ -4,11 +4,9 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:westminster_confession/utils/const.dart';
 
-
-
 class WeProvider {
 
-  final int newDbVerson = 3;
+  final int newDbVerson = 4;
   final String _dbName = Constants.proofsDatabase;
 
   WeProvider.internal();

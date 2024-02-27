@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:westminster_confession/bloc/bloc_refs.dart';
 import 'package:westminster_confession/main/model.dart';
 import 'package:westminster_confession/main/queries.dart';
 import 'package:linkfy_text/linkfy_text.dart';
 import 'package:westminster_confession/utils/globals.dart';
+
+late bool refsAreOn;
 
 class ProofsPage extends StatefulWidget {
   const ProofsPage({super.key, required this.page});
@@ -17,6 +21,7 @@ class _ProofsPageState extends State<ProofsPage> {
   @override
   void initState() {
     super.initState();
+    refsAreOn = context.read<RefsBloc>().state;
   }
 
   @override
@@ -29,6 +34,17 @@ class _ProofsPageState extends State<ProofsPage> {
         appBar: AppBar(
           centerTitle: true,
           elevation: 5,
+          actions: [
+            Switch(
+              value: refsAreOn,
+              onChanged: (bool value) {
+                context.read<RefsBloc>().add(ChangeRefs(value));
+                setState(() {
+                  refsAreOn = value;
+                });
+              },
+            ),
+          ],
           title: const Text(
             'Westminster',
             style: TextStyle(fontWeight: FontWeight.w700),
@@ -60,16 +76,23 @@ class _ProofsPageState extends State<ProofsPage> {
                           itemCount: snapshot.data!.length,
                           itemBuilder: (BuildContext context, int index) {
                             final chapter = snapshot.data![index];
-                            return ListTile(
-                              title: LinkifyText(
-                                "${chapter.t}",
-                                linkStyle: const TextStyle(color: Colors.red),
-                                linkTypes: const [LinkType.hashTag],
-                                onTap: (link) {
-                                  debugPrint(link.value!.toString());
-                                },
-                              ),
-                            );
+                            if (refsAreOn) {
+                              return ListTile(
+                                title: LinkifyText(
+                                  "${chapter.t}",
+                                  linkStyle: const TextStyle(color: Colors.red),
+                                  linkTypes: const [LinkType.hashTag],
+                                  onTap: (link) {
+                                    debugPrint(link.value!.toString());
+                                  },
+                                ),
+                              );
+                            } else {
+                              String result = "${chapter.t}".replaceAll(RegExp(r"#\d+"), "");
+                              return ListTile(
+                                title: Text(result),
+                              );
+                            }
                           },
                         )
                       : const Center(
