@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:path/path.dart';
 import 'package:westminster_confession/bloc/bloc_refs.dart';
 import 'package:westminster_confession/main/model.dart';
 import 'package:westminster_confession/main/queries.dart';
 import 'package:linkfy_text/linkfy_text.dart';
+import 'package:westminster_confession/refs/getref.dart';
+import 'package:westminster_confession/refs/queries.dart';
 import 'package:westminster_confession/utils/globals.dart';
 
 late bool refsAreOn;
@@ -18,14 +21,14 @@ class ProofsPage extends StatefulWidget {
 }
 
 class _ProofsPageState extends State<ProofsPage> {
-  @override
-  void initState() {
-    super.initState();
-    refsAreOn = context.read<RefsBloc>().state;
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
+    refsAreOn = context.read<RefsBloc>().state;
     final PageController pageController =
         PageController(initialPage: widget.page);
     return PopScope(
@@ -83,7 +86,24 @@ class _ProofsPageState extends State<ProofsPage> {
                               linkStyle: const TextStyle(color: Colors.red),
                               linkTypes: const [LinkType.hashTag],
                               onTap: (link) {
-                                debugPrint(link.value!.toString());
+                                int lnk = int.parse(
+                                    link.value!.toString().replaceAll('#', ''));
+
+                                ReQueries().getRef(lnk).then((value) {
+                                  String n = value.elementAt(0).n.toString();
+                                  String t = value.elementAt(0).t.toString();
+
+                                  // remove number from the text
+                                  int p = t.indexOf(' ');
+                                  t = t.substring(p).trim();
+
+                                  Map<String, String> data = {
+                                    'header': n,
+                                    'contents': t
+                                  };
+                                  
+                                  GetRef().refDialog(context, data);
+                                });
                               },
                             ),
                           );
