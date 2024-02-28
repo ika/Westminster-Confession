@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class GetRef {
-
   Future<dynamic> refDialog(BuildContext context, data) {
     return showDialog(
       context: context,
