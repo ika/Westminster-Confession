@@ -3,7 +3,6 @@ import 'package:westminster_confession/main/proofs.dart';
 import 'package:westminster_confession/utils/globals.dart';
 import 'package:westminster_confession/utils/utils.dart';
 
-
 class IndexPage extends StatefulWidget {
   const IndexPage({super.key, required this.title});
 
@@ -15,6 +14,55 @@ class IndexPage extends StatefulWidget {
 
 class _IndexPageState extends State<IndexPage> {
   List<String> westindex = [];
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  drawerCode() {
+    return Drawer(
+      //backgroundColor: Theme.of(context).drawerTheme.backgroundColor,
+      child: ListView(
+        // Important: Remove any padding from the ListView.
+        padding: EdgeInsets.zero,
+        children: [
+          SizedBox(
+            height: 200.0,
+            child: DrawerHeader(
+              decoration: const BoxDecoration(
+                  //color: Theme.of(context).colorScheme.inversePrimary
+                  ),
+              child: Baseline(
+                baseline: 50,
+                baselineType: TextBaseline.alphabetic,
+                child: Text(
+                  'Index',
+                  style: TextStyle(
+                      color: Theme.of(context).colorScheme.primary,
+                      fontSize: 32,
+                      fontWeight: FontWeight.w700),
+                ),
+              ),
+            ),
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.keyboard_double_arrow_right,
+              color: Theme.of(context).colorScheme.primary,
+            ),
+            title: Text(
+              'Bookmarks',
+              style: Theme.of(context).textTheme.bodyLarge,
+              // style: TextStyle(
+              //   color: Colors.black87,
+              //   fontFamily: 'Raleway-Regular',
+              //   fontSize: 16,
+              // ),
+            ),
+            dense: true,
+            onTap: () => {Navigator.of(context).pushNamed(('/BMMain'))},
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +72,7 @@ class _IndexPageState extends State<IndexPage> {
         if (snapshot.hasData) {
           westindex = snapshot.data!;
           return Scaffold(
+            key: scaffoldKey,
             appBar: AppBar(
               centerTitle: true,
               elevation: 5,
@@ -34,7 +83,7 @@ class _IndexPageState extends State<IndexPage> {
                     Future.delayed(
                       Duration(milliseconds: Globals.navigatorDelay),
                       () {
-                        //scaffoldKey.currentState!.openDrawer();
+                        scaffoldKey.currentState!.openDrawer();
                       },
                     );
                   },
@@ -45,6 +94,7 @@ class _IndexPageState extends State<IndexPage> {
                 style: const TextStyle(fontWeight: FontWeight.w700),
               ),
             ),
+            drawer: drawerCode(),
             body: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Center(

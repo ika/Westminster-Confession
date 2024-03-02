@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:westminster_confession/bloc/bloc_refs.dart';
+import 'package:westminster_confession/main/menu.dart';
 import 'package:westminster_confession/main/model.dart';
 import 'package:westminster_confession/main/queries.dart';
 import 'package:linkfy_text/linkfy_text.dart';
@@ -20,14 +21,46 @@ class ProofsPage extends StatefulWidget {
 }
 
 class _ProofsPageState extends State<ProofsPage> {
-  // @override
-  // void initState() {
-  //   super.initState();
-  // }
+  @override
+  void initState() {
+    super.initState();
+    refsAreOn = context.read<RefsBloc>().state;
+  }
+
+  showListTile(Wesminster chapter) {
+    return (refsAreOn)
+        ? ListTile(
+            title: LinkifyText(
+              "${chapter.t}",
+              linkStyle: const TextStyle(color: Colors.red),
+              linkTypes: const [LinkType.hashTag],
+              onTap: (link) {
+                int lnk = int.parse(link.value!.toString().replaceAll('#', ''));
+
+                ReQueries().getRef(lnk).then(
+                  (value) {
+                    String n = value.elementAt(0).n.toString();
+                    String t = value.elementAt(0).t.toString();
+
+                    // remove number from the text
+                    int p = t.indexOf(' ');
+                    t = t.substring(p).trim();
+
+                    Map<String, String> data = {'header': n, 'contents': t};
+
+                    GetRef().refDialog(context, data);
+                  },
+                );
+              },
+            ),
+          )
+        : ListTile(
+            title: Text("${chapter.t}".replaceAll(RegExp(r"#\d+"), "")),
+          );
+  }
 
   @override
   Widget build(BuildContext context) {
-    refsAreOn = context.read<RefsBloc>().state;
     final PageController pageController =
         PageController(initialPage: widget.page);
     return PopScope(
@@ -78,41 +111,11 @@ class _ProofsPageState extends State<ProofsPage> {
                       itemCount: snapshot.data!.length,
                       itemBuilder: (BuildContext context, int index) {
                         final chapter = snapshot.data![index];
-                        if (refsAreOn) {
-                          return ListTile(
-                            title: LinkifyText(
-                              "${chapter.t}",
-                              linkStyle: const TextStyle(color: Colors.red),
-                              linkTypes: const [LinkType.hashTag],
-                              onTap: (link) {
-                                int lnk = int.parse(
-                                    link.value!.toString().replaceAll('#', ''));
-
-                                ReQueries().getRef(lnk).then((value) {
-                                  String n = value.elementAt(0).n.toString();
-                                  String t = value.elementAt(0).t.toString();
-
-                                  // remove number from the text
-                                  int p = t.indexOf(' ');
-                                  t = t.substring(p).trim();
-
-                                  Map<String, String> data = {
-                                    'header': n,
-                                    'contents': t
-                                  };
-                                  
-                                  GetRef().refDialog(context, data);
-                                });
-                              },
-                            ),
-                          );
-                        } else {
-                          String result =
-                              "${chapter.t}".replaceAll(RegExp(r"#\d+"), "");
-                          return ListTile(
-                            title: Text(result),
-                          );
-                        }
+                        return GestureDetector(
+                            child: showListTile(chapter),
+                            onTap: () {
+                              showPopupMenu(context, chapter.id!);
+                            });
                       },
                     );
                   } else {

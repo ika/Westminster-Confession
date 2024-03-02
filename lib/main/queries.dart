@@ -17,7 +17,7 @@ class WeQueries {
             maps.length,
             (i) {
               return Wesminster(
-                id: maps[i]['rowid'],
+                id: maps[i]['id'],
                 c: maps[i]['c'],
                 v: maps[i]['v'],
                 t: maps[i]['t'],
