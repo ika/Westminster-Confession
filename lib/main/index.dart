@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:westminster_confession/bkmarks/bmarks.dart';
 import 'package:westminster_confession/main/proofs.dart';
 import 'package:westminster_confession/utils/globals.dart';
 import 'package:westminster_confession/utils/utils.dart';
@@ -30,7 +31,7 @@ class _IndexPageState extends State<IndexPage> {
                   //color: Theme.of(context).colorScheme.inversePrimary
                   ),
               child: Baseline(
-                baseline: 50,
+                baseline: 80,
                 baselineType: TextBaseline.alphabetic,
                 child: Text(
                   'Index',
@@ -43,7 +44,7 @@ class _IndexPageState extends State<IndexPage> {
             ),
           ),
           ListTile(
-            leading: Icon(
+            trailing: Icon(
               Icons.keyboard_double_arrow_right,
               color: Theme.of(context).colorScheme.primary,
             ),
@@ -57,7 +58,19 @@ class _IndexPageState extends State<IndexPage> {
               // ),
             ),
             dense: true,
-            onTap: () => {Navigator.of(context).pushNamed(('/BMMain'))},
+            onTap: () {
+              Future.delayed(
+                Duration(milliseconds: Globals.navigatorDelay),
+                () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const BMMarksPage(),
+                    ),
+                  );
+                },
+              );
+            },
           ),
         ],
       ),

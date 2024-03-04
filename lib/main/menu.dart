@@ -1,7 +1,8 @@
   
 import 'package:flutter/material.dart';
+import 'package:westminster_confession/main/model.dart';
 
-Future<dynamic> showPopupMenu(BuildContext context, int rowid) async {
+Future<dynamic> showPopupMenu(BuildContext context, Wesminster chapter) async {
 
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height * .3;
@@ -13,7 +14,7 @@ Future<dynamic> showPopupMenu(BuildContext context, int rowid) async {
         PopupMenuItem(
           child: const Text("Bookmark"),
           onTap: () {
-            debugPrint(rowid.toString());
+            debugPrint("${chapter.c} ${chapter.id}");
             // (!getBookMarksMatch(verseBid))
             //     ? insertBookMark(verseBid).then((value) {
             //         Future.delayed(
@@ -43,7 +44,7 @@ Future<dynamic> showPopupMenu(BuildContext context, int rowid) async {
         PopupMenuItem(
           child: const Text("Highlight"),
           onTap: () {
-            debugPrint(rowid.toString());
+            //debugPrint(rowid.toString());
             // (!getHighLightMatch(verseBid))
             //     ? insertHighLight(verseBid).then((value) {
             //         Future.delayed(
@@ -98,7 +99,7 @@ Future<dynamic> showPopupMenu(BuildContext context, int rowid) async {
         PopupMenuItem(
           child: const Text("Copy"),
           onTap: () {
-            debugPrint(rowid.toString());
+            //debugPrint(rowid.toString());
            // copyVerseWrapper(context);
           },
         ),

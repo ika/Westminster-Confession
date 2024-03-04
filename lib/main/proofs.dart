@@ -114,7 +114,7 @@ class _ProofsPageState extends State<ProofsPage> {
                         return GestureDetector(
                             child: showListTile(chapter),
                             onTap: () {
-                              showPopupMenu(context, chapter.id!);
+                              showPopupMenu(context, chapter);
                             });
                       },
                     );
