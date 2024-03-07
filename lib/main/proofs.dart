@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:westminster_confession/bkmarks/model.dart';
 import 'package:westminster_confession/bloc/bloc_refs.dart';
 import 'package:westminster_confession/main/menu.dart';
 import 'package:westminster_confession/main/model.dart';
@@ -8,6 +9,7 @@ import 'package:linkfy_text/linkfy_text.dart';
 import 'package:westminster_confession/refs/getref.dart';
 import 'package:westminster_confession/refs/queries.dart';
 import 'package:westminster_confession/utils/globals.dart';
+import 'package:westminster_confession/utils/utils.dart';
 
 late bool refsAreOn;
 
@@ -55,8 +57,23 @@ class _ProofsPageState extends State<ProofsPage> {
             ),
           )
         : ListTile(
-            title: Text("${chapter.t}".replaceAll(RegExp(r"#\d+"), "")),
+            //title: Text("${chapter.t}".replaceAll(RegExp(r"#\d+"), "")),
+            title: Text(replaceNumbers(chapter.t!)),
           );
+  }
+
+  String replaceNumbers(String txt) {
+    txt = txt.replaceAll(RegExp(r"#\d+"), "");
+    return txt;
+  }
+
+  // text and length
+  String prepareText(String txt, int len) {
+    txt = replaceNumbers(txt);
+    if (txt.length > len) {
+      txt = txt.substring(0, len);
+    }
+    return txt;
   }
 
   @override
@@ -114,7 +131,13 @@ class _ProofsPageState extends State<ProofsPage> {
                         return GestureDetector(
                             child: showListTile(chapter),
                             onTap: () {
-                              showPopupMenu(context, chapter);
+                              final model = BMModel(
+                                  title: westindex[index + 1],
+                                  subtitle: prepareText(chapter.t!, 150),
+                                  page: chapter.c!,
+                                  para: chapter.id!);
+
+                              showPopupMenu(context, model);
                             });
                       },
                     );
