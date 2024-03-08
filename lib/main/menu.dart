@@ -60,9 +60,9 @@ Future<dynamic> showPopupMenu(BuildContext context, BMModel model) async {
           //       );
         },
       ),
-      PopupMenuItem(
-        child: const Text("Highlight"),
-        onTap: () {
+      // PopupMenuItem(
+      //   child: const Text("Highlight"),
+      //   onTap: () {
           //debugPrint(rowid.toString());
           // (!getHighLightMatch(verseBid))
           //     ? insertHighLight(verseBid).then((value) {
@@ -86,8 +86,8 @@ Future<dynamic> showPopupMenu(BuildContext context, BMModel model) async {
           //           });
           //         },
           //       );
-        },
-      ),
+        //},
+      //),
       // PopupMenuItem(
       //   child: const Text("Note"),
       //   onTap: () {

@@ -180,7 +180,7 @@ class _ProofsPageState extends State<ProofsPage> {
                           child: showListTile(chapter),
                           onTap: () {
                             final model = BMModel(
-                                title: westindex[index],
+                                title: westindex[chapter.c! - 1],
                                 subtitle: prepareText(chapter.t!, 150),
                                 page: chapter.c!,
                                 para: chapter.id!);
