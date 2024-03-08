@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:westminster_confession/bkmarks/model.dart';
 import 'package:westminster_confession/bkmarks/queries.dart';
+import 'package:westminster_confession/main/proofs.dart';
 import 'package:westminster_confession/utils/globals.dart';
 
 // Bookmarks
@@ -116,8 +117,21 @@ class BMMarksPageState extends State<BMMarksPage> {
                           color: Theme.of(context).colorScheme.primary,
                           size: 20.0),
                       onTap: () {
-                        debugPrint("Bookmark tapped");
-                        // int goto = int.parse(list[index].para);
+                        //debugPrint("Bookmark tapped");
+                        //int goto = list[index].para;
+                        int page = list[index].page;
+
+                        Future.delayed(
+                          Duration(milliseconds: Globals.navigatorDelay),
+                          () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ProofsPage(page: page),
+                              ),
+                            );
+                          },
+                        );
 
                         // switch (list[index].detail) {
                         //   case "1": // Westminster plain text

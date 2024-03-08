@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:westminster_confession/bkmarks/model.dart';
 import 'package:westminster_confession/bloc/bloc_refs.dart';
+import 'package:westminster_confession/bloc/bloc_scroll.dart';
 import 'package:westminster_confession/main/menu.dart';
 import 'package:westminster_confession/main/model.dart';
 import 'package:westminster_confession/main/queries.dart';
@@ -12,6 +14,8 @@ import 'package:westminster_confession/utils/globals.dart';
 import 'package:westminster_confession/utils/utils.dart';
 
 late bool refsAreOn;
+bool? initialPageScroll;
+ItemScrollController? initialScrollController;
 
 class ProofsPage extends StatefulWidget {
   const ProofsPage({super.key, required this.page});
@@ -27,6 +31,22 @@ class _ProofsPageState extends State<ProofsPage> {
   void initState() {
     super.initState();
     refsAreOn = context.read<RefsBloc>().state;
+
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) {
+        initialScrollController = ItemScrollController();
+
+        Future.delayed(Duration(milliseconds: Globals.navigatorLongDelay), () {
+          if (initialScrollController!.isAttached) {
+            initialScrollController!.scrollTo(
+              index: context.read<ScrollBloc>().state,
+              duration: Duration(milliseconds: Globals.navigatorLongDelay),
+              curve: Curves.easeInOutCubic,
+            );
+          }
+        });
+      },
+    );
   }
 
   showListTile(Wesminster chapter) {
@@ -63,8 +83,7 @@ class _ProofsPageState extends State<ProofsPage> {
   }
 
   String replaceNumbers(String txt) {
-    txt = txt.replaceAll(RegExp(r"#\d+"), "");
-    return txt;
+    return txt.replaceAll(RegExp(r"#\d+"), "");
   }
 
   // text and length
@@ -76,10 +95,21 @@ class _ProofsPageState extends State<ProofsPage> {
     return txt;
   }
 
+  ItemScrollController? itemScrollControllerSelector() {
+    if (initialPageScroll!) {
+      initialPageScroll = false;
+      return initialScrollController; // initial scroll
+    } else {
+      return ItemScrollController(); // PageView scroll
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    initialPageScroll = true;
     final PageController pageController =
-        PageController(initialPage: widget.page);
+        PageController(initialPage: widget.page - 1);
+    //final ItemScrollController itemScrollController = ItemScrollController();
     return PopScope(
       canPop: false,
       child: Scaffold(
@@ -124,21 +154,40 @@ class _ProofsPageState extends State<ProofsPage> {
                 initialData: const [],
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
-                    return ListView.builder(
+                    // return ListView.builder(
+                    //   itemCount: snapshot.data!.length,
+                    //   itemBuilder: (BuildContext context, int index) {
+                    //     final chapter = snapshot.data![index];
+                    //     return GestureDetector(
+                    //         child: showListTile(chapter),
+                    //         onTap: () {
+                    //           final model = BMModel(
+                    //               title: westindex[index + 1],
+                    //               subtitle: prepareText(chapter.t!, 150),
+                    //               page: chapter.c!,
+                    //               para: chapter.id!);
+
+                    //           showPopupMenu(context, model);
+                    //         });
+                    //   },
+                    // );
+                    return ScrollablePositionedList.builder(
                       itemCount: snapshot.data!.length,
+                      itemScrollController: itemScrollControllerSelector(),
                       itemBuilder: (BuildContext context, int index) {
                         final chapter = snapshot.data![index];
                         return GestureDetector(
-                            child: showListTile(chapter),
-                            onTap: () {
-                              final model = BMModel(
-                                  title: westindex[index + 1],
-                                  subtitle: prepareText(chapter.t!, 150),
-                                  page: chapter.c!,
-                                  para: chapter.id!);
+                          child: showListTile(chapter),
+                          onTap: () {
+                            final model = BMModel(
+                                title: westindex[index],
+                                subtitle: prepareText(chapter.t!, 150),
+                                page: chapter.c!,
+                                para: chapter.id!);
 
-                              showPopupMenu(context, model);
-                            });
+                            showPopupMenu(context, model);
+                          },
+                        );
                       },
                     );
                   } else {

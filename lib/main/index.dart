@@ -145,7 +145,7 @@ class _IndexPageState extends State<IndexPage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => ProofsPage(page: index),
+                                builder: (context) => ProofsPage(page: index + 1),
                               ),
                             );
                           },

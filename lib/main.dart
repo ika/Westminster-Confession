@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:westminster_confession/bloc/bloc_refs.dart';
+import 'package:westminster_confession/bloc/bloc_scroll.dart';
 import 'package:westminster_confession/main/index.dart';
 
 void main() async {
@@ -25,6 +26,9 @@ class MyApp extends StatelessWidget {
         BlocProvider<RefsBloc>(
           create: (context) => RefsBloc(),
         ),
+        BlocProvider<ScrollBloc>(
+          create: (context) => ScrollBloc(),
+        )
       ],
       child: MaterialApp(
         title: 'Westminster Confession',
