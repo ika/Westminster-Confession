@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:westminster_confession/bkmarks/model.dart';
 import 'package:westminster_confession/bkmarks/queries.dart';
+import 'package:westminster_confession/bloc/bloc_scroll.dart';
 import 'package:westminster_confession/main/proofs.dart';
 import 'package:westminster_confession/utils/globals.dart';
 
@@ -117,19 +119,24 @@ class BMMarksPageState extends State<BMMarksPage> {
                           color: Theme.of(context).colorScheme.primary,
                           size: 20.0),
                       onTap: () {
-                        //debugPrint("Bookmark tapped");
-                        //int goto = list[index].para;
-                        int page = list[index].page;
+                        context
+                            .read<ScrollBloc>()
+                            .add(UpdateScroll(index: list[index].para));
+                        //int page = list[index].page;
 
                         Future.delayed(
                           Duration(milliseconds: Globals.navigatorDelay),
                           () {
                             Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ProofsPage(page: page),
-                              ),
-                            );
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            ProofsPage(page: list[index].page)))
+                                .then((value) {
+                              int c = 1;
+                              Navigator.of(context)
+                                  .popUntil((route) => c++ >= 2);
+                            });
                           },
                         );
 

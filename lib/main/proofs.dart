@@ -14,8 +14,9 @@ import 'package:westminster_confession/utils/globals.dart';
 import 'package:westminster_confession/utils/utils.dart';
 
 late bool refsAreOn;
-bool? initialPageScroll;
-ItemScrollController? initialScrollController;
+bool initialPageScroll = true;
+//ItemScrollController initialScrollController = ItemScrollController();
+//late ItemPositionsListener itemPositionsListener;
 
 class ProofsPage extends StatefulWidget {
   const ProofsPage({super.key, required this.page});
@@ -27,6 +28,9 @@ class ProofsPage extends StatefulWidget {
 }
 
 class _ProofsPageState extends State<ProofsPage> {
+  ItemScrollController initialScrollController = ItemScrollController();
+  //var itemPositionsListener = ItemPositionsListener.create();
+
   @override
   void initState() {
     super.initState();
@@ -34,22 +38,26 @@ class _ProofsPageState extends State<ProofsPage> {
 
     WidgetsBinding.instance.addPostFrameCallback(
       (_) {
-        initialScrollController = ItemScrollController();
+        //initialScrollController = ItemScrollController();
+
+        //debugPrint(context.read<ScrollBloc>().state.toString());
 
         Future.delayed(Duration(milliseconds: Globals.navigatorLongDelay), () {
           if (initialScrollController!.isAttached) {
-            initialScrollController!.scrollTo(
+            initialScrollController.scrollTo(
               index: context.read<ScrollBloc>().state,
               duration: Duration(milliseconds: Globals.navigatorLongDelay),
               curve: Curves.easeInOutCubic,
             );
+          } else {
+            debugPrint("initialScrollController in NOT attached");
           }
         });
       },
     );
   }
 
-  showListTile(Wesminster chapter) {
+  Widget showListTile(Wesminster chapter) {
     return (refsAreOn)
         ? ListTile(
             title: LinkifyText(
@@ -95,18 +103,24 @@ class _ProofsPageState extends State<ProofsPage> {
     return txt;
   }
 
-  ItemScrollController? itemScrollControllerSelector() {
-    if (initialPageScroll!) {
-      initialPageScroll = false;
-      return initialScrollController; // initial scroll
-    } else {
-      return ItemScrollController(); // PageView scroll
-    }
+  // ItemScrollController itemScrollControllerSelector() {
+  //   if (initialPageScroll) {
+  //     initialPageScroll = false;
+  //     return initialScrollController; // initial scroll
+  //   } else {
+  //     return ItemScrollController(); // PageView scroll
+  //   }
+  // }
+
+  itemScrollControllerSelector() {
+    (initialPageScroll)
+        ? initialPageScroll = false
+        : initialScrollController = ItemScrollController();
   }
 
   @override
   Widget build(BuildContext context) {
-    initialPageScroll = true;
+    //initialPageScroll = true;
     final PageController pageController =
         PageController(initialPage: widget.page - 1);
     //final ItemScrollController itemScrollController = ItemScrollController();
@@ -147,6 +161,7 @@ class _ProofsPageState extends State<ProofsPage> {
           physics: const BouncingScrollPhysics(),
           pageSnapping: true,
           itemBuilder: (BuildContext context, int index) {
+            itemScrollControllerSelector();
             return Container(
               padding: const EdgeInsets.all(8.0),
               child: FutureBuilder<List<Wesminster>>(
@@ -173,7 +188,10 @@ class _ProofsPageState extends State<ProofsPage> {
                     // );
                     return ScrollablePositionedList.builder(
                       itemCount: snapshot.data!.length,
-                      itemScrollController: itemScrollControllerSelector(),
+                      itemScrollController: initialScrollController,
+                      //itemPositionsListener: itemPositionsListener,
+                      //itemScrollController: itemScrollControllerSelector(),
+                      scrollDirection: Axis.vertical,
                       itemBuilder: (BuildContext context, int index) {
                         final chapter = snapshot.data![index];
                         return GestureDetector(
@@ -183,7 +201,7 @@ class _ProofsPageState extends State<ProofsPage> {
                                 title: westindex[chapter.c! - 1],
                                 subtitle: prepareText(chapter.t!, 150),
                                 page: chapter.c!,
-                                para: chapter.id!);
+                                para: index);
 
                             showPopupMenu(context, model);
                           },
