@@ -80,9 +80,7 @@ class _ProofsPageState extends State<ProofsPage> {
               },
             ),
           )
-        : ListTile(
-            title: Text(replaceNumbers(chapter.t!)),
-          );
+        : ListTile(title: Text(replaceNumbers(chapter.t!)));
   }
 
   String replaceNumbers(String txt) {
