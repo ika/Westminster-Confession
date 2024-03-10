@@ -119,24 +119,42 @@ class BMMarksPageState extends State<BMMarksPage> {
                           color: Theme.of(context).colorScheme.primary,
                           size: 20.0),
                       onTap: () {
-                        context
-                            .read<ScrollBloc>()
-                            .add(UpdateScroll(index: list[index].para));
+                        context.read<ScrollBloc>().add(
+                              UpdateScroll(index: list[index].para),
+                            );
                         //int page = list[index].page;
+
+                        //Navigator.of(context).pop();
+
+                        // pop before return
+                        int c = 0;
+                        Navigator.of(context).popUntil((route) => c++ == 2);
 
                         Future.delayed(
                           Duration(milliseconds: Globals.navigatorDelay),
+                          // () {
+                          //   Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //       builder: (context) =>
+                          //           ProofsPage(page: list[index].page),
+                          //     ),
+                          //   ).then(
+                          //     (value) {
+                          //       int c = 0;
+                          //       Navigator.of(context)
+                          //           .popUntil((route) => c++ >= 2);
+                          //     },
+                          //   );
+                          // },
                           () {
                             Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            ProofsPage(page: list[index].page)))
-                                .then((value) {
-                              int c = 1;
-                              Navigator.of(context)
-                                  .popUntil((route) => c++ >= 2);
-                            });
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    ProofsPage(page: list[index].page),
+                              ),
+                            );
                           },
                         );
 

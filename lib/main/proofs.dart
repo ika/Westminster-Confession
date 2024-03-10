@@ -14,9 +14,6 @@ import 'package:westminster_confession/utils/globals.dart';
 import 'package:westminster_confession/utils/utils.dart';
 
 late bool refsAreOn;
-bool initialPageScroll = true;
-//ItemScrollController initialScrollController = ItemScrollController();
-//late ItemPositionsListener itemPositionsListener;
 
 class ProofsPage extends StatefulWidget {
   const ProofsPage({super.key, required this.page});
@@ -29,7 +26,6 @@ class ProofsPage extends StatefulWidget {
 
 class _ProofsPageState extends State<ProofsPage> {
   ItemScrollController initialScrollController = ItemScrollController();
-  //var itemPositionsListener = ItemPositionsListener.create();
 
   @override
   void initState() {
@@ -38,10 +34,6 @@ class _ProofsPageState extends State<ProofsPage> {
 
     WidgetsBinding.instance.addPostFrameCallback(
       (_) {
-        //initialScrollController = ItemScrollController();
-
-        //debugPrint(context.read<ScrollBloc>().state.toString());
-
         Future.delayed(Duration(milliseconds: Globals.navigatorLongDelay), () {
           if (initialScrollController!.isAttached) {
             initialScrollController.scrollTo(
@@ -49,6 +41,10 @@ class _ProofsPageState extends State<ProofsPage> {
               duration: Duration(milliseconds: Globals.navigatorLongDelay),
               curve: Curves.easeInOutCubic,
             );
+            // reset scroll index
+            context.read<ScrollBloc>().add(
+                  UpdateScroll(index: 0),
+                );
           } else {
             debugPrint("initialScrollController in NOT attached");
           }
@@ -85,7 +81,6 @@ class _ProofsPageState extends State<ProofsPage> {
             ),
           )
         : ListTile(
-            //title: Text("${chapter.t}".replaceAll(RegExp(r"#\d+"), "")),
             title: Text(replaceNumbers(chapter.t!)),
           );
   }
@@ -103,27 +98,14 @@ class _ProofsPageState extends State<ProofsPage> {
     return txt;
   }
 
-  // ItemScrollController itemScrollControllerSelector() {
-  //   if (initialPageScroll) {
-  //     initialPageScroll = false;
-  //     return initialScrollController; // initial scroll
-  //   } else {
-  //     return ItemScrollController(); // PageView scroll
-  //   }
-  // }
-
   itemScrollControllerSelector() {
-    (initialPageScroll)
-        ? initialPageScroll = false
-        : initialScrollController = ItemScrollController();
+    initialScrollController = ItemScrollController();
   }
 
   @override
   Widget build(BuildContext context) {
-    //initialPageScroll = true;
     final PageController pageController =
         PageController(initialPage: widget.page - 1);
-    //final ItemScrollController itemScrollController = ItemScrollController();
     return PopScope(
       canPop: false,
       child: Scaffold(
@@ -189,21 +171,23 @@ class _ProofsPageState extends State<ProofsPage> {
                     return ScrollablePositionedList.builder(
                       itemCount: snapshot.data!.length,
                       itemScrollController: initialScrollController,
-                      //itemPositionsListener: itemPositionsListener,
-                      //itemScrollController: itemScrollControllerSelector(),
                       scrollDirection: Axis.vertical,
                       itemBuilder: (BuildContext context, int index) {
                         final chapter = snapshot.data![index];
                         return GestureDetector(
                           child: showListTile(chapter),
                           onTap: () {
-                            final model = BMModel(
-                                title: westindex[chapter.c! - 1],
-                                subtitle: prepareText(chapter.t!, 150),
-                                page: chapter.c!,
-                                para: index);
+                            if (chapter.id! > 0) {
+                              final model = BMModel(
+                                  title: westindex[chapter.c! - 1],
+                                  subtitle: prepareText(chapter.t!, 150),
+                                  page: chapter.c!,
+                                  para: index);
 
-                            showPopupMenu(context, model);
+                              showPopupMenu(context, model);
+                            }
+
+                            //debugPrint(chapter.id.toString());
                           },
                         );
                       },
