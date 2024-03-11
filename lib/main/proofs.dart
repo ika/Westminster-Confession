@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:westminster_confession/bkmarks/model.dart';
+import 'package:westminster_confession/bloc/bloc_font.dart';
+import 'package:westminster_confession/bloc/bloc_italic.dart';
 import 'package:westminster_confession/bloc/bloc_refs.dart';
 import 'package:westminster_confession/bloc/bloc_scroll.dart';
+import 'package:westminster_confession/fonts/list.dart';
 import 'package:westminster_confession/main/menu.dart';
 import 'package:westminster_confession/main/model.dart';
 import 'package:westminster_confession/main/queries.dart';
@@ -60,6 +63,12 @@ class _ProofsPageState extends State<ProofsPage> {
               "${chapter.t}",
               linkStyle: const TextStyle(color: Colors.red),
               linkTypes: const [LinkType.hashTag],
+              textStyle: TextStyle(
+                fontFamily: fontsList[context.read<FontBloc>().state],
+                fontStyle: (context.read<ItalicBloc>().state)
+                    ? FontStyle.italic
+                    : FontStyle.normal,
+              ),
               onTap: (link) {
                 int lnk = int.parse(link.value!.toString().replaceAll('#', ''));
 
@@ -80,7 +89,17 @@ class _ProofsPageState extends State<ProofsPage> {
               },
             ),
           )
-        : ListTile(title: Text(replaceNumbers(chapter.t!)));
+        : ListTile(
+            title: Text(
+              replaceNumbers(chapter.t!),
+              style: TextStyle(
+                fontFamily: fontsList[context.read<FontBloc>().state],
+                fontStyle: (context.read<ItalicBloc>().state)
+                    ? FontStyle.italic
+                    : FontStyle.normal,
+              ),
+            ),
+          );
   }
 
   String replaceNumbers(String txt) {
