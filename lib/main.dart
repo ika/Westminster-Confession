@@ -4,7 +4,9 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:westminster_confession/bloc/bloc_refs.dart';
 import 'package:westminster_confession/bloc/bloc_scroll.dart';
+import 'package:westminster_confession/bloc/bloc_theme.dart';
 import 'package:westminster_confession/main/index.dart';
+import 'package:westminster_confession/theme/apptheme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,15 +30,22 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<ScrollBloc>(
           create: (context) => ScrollBloc(),
+        ),
+        BlocProvider<ThemeBloc>(
+          create: (context) => ThemeBloc(),
         )
       ],
-      child: MaterialApp(
-        title: 'Westminster Confession',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
-        ),
-        home: const IndexPage(title: 'Index'),
+      child: BlocBuilder<ThemeBloc, bool>(
+        builder: (context, state) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'Westminster Confession',
+            theme: lightTheme,
+            darkTheme: darkTheme,
+            themeMode: state ? ThemeMode.light : ThemeMode.dark,
+            home: const IndexPage(title: 'Index'),
+          );
+        },
       ),
     );
   }
