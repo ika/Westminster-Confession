@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:westminster_confession/bloc/bloc_font.dart';
+import 'package:westminster_confession/bloc/bloc_italic.dart';
 import 'package:westminster_confession/bloc/bloc_refs.dart';
 import 'package:westminster_confession/bloc/bloc_scroll.dart';
 import 'package:westminster_confession/bloc/bloc_theme.dart';
@@ -33,6 +35,12 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<ThemeBloc>(
           create: (context) => ThemeBloc(),
+        ),
+        BlocProvider<FontBloc>(
+          create: (context) => FontBloc(),
+        ),
+        BlocProvider<ItalicBloc>(
+          create: (context) => ItalicBloc(),
         )
       ],
       child: BlocBuilder<ThemeBloc, bool>(
