@@ -1,32 +1,33 @@
+import 'dart:io';
+
 import 'package:flutter/services.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:westminster_confession/utils/constants.dart';
+import 'package:westminster_confession/utils/const.dart';
 
 Future<String> loadAsset() async {
   return await rootBundle.loadString('assets/preface.html');
 }
 
-class PRProvider {
+class PrefProvider {
   final int newDbVerson = 1;
 
-  final String _dbName = Constants.PR_DBNAME;
-  final String _dbTable = Constants.PR_TBNAME;
+  final String _dbName = Constants.prefaceDatabase;
 
-  PRProvider.internal();
+  PrefProvider.internal();
 
   static dynamic _database;
 
-  static final PRProvider _instance = PRProvider.internal();
+  static final PrefProvider _instance = PrefProvider.internal();
 
-  factory PRProvider() => _instance;
+  factory PrefProvider() => _instance;
 
   Future<Database> get database async {
     _database ??= await initDB();
     return _database!;
   }
 
-  Future<Database> initDB() async {
+ Future<Database> initDB() async {
     var databasesPath = await getDatabasesPath();
     var path = join(databasesPath, _dbName);
 
@@ -37,25 +38,18 @@ class PRProvider {
       db.close();
       await deleteDatabase(path);
 
-      var contents = await loadAsset();
+      try {
+        await Directory(dirname(path)).create(recursive: true);
+      } catch (_) {}
 
-      db = await openDatabase(
-        path,
-        version: newDbVerson,
-        onOpen: (db) async {},
-        onCreate: (Database db, int version) async {
-          await db.execute('''
-                CREATE TABLE IF NOT EXISTS $_dbTable (
-                    id INTEGER PRIMARY KEY,
-                    title TEXT DEFAULT '',
-                    text TEXT DEFAULT ''
-                )
-            ''');
-          await db.execute(
-              '''INSERT INTO $_dbTable ('title', 'text') VALUES (?,?)''',
-              ['Historical background', contents]);
-        },
-      );
+      ByteData data = await rootBundle.load(join("assets", _dbName));
+      List<int> bytes =
+          data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+      await File(path).writeAsBytes(bytes, flush: true);
+
+      db = await openDatabase(path);
+
+      db.setVersion(newDbVerson);
     }
     return db;
   }

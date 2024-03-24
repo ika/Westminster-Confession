@@ -2,8 +2,8 @@
 
 class Preface {
   int? id;
-  String? title;
-  String? text;
+  int? n;
+  String? t;
 
-  Preface({this.id, this.title, this.text});
+  Preface({this.id, this.n, this.t});
 }

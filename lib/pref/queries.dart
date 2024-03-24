@@ -1,18 +1,18 @@
-import 'package:westminster_confession/pref/pref_model.dart';
-import 'package:westminster_confession/pref/pref_provider.dart';
-import 'package:westminster_confession/utils/constants.dart';
-
 // 5 points database queries
 
-PRProvider prProvider = PRProvider();
-const String dbTable = Constants.PR_TBNAME;
+import 'package:westminster_confession/pref/model.dart';
+import 'package:westminster_confession/pref/provider.dart';
+import 'package:westminster_confession/utils/const.dart';
+
+PrefProvider prProvider = PrefProvider();
+const String _dbTable = Constants.prefaceTable;
 
 class PRQueries {
-  Future<List<Preface>> getChapters() async {
+  Future<List<Preface>> getParagraphs() async {
     final db = await prProvider.database;
 
     final List<Map<String, dynamic>> maps =
-        await db.rawQuery("SELECT * FROM $dbTable");
+        await db.rawQuery("SELECT * FROM $_dbTable");
 
     List<Preface> list = maps.isNotEmpty
         ? List.generate(
@@ -20,8 +20,8 @@ class PRQueries {
             (i) {
               return Preface(
                 id: maps[i]['id'],
-                title: maps[i]['title'],
-                text: maps[i]['text'],
+                n: maps[i]['n'],
+                t: maps[i]['t'],
               );
             },
           )
