@@ -4,7 +4,7 @@ The Westminster Confession, published in 1643, with the Ecumenical creeds and th
 
 # Privacy Policy
 
-This app is a free and open source. It does not collect any information about its users, and nor does it share information with any third party.
+This app is free and open source. It does not collect any information about its users, and nor does it share information with any third party.
 
 # License
 
