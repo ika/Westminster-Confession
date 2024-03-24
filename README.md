@@ -1,16 +1,20 @@
-# westminster_confession
+# Westminster Confession
 
-A new Flutter project.
+The Westminster Confession, published in 1643, with the Ecumenical creeds and the Larger Catechism.
 
-## Getting Started
+# Privacy Policy
 
-This project is a starting point for a Flutter application.
+This app is a free and open source. It does not collect any information about its users, and nor does it share information with any third party.
 
-A few resources to get you started if this is your first Flutter project:
+# License
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+https://www.gnu.org/licenses/gpl-3.0.html
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+The GPL 3 is a strong copyleft license, meaning that any copy or modification of this code must also be released under the GPL v3. In other words, you can take this code, add to it or make changes, then distribute your version. However, your version is subject to the same license requirements, meaning that it must be under GPL v3  as well, and that anyone can see your modified code and install it for their own purposes.
+
+# Android app
+
+https://play.google.com/store/apps/details?id=org.armstrong.ika.westminster_confession
+
+
+

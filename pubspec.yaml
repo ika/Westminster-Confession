@@ -42,6 +42,7 @@ dependencies:
   hydrated_bloc: ^9.1.4
   path_provider: ^2.1.2
   scrollable_positioned_list: ^0.3.8
+  flutter_html: ^2.2.1
 
 dev_dependencies:
   flutter_test:
@@ -69,6 +70,7 @@ flutter:
   assets:
     - assets/refs.db
     - assets/proofs.db
+    - assets/preface.html
 
   fonts:
     - family: OpenSans
@@ -150,3 +152,4 @@ flutter:
           weight: 700
         - asset: assets/fonts/Poppins-Italic.ttf
           style: italic
+          
