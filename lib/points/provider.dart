@@ -4,18 +4,18 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:westminster_confession/utils/const.dart';
 
-class PrefProvider {
+class PointsProvider {
   final int newDbVerson = 1;
 
-  final String _dbName = Constants.prefaceDatabase;
+  final String _dbName = Constants.pointsDatabase;
 
-  PrefProvider.internal();
+  PointsProvider.internal();
 
   static dynamic _database;
 
-  static final PrefProvider _instance = PrefProvider.internal();
+  static final PointsProvider _instance = PointsProvider.internal();
 
-  factory PrefProvider() => _instance;
+  factory PointsProvider() => _instance;
 
   Future<Database> get database async {
     _database ??= await initDB();

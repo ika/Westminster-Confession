@@ -6,6 +6,7 @@ import 'package:westminster_confession/bloc/bloc_font.dart';
 import 'package:westminster_confession/bloc/bloc_italic.dart';
 import 'package:westminster_confession/bloc/bloc_refs.dart';
 import 'package:westminster_confession/bloc/bloc_scroll.dart';
+import 'package:westminster_confession/bloc/bloc_size.dart';
 import 'package:westminster_confession/bloc/bloc_theme.dart';
 import 'package:westminster_confession/main/index.dart';
 import 'package:westminster_confession/theme/apptheme.dart';
@@ -41,6 +42,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<ItalicBloc>(
           create: (context) => ItalicBloc(),
+        ),
+        BlocProvider<SizeBloc>(
+          create: (context) => SizeBloc(),
         )
       ],
       child: BlocBuilder<ThemeBloc, bool>(
