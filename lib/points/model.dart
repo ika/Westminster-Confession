@@ -1,9 +1,9 @@
 // Main Database Model
 
 class Points {
-  int? id;
-  String? h;
-  String? t;
+  int id;
+  String h;
+  String t;
 
-  Points({this.id, this.h, this.t});
+  Points({required this.id, required this.h, required this.t});
 }

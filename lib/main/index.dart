@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:westminster_confession/bkmarks/bmarks.dart';
 import 'package:westminster_confession/fonts/fonts.dart';
 import 'package:westminster_confession/main/proofs.dart';
+import 'package:westminster_confession/points/page.dart';
 import 'package:westminster_confession/theme/theme.dart';
 import 'package:westminster_confession/utils/globals.dart';
 import 'package:westminster_confession/utils/utils.dart';
@@ -98,6 +99,35 @@ class _IndexPageState extends State<IndexPage> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => const PrefPage(),
+                    ),
+                  );
+                },
+              );
+            },
+          ),
+          ListTile(
+            trailing: Icon(
+              Icons.keyboard_double_arrow_right,
+              color: Theme.of(context).colorScheme.primary,
+            ),
+            title: Text(
+              'Five Points',
+              style: Theme.of(context).textTheme.bodyLarge,
+              // style: TextStyle(
+              //   color: Colors.black87,
+              //   fontFamily: 'Raleway-Regular',
+              //   fontSize: 16,
+              // ),
+            ),
+            dense: true,
+            onTap: () {
+              Future.delayed(
+                Duration(milliseconds: Globals.navigatorDelay),
+                () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const PointsPage(),
                     ),
                   );
                 },

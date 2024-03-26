@@ -70,8 +70,8 @@ class PointsPageState extends State<PointsPage> {
                 itemCount: paragraphs.length,
                 itemBuilder: (BuildContext context, int index) {
                   return ListTile(
-                    title: Text(paragraphs[index].h!),
-                    subtitle: Text(paragraphs[index].t!),
+                    title: Text(paragraphs[index].h),
+                    subtitle: Text(paragraphs[index].t),
                   );
                 },
               ),
