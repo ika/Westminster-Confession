@@ -1,24 +1,24 @@
 // 5 points database queries
 
-import 'package:westminster_confession/creeds/model.dart';
-import 'package:westminster_confession/creeds/provider.dart';
+import 'package:westminster_confession/shorter/model.dart';
+import 'package:westminster_confession/shorter/provider.dart';
 import 'package:westminster_confession/utils/const.dart';
 
-CreedsProvider creedsProvider = CreedsProvider();
-const String _dbTable = Constants.creedsTable;
+ShorterProvider shorterProvider = ShorterProvider();
+const String _dbTable = Constants.shorterTable;
 
-class CreedsQueries {
-  Future<List<Creeds>> getCreeds() async {
-    final db = await creedsProvider.database;
+class ShorterQueries {
+  Future<List<Shorter>> getShorter() async {
+    final db = await shorterProvider.database;
 
     final List<Map<String, dynamic>> maps =
         await db.rawQuery("SELECT * FROM $_dbTable");
 
-    List<Creeds> list = maps.isNotEmpty
+    List<Shorter> list = maps.isNotEmpty
         ? List.generate(
             maps.length,
             (i) {
-              return Creeds(
+              return Shorter(
                 id: maps[i]['id'],
                 h: maps[i]['h'],
                 t: maps[i]['t'],

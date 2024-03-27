@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:westminster_confession/creeds/model.dart';
-import 'package:westminster_confession/creeds/queries.dart';
+import 'package:westminster_confession/shorter/model.dart';
+import 'package:westminster_confession/shorter/queries.dart';
 import 'package:westminster_confession/utils/globals.dart';
 
 // Preface
@@ -10,19 +10,19 @@ import 'package:westminster_confession/utils/globals.dart';
 //   PrefPageArguments(this.index);
 // }
 
-CreedsQueries creedsQueries = CreedsQueries();
+ShorterQueries shorterQueries = ShorterQueries();
 
-class CreedsPage extends StatefulWidget {
-  const CreedsPage({super.key});
+class ShorterPage extends StatefulWidget {
+  const ShorterPage({super.key});
 
   @override
-  CreedsPageState createState() => CreedsPageState();
+  ShorterPageState createState() => ShorterPageState();
 }
 
-class CreedsPageState extends State<CreedsPage> {
+class ShorterPageState extends State<ShorterPage> {
   
-  List<Creeds> paragraphs = List<Creeds>.empty();
-  String heading = "Ecumenical Creeds";
+  List<Shorter> paragraphs = List<Shorter>.empty();
+  String heading = "Shorter Catechism";
 
   // @override
   // void initState() {
@@ -35,9 +35,9 @@ class CreedsPageState extends State<CreedsPage> {
     // final args =
     //     ModalRoute.of(context)!.settings.arguments as PrefPageArguments;
 
-    return FutureBuilder<List<Creeds>>(
-      future: creedsQueries.getCreeds(),
-      builder: (context, AsyncSnapshot<List<Creeds>> snapshot) {
+    return FutureBuilder<List<Shorter>>(
+      future: shorterQueries.getShorter(),
+      builder: (context, AsyncSnapshot<List<Shorter>> snapshot) {
         if (snapshot.hasData) {
           paragraphs = snapshot.data!;
           return Scaffold(

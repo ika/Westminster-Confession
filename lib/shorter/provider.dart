@@ -4,18 +4,18 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:westminster_confession/utils/const.dart';
 
-class CreedsProvider {
-  final int newDbVerson = 2;
+class ShorterProvider {
+  final int newDbVerson = 1;
 
-  final String _dbName = Constants.creedsDatabase;
+  final String _dbName = Constants.shorterDatabase;
 
-  CreedsProvider.internal();
+  ShorterProvider.internal();
 
   static dynamic _database;
 
-  static final CreedsProvider _instance = CreedsProvider.internal();
+  static final ShorterProvider _instance = ShorterProvider.internal();
 
-  factory CreedsProvider() => _instance;
+  factory ShorterProvider() => _instance;
 
   Future<Database> get database async {
     _database ??= await initDB();

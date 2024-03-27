@@ -1,9 +1,9 @@
 // Main Database Model
 
-class Creeds {
+class Shorter {
   int id;
   String h;
   String t;
 
-  Creeds({required this.id, required this.h, required this.t});
+  Shorter({required this.id, required this.h, required this.t});
 }
