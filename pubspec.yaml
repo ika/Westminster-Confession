@@ -71,6 +71,8 @@ flutter:
     - assets/proofs.db
     - assets/preface.db
     - assets/points.db
+    - assets/creeds.db
+    - assets/shorter.db
 
   fonts:
     - family: OpenSans
