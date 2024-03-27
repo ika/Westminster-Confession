@@ -38,7 +38,7 @@ class _ProofsPageState extends State<ProofsPage> {
     WidgetsBinding.instance.addPostFrameCallback(
       (_) {
         Future.delayed(Duration(milliseconds: Globals.navigatorLongDelay), () {
-          if (initialScrollController!.isAttached) {
+          if (initialScrollController.isAttached) {
             initialScrollController.scrollTo(
               index: context.read<ScrollBloc>().state,
               duration: Duration(milliseconds: Globals.navigatorLongDelay),
