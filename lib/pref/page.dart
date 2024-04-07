@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:westminster_confession/bloc/bloc_font.dart';
+import 'package:westminster_confession/bloc/bloc_italic.dart';
+import 'package:westminster_confession/bloc/bloc_size.dart';
+import 'package:westminster_confession/fonts/list.dart';
 import 'package:westminster_confession/pref/model.dart';
 import 'package:westminster_confession/pref/queries.dart';
 import 'package:westminster_confession/utils/globals.dart';
@@ -69,7 +74,15 @@ class PrefPageState extends State<PrefPage> {
                 itemCount: paragraphs.length,
                 itemBuilder: (BuildContext context, int index) {
                   return ListTile(
-                    subtitle: Text(paragraphs[index].t!),
+                    subtitle: Text(
+                      paragraphs[index].t!,
+                      style: TextStyle(
+                          fontFamily: fontsList[context.read<FontBloc>().state],
+                          fontStyle: (context.read<ItalicBloc>().state)
+                              ? FontStyle.italic
+                              : FontStyle.normal,
+                          fontSize: context.read<SizeBloc>().state),
+                    ),
                   );
                 },
               ),

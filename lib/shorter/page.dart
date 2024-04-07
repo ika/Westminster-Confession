@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:westminster_confession/bloc/bloc_font.dart';
+import 'package:westminster_confession/bloc/bloc_italic.dart';
+import 'package:westminster_confession/bloc/bloc_size.dart';
+import 'package:westminster_confession/fonts/list.dart';
 import 'package:westminster_confession/shorter/model.dart';
 import 'package:westminster_confession/shorter/queries.dart';
 import 'package:westminster_confession/utils/globals.dart';
 
-// Preface
-
-// class PrefPageArguments {
-//   final int index;
-//   PrefPageArguments(this.index);
-// }
+// Shorter Catechism
 
 ShorterQueries shorterQueries = ShorterQueries();
 
@@ -20,7 +20,6 @@ class ShorterPage extends StatefulWidget {
 }
 
 class ShorterPageState extends State<ShorterPage> {
-  
   List<Shorter> paragraphs = List<Shorter>.empty();
   String heading = "Shorter Catechism";
 
@@ -70,8 +69,25 @@ class ShorterPageState extends State<ShorterPage> {
                 itemCount: paragraphs.length,
                 itemBuilder: (BuildContext context, int index) {
                   return ListTile(
-                    title: Text(paragraphs[index].h),
-                    subtitle: Text(paragraphs[index].t),
+                    title: Text(
+                      paragraphs[index].h,
+                      style: TextStyle(
+                          fontFamily: fontsList[context.read<FontBloc>().state],
+                          fontWeight: FontWeight.w700,
+                          fontStyle: (context.read<ItalicBloc>().state)
+                              ? FontStyle.italic
+                              : FontStyle.normal,
+                          fontSize: context.read<SizeBloc>().state),
+                    ),
+                    subtitle: Text(
+                      paragraphs[index].t,
+                      style: TextStyle(
+                          fontFamily: fontsList[context.read<FontBloc>().state],
+                          fontStyle: (context.read<ItalicBloc>().state)
+                              ? FontStyle.italic
+                              : FontStyle.normal,
+                          fontSize: context.read<SizeBloc>().state),
+                    ),
                   );
                 },
               ),

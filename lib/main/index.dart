@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:westminster_confession/bkmarks/bmarks.dart';
+import 'package:westminster_confession/bkmarks/page.dart';
 import 'package:westminster_confession/creeds/page.dart';
 import 'package:westminster_confession/fonts/fonts.dart';
-import 'package:westminster_confession/main/proofs.dart';
+import 'package:westminster_confession/main/page.dart';
 import 'package:westminster_confession/points/page.dart';
 import 'package:westminster_confession/shorter/page.dart';
 import 'package:westminster_confession/theme/theme.dart';

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:westminster_confession/bkmarks/model.dart';
 import 'package:westminster_confession/bkmarks/queries.dart';
 import 'package:westminster_confession/bloc/bloc_scroll.dart';
-import 'package:westminster_confession/main/proofs.dart';
+import 'package:westminster_confession/main/page.dart';
 import 'package:westminster_confession/utils/globals.dart';
 
 // Bookmarks

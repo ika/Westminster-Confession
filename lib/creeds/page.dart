@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:westminster_confession/bloc/bloc_font.dart';
+import 'package:westminster_confession/bloc/bloc_italic.dart';
+import 'package:westminster_confession/bloc/bloc_size.dart';
 import 'package:westminster_confession/creeds/model.dart';
 import 'package:westminster_confession/creeds/queries.dart';
+import 'package:westminster_confession/fonts/list.dart';
 import 'package:westminster_confession/utils/globals.dart';
 
 // Preface
@@ -20,7 +25,6 @@ class CreedsPage extends StatefulWidget {
 }
 
 class CreedsPageState extends State<CreedsPage> {
-  
   List<Creeds> paragraphs = List<Creeds>.empty();
   String heading = "Ecumenical Creeds";
 
@@ -58,11 +62,7 @@ class CreedsPageState extends State<CreedsPage> {
                 ),
               ),
               title: Text(heading,
-                  style: const TextStyle(fontWeight: FontWeight.w700)
-                  // style: const TextStyle(
-                  //   color: Colors.yellow,
-                  // ),
-                  ),
+                  style: const TextStyle(fontWeight: FontWeight.w700)),
             ),
             body: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -70,8 +70,25 @@ class CreedsPageState extends State<CreedsPage> {
                 itemCount: paragraphs.length,
                 itemBuilder: (BuildContext context, int index) {
                   return ListTile(
-                    title: Text(paragraphs[index].h),
-                    subtitle: Text(paragraphs[index].t),
+                    title: Text(
+                      paragraphs[index].h,
+                      style: TextStyle(
+                          fontFamily: fontsList[context.read<FontBloc>().state],
+                          fontWeight: FontWeight.w700,
+                          fontStyle: (context.read<ItalicBloc>().state)
+                              ? FontStyle.italic
+                              : FontStyle.normal,
+                          fontSize: context.read<SizeBloc>().state),
+                    ),
+                    subtitle: Text(
+                      paragraphs[index].t,
+                      style: TextStyle(
+                          fontFamily: fontsList[context.read<FontBloc>().state],
+                          fontStyle: (context.read<ItalicBloc>().state)
+                              ? FontStyle.italic
+                              : FontStyle.normal,
+                          fontSize: context.read<SizeBloc>().state),
+                    ),
                   );
                 },
               ),
