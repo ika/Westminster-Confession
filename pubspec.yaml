@@ -73,6 +73,7 @@ flutter:
     - assets/points.db
     - assets/creeds.db
     - assets/shorter.db
+    - assets/about.db
 
   fonts:
     - family: OpenSans

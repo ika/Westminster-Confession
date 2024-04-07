@@ -7,6 +7,7 @@ class Constants {
   static const String pointsDatabase = "points.db";
   static const String creedsDatabase = "creeds.db";
   static const String shorterDatabase = "shorter.db";
+  static const String aboutDatabase = "about.db";
   // table names
   static const String proofsTable = "wrefs";
   static const String refsTable = "proofs";
@@ -15,4 +16,5 @@ class Constants {
   static const String pointsTable = "points";
   static const String creedsTable = "creeds";
   static const String shorterTable = "shorter";
+  static const String aboutTable = "about";
 }
