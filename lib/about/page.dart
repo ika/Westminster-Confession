@@ -69,6 +69,16 @@ class AboutPageState extends State<AboutPage> {
                 itemCount: paragraphs.length,
                 itemBuilder: (BuildContext context, int index) {
                   return ListTile(
+                    title: Text(
+                      paragraphs[index].h!,
+                      style: TextStyle(
+                          fontFamily: fontsList[context.read<FontBloc>().state],
+                          fontWeight: FontWeight.w700,
+                          fontStyle: (context.read<ItalicBloc>().state)
+                              ? FontStyle.italic
+                              : FontStyle.normal,
+                          fontSize: context.read<SizeBloc>().state),
+                    ),
                     subtitle: Text(
                       paragraphs[index].t!,
                       style: TextStyle(

@@ -2,7 +2,8 @@
 
 class About {
   int? id;
-  String? t;
+  String? h; // heading
+  String? t; // text
 
-  About({this.id, this.t});
+  About({this.id, this.h, this.t});
 }

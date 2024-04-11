@@ -21,6 +21,7 @@ class AbQueries {
             (i) {
               return About(
                 id: maps[i]['id'],
+                h: maps[i]['h'],
                 t: maps[i]['t'],
               );
             },
