@@ -41,13 +41,13 @@ class BMMarksPage extends StatefulWidget {
 }
 
 class BMMarksPageState extends State<BMMarksPage> {
-  List<BMModel> list = List<BMModel>.empty();
+  List<BmModel> list = List<BmModel>.empty();
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<BMModel>>(
+    return FutureBuilder<List<BmModel>>(
       future: bmQueries.getBookMarkList(),
-      builder: (context, AsyncSnapshot<List<BMModel>> snapshot) {
+      builder: (context, AsyncSnapshot<List<BmModel>> snapshot) {
         if (snapshot.hasData) {
           list = snapshot.data!;
           return Scaffold(

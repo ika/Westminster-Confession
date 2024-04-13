@@ -194,9 +194,10 @@ class _ProofsPageState extends State<ProofsPage> {
                           child: showListTile(chapter),
                           onTap: () {
                             if (chapter.id! > 0) {
-                              final model = BMModel(
+                              final model = BmModel(
                                   title: westindex[chapter.c! - 1],
                                   subtitle: prepareText(chapter.t!, 150),
+                                  doc: 1, // document one
                                   page: chapter.c!,
                                   para: index);
 

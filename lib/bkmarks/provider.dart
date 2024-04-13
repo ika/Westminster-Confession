@@ -5,7 +5,7 @@ import 'package:westminster_confession/utils/const.dart';
 // Bookmarks database helper
 
 class BMProvider {
-  final int newDbVerson = 1;
+  final int newDbVerson = 2;
 
   final String _dbName = Constants.bmarksDatabase;
   final String _dbTable = Constants.bmarksTable;
@@ -44,6 +44,7 @@ class BMProvider {
                     id INTEGER PRIMARY KEY,
                     title TEXT DEFAULT '',
                     subtitle TEXT DEFAULT '',
+                    doc INTEGER DEFAULT 0,
                     page INTEGER DEFAULT 0,
                     para INTEGER DEFAULT 0
                 )
