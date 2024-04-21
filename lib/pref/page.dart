@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import 'package:westminster_confession/bkmarks/model.dart';
 import 'package:westminster_confession/bloc/bloc_font.dart';
 import 'package:westminster_confession/bloc/bloc_italic.dart';
+import 'package:westminster_confession/bloc/bloc_scroll.dart';
 import 'package:westminster_confession/bloc/bloc_size.dart';
 import 'package:westminster_confession/fonts/list.dart';
 import 'package:westminster_confession/pref/model.dart';
 import 'package:westminster_confession/pref/queries.dart';
 import 'package:westminster_confession/utils/globals.dart';
+import 'package:westminster_confession/utils/menu.dart';
+import 'package:westminster_confession/utils/utils.dart';
 
 // Preface
 
@@ -25,14 +30,38 @@ class PrefPage extends StatefulWidget {
 }
 
 class PrefPageState extends State<PrefPage> {
+  ItemScrollController initialScrollController = ItemScrollController();
   List<Preface> paragraphs = List<Preface>.empty();
   String heading = "Preface";
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   primaryTextSize = BlocProvider.of<TextSizeCubit>(context).state;
-  // }
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) {
+        Future.delayed(Duration(milliseconds: Globals.navigatorLongDelay), () {
+          if (initialScrollController.isAttached) {
+            initialScrollController.scrollTo(
+              index: context.read<ScrollBloc>().state,
+              duration: Duration(milliseconds: Globals.navigatorLongDelay),
+              curve: Curves.easeInOutCubic,
+            );
+            // reset scroll index
+            context.read<ScrollBloc>().add(
+                  UpdateScroll(index: 0),
+                );
+          } else {
+            debugPrint("initialScrollController in NOT attached");
+          }
+        });
+      },
+    );
+  }
+
+    itemScrollControllerSelector() {
+    initialScrollController = ItemScrollController();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,6 +102,7 @@ class PrefPageState extends State<PrefPage> {
               child: ListView.builder(
                 itemCount: paragraphs.length,
                 itemBuilder: (BuildContext context, int index) {
+                  itemScrollControllerSelector();
                   return ListTile(
                     subtitle: Text(
                       paragraphs[index].t!,
@@ -83,6 +113,16 @@ class PrefPageState extends State<PrefPage> {
                               : FontStyle.normal,
                           fontSize: context.read<SizeBloc>().state),
                     ),
+                    onTap: () {
+                      final model = BmModel(
+                          title: 'Preface',
+                          subtitle: prepareText(paragraphs[index].t!, 150),
+                          doc: 2, // Prefrences
+                          page: 0, // not used
+                          para: index);
+
+                      showPopupMenu(context, model);
+                    },
                   );
                 },
               ),

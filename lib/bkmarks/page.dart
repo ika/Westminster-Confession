@@ -4,6 +4,7 @@ import 'package:westminster_confession/bkmarks/model.dart';
 import 'package:westminster_confession/bkmarks/queries.dart';
 import 'package:westminster_confession/bloc/bloc_scroll.dart';
 import 'package:westminster_confession/main/page.dart';
+import 'package:westminster_confession/pref/page.dart';
 import 'package:westminster_confession/utils/globals.dart';
 
 // Bookmarks
@@ -158,116 +159,22 @@ class BMMarksPageState extends State<BMMarksPage> {
                                 );
                               },
                             );
+                            break;
+
+                          case 2:
+                            Future.delayed(
+                              Duration(milliseconds: Globals.navigatorDelay),
+                              () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const PrefPage(),
+                                  ),
+                                );
+                              },
+                            );
+                            break;
                         }
-
-                        // switch (list[index].detail) {
-                        //   case "1": // Westminster plain text
-                        //     Future.delayed(
-                        //       Duration(milliseconds: Globals.navigatorDelay),
-                        //       () {
-                        //         Navigator.of(context)
-                        //             .pushNamed('/WePlainPage',
-                        //                 arguments: WePlainArguments(goto))
-                        //             .then(
-                        //           (value) {
-                        //             int count = 1;
-                        //             Navigator.of(context)
-                        //                 .popUntil((_) => count++ >= 2);
-                        //           },
-                        //         );
-                        //       },
-                        //     );
-                        //     break;
-
-                        //   case "2": // Ecumenical Creeds
-                        //     Future.delayed(
-                        //       Duration(milliseconds: Globals.navigatorDelay),
-                        //       () {
-                        //         Navigator.of(context)
-                        //             .pushNamed('/ECUPage',
-                        //                 arguments: ECUPageArguments(goto))
-                        //             .then(
-                        //           (value) {
-                        //             int count = 1;
-                        //             Navigator.of(context)
-                        //                 .popUntil((_) => count++ >= 2);
-                        //           },
-                        //         );
-                        //       },
-                        //     );
-
-                        //     break;
-
-                        //   case "3": // Preface
-                        //     Future.delayed(
-                        //       Duration(milliseconds: Globals.navigatorDelay),
-                        //       () {
-                        //         Navigator.of(context)
-                        //             .pushNamed('/PrefPage',
-                        //                 arguments: PrefPageArguments(goto))
-                        //             .then(
-                        //           (value) {
-                        //             int count = 1;
-                        //             Navigator.of(context)
-                        //                 .popUntil((_) => count++ >= 2);
-                        //           },
-                        //         );
-                        //       },
-                        //     );
-                        //     break;
-
-                        //   case "4": // Five Points
-                        //     Future.delayed(
-                        //       Duration(milliseconds: Globals.navigatorDelay),
-                        //       () {
-                        //         Navigator.of(context)
-                        //             .pushNamed('/PointsPage',
-                        //                 arguments: PointsArguments(goto))
-                        //             .then(
-                        //           (value) {
-                        //             int count = 1;
-                        //             Navigator.of(context)
-                        //                 .popUntil((_) => count++ >= 2);
-                        //           },
-                        //         );
-                        //       },
-                        //     );
-                        //     break;
-                        //   case "5": // Westminster with proofs
-                        //     Future.delayed(
-                        //       Duration(milliseconds: Globals.navigatorDelay),
-                        //       () {
-                        //         Navigator.of(context)
-                        //             .pushNamed('/WeProofsPage',
-                        //                 arguments: WeProofArguments(goto))
-                        //             .then(
-                        //           (value) {
-                        //             int count = 1;
-                        //             Navigator.of(context)
-                        //                 .popUntil((_) => count++ >= 2);
-                        //           },
-                        //         );
-                        //       },
-                        //     );
-                        //     break;
-                        //   case "6": // Larger Catechism
-                        //     Future.delayed(
-                        //       Duration(milliseconds: Globals.navigatorDelay),
-                        //       () {
-                        //         Navigator.of(context)
-                        //             .pushNamed('/CatPages',
-                        //                 arguments: CatPageArguments(goto))
-                        //             .then(
-                        //           (value) {
-                        //             int count = 1;
-                        //             Navigator.of(context)
-                        //                 .popUntil((_) => count++ >= 2);
-                        //           },
-                        //         );
-                        //       },
-                        //     );
-                        //     break;
-                        // }
                       },
                     ),
                   );

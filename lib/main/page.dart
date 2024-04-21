@@ -11,7 +11,7 @@ import 'package:westminster_confession/bloc/bloc_refs.dart';
 import 'package:westminster_confession/bloc/bloc_scroll.dart';
 import 'package:westminster_confession/bloc/bloc_size.dart';
 import 'package:westminster_confession/fonts/list.dart';
-import 'package:westminster_confession/main/menu.dart';
+import 'package:westminster_confession/utils/menu.dart';
 import 'package:westminster_confession/main/model.dart';
 import 'package:westminster_confession/main/queries.dart';
 import 'package:westminster_confession/refs/getref.dart';
@@ -103,19 +103,6 @@ class _ProofsPageState extends State<ProofsPage> {
                   fontSize: context.read<SizeBloc>().state),
             ),
           );
-  }
-
-  String replaceNumbers(String txt) {
-    return txt.replaceAll(RegExp(r"#\d+"), "");
-  }
-
-  // text and length
-  String prepareText(String txt, int len) {
-    txt = replaceNumbers(txt);
-    if (txt.length > len) {
-      txt = txt.substring(0, len);
-    }
-    return txt;
   }
 
   itemScrollControllerSelector() {

@@ -39,3 +39,16 @@ class Utils {
     return westindex;
   }
 }
+
+String replaceNumbers(String txt) {
+  return txt.replaceAll(RegExp(r"#\d+"), "");
+}
+
+// text and length
+String prepareText(String txt, int len) {
+  txt = replaceNumbers(txt);
+  if (txt.length > len) {
+    txt = txt.substring(0, len);
+  }
+  return txt;
+}
