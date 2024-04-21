@@ -13,7 +13,7 @@ late bool italicIsOn;
 late double textSize;
 
 class FontsPage extends StatefulWidget {
-  const FontsPage({Key? key}) : super(key: key);
+  const FontsPage({super.key});
 
   @override
   State<FontsPage> createState() => _FontsPageState();
