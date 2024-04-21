@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
@@ -91,13 +93,15 @@ class _ProofsPageState extends State<ProofsPage> {
             ),
           )
         : ListTile(
-            title: Text(replaceNumbers(chapter.t!),
-                style: TextStyle(
-                    fontFamily: fontsList[context.read<FontBloc>().state],
-                    fontStyle: (context.read<ItalicBloc>().state)
-                        ? FontStyle.italic
-                        : FontStyle.normal,
-                    fontSize: context.read<SizeBloc>().state)),
+            title: Text(
+              replaceNumbers(chapter.t!),
+              style: TextStyle(
+                  fontFamily: fontsList[context.read<FontBloc>().state],
+                  fontStyle: (context.read<ItalicBloc>().state)
+                      ? FontStyle.italic
+                      : FontStyle.normal,
+                  fontSize: context.read<SizeBloc>().state),
+            ),
           );
   }
 
@@ -153,69 +157,74 @@ class _ProofsPageState extends State<ProofsPage> {
             },
           ),
         ),
-        body: PageView.builder(
-          controller: pageController,
-          itemCount: 33,
-          physics: const BouncingScrollPhysics(),
-          pageSnapping: true,
-          itemBuilder: (BuildContext context, int index) {
-            itemScrollControllerSelector();
-            return Container(
-              padding: const EdgeInsets.all(8.0),
-              child: FutureBuilder<List<Wesminster>>(
-                future: WeQueries().getChapter(index + 1),
-                initialData: const [],
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    // return ListView.builder(
-                    //   itemCount: snapshot.data!.length,
-                    //   itemBuilder: (BuildContext context, int index) {
-                    //     final chapter = snapshot.data![index];
-                    //     return GestureDetector(
-                    //         child: showListTile(chapter),
-                    //         onTap: () {
-                    //           final model = BMModel(
-                    //               title: westindex[index + 1],
-                    //               subtitle: prepareText(chapter.t!, 150),
-                    //               page: chapter.c!,
-                    //               para: chapter.id!);
+        body: ScrollConfiguration(
+          behavior: ScrollConfiguration.of(context).copyWith(
+            dragDevices: {PointerDeviceKind.touch, PointerDeviceKind.mouse},
+          ),
+          child: PageView.builder(
+            controller: pageController,
+            itemCount: 33,
+            physics: const BouncingScrollPhysics(),
+            pageSnapping: true,
+            itemBuilder: (BuildContext context, int index) {
+              itemScrollControllerSelector();
+              return Container(
+                padding: const EdgeInsets.all(8.0),
+                child: FutureBuilder<List<Wesminster>>(
+                  future: WeQueries().getChapter(index + 1),
+                  initialData: const [],
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      // return ListView.builder(
+                      //   itemCount: snapshot.data!.length,
+                      //   itemBuilder: (BuildContext context, int index) {
+                      //     final chapter = snapshot.data![index];
+                      //     return GestureDetector(
+                      //         child: showListTile(chapter),
+                      //         onTap: () {
+                      //           final model = BMModel(
+                      //               title: westindex[index + 1],
+                      //               subtitle: prepareText(chapter.t!, 150),
+                      //               page: chapter.c!,
+                      //               para: chapter.id!);
 
-                    //           showPopupMenu(context, model);
-                    //         });
-                    //   },
-                    // );
-                    return ScrollablePositionedList.builder(
-                      itemCount: snapshot.data!.length,
-                      itemScrollController: initialScrollController,
-                      scrollDirection: Axis.vertical,
-                      itemBuilder: (BuildContext context, int index) {
-                        final chapter = snapshot.data![index];
-                        return GestureDetector(
-                          child: showListTile(chapter),
-                          onTap: () {
-                            if (chapter.id! > 0) {
-                              final model = BmModel(
-                                  title: westindex[chapter.c! - 1],
-                                  subtitle: prepareText(chapter.t!, 150),
-                                  doc: 1, // document one
-                                  page: chapter.c!,
-                                  para: index);
+                      //           showPopupMenu(context, model);
+                      //         });
+                      //   },
+                      // );
+                      return ScrollablePositionedList.builder(
+                        itemCount: snapshot.data!.length,
+                        itemScrollController: initialScrollController,
+                        scrollDirection: Axis.vertical,
+                        itemBuilder: (BuildContext context, int index) {
+                          final chapter = snapshot.data![index];
+                          return GestureDetector(
+                            child: showListTile(chapter),
+                            onTap: () {
+                              if (chapter.id! > 0) {
+                                final model = BmModel(
+                                    title: westindex[chapter.c! - 1],
+                                    subtitle: prepareText(chapter.t!, 150),
+                                    doc: 1, // document one
+                                    page: chapter.c!,
+                                    para: index);
 
-                              showPopupMenu(context, model);
-                            }
+                                showPopupMenu(context, model);
+                              }
 
-                            //debugPrint(chapter.id.toString());
-                          },
-                        );
-                      },
-                    );
-                  } else {
-                    return const CircularProgressIndicator();
-                  }
-                },
-              ),
-            );
-          },
+                              //debugPrint(chapter.id.toString());
+                            },
+                          );
+                        },
+                      );
+                    } else {
+                      return const CircularProgressIndicator();
+                    }
+                  },
+                ),
+              );
+            },
+          ),
         ),
       ),
     );
