@@ -11,6 +11,15 @@ class PRQueries {
   Future<List<Preface>> getParagraphs() async {
     final db = await prefProvider.database;
 
+    // add empty lines at the end
+    List<Preface> addedLines = [];
+
+    final line = Preface(id: 0, t: '');
+
+    for (int l = 0; l <= 15; l++) {
+      addedLines.add(line);
+    }
+
     final List<Map<String, dynamic>> maps =
         await db.rawQuery("SELECT * FROM $_dbTable");
 
@@ -25,6 +34,8 @@ class PRQueries {
             },
           )
         : [];
+
+    list.insertAll(list.length, addedLines); // add empty lines
 
     return list;
   }

@@ -11,6 +11,15 @@ class PointsQueries {
   Future<List<Points>> getPoints() async {
     final db = await pointsProvider.database;
 
+    // add empty lines at the end
+    List<Points> addedLines = [];
+
+    final line = Points(id: 0, h: '', t: '');
+
+    for (int l = 0; l <= 15; l++) {
+      addedLines.add(line);
+    }
+
     final List<Map<String, dynamic>> maps =
         await db.rawQuery("SELECT * FROM $_dbTable");
 
@@ -26,6 +35,8 @@ class PointsQueries {
             },
           )
         : [];
+
+    list.insertAll(list.length, addedLines); // add empty lines
 
     return list;
   }

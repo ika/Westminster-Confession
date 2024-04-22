@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import 'package:westminster_confession/bkmarks/model.dart';
 import 'package:westminster_confession/bloc/bloc_font.dart';
 import 'package:westminster_confession/bloc/bloc_italic.dart';
+import 'package:westminster_confession/bloc/bloc_scroll.dart';
 import 'package:westminster_confession/bloc/bloc_size.dart';
 import 'package:westminster_confession/creeds/model.dart';
 import 'package:westminster_confession/creeds/queries.dart';
 import 'package:westminster_confession/fonts/list.dart';
 import 'package:westminster_confession/utils/globals.dart';
+import 'package:westminster_confession/utils/menu.dart';
+import 'package:westminster_confession/utils/utils.dart';
 
 // Preface
 
@@ -25,14 +30,35 @@ class CreedsPage extends StatefulWidget {
 }
 
 class CreedsPageState extends State<CreedsPage> {
+  ItemScrollController initialScrollController = ItemScrollController();
+
   List<Creeds> paragraphs = List<Creeds>.empty();
   String heading = "Ecumenical Creeds";
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   primaryTextSize = BlocProvider.of<TextSizeCubit>(context).state;
-  // }
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) {
+        Future.delayed(Duration(milliseconds: Globals.navigatorLongDelay), () {
+          if (initialScrollController.isAttached) {
+            initialScrollController.scrollTo(
+              index: context.read<ScrollBloc>().state,
+              duration: Duration(milliseconds: Globals.navigatorLongDelay),
+              curve: Curves.easeInOutCubic,
+            );
+            // reset scroll index
+            context.read<ScrollBloc>().add(
+                  UpdateScroll(index: 0),
+                );
+          } else {
+            debugPrint("initialScrollController in NOT attached");
+          }
+        });
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,8 +92,9 @@ class CreedsPageState extends State<CreedsPage> {
             ),
             body: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: ListView.builder(
+              child: ScrollablePositionedList.builder(
                 itemCount: paragraphs.length,
+                itemScrollController: initialScrollController,
                 itemBuilder: (BuildContext context, int index) {
                   return ListTile(
                     title: Text(
@@ -89,6 +116,18 @@ class CreedsPageState extends State<CreedsPage> {
                               : FontStyle.normal,
                           fontSize: context.read<SizeBloc>().state),
                     ),
+                    onTap: () {
+                      final model = BmModel(
+                          title: 'Ecumenical Creeds',
+                          subtitle: prepareText(paragraphs[index].t, 150),
+                          doc: 4, // Prefrences
+                          page: 0, // not used
+                          para: index);
+
+                      //debugPrint(model.para.toString());
+
+                      showPopupMenu(context, model);
+                    },
                   );
                 },
               ),

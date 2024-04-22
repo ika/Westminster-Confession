@@ -31,6 +31,7 @@ class PrefPage extends StatefulWidget {
 
 class PrefPageState extends State<PrefPage> {
   ItemScrollController initialScrollController = ItemScrollController();
+
   List<Preface> paragraphs = List<Preface>.empty();
   String heading = "Preface";
 
@@ -57,10 +58,6 @@ class PrefPageState extends State<PrefPage> {
         });
       },
     );
-  }
-
-    itemScrollControllerSelector() {
-    initialScrollController = ItemScrollController();
   }
 
   @override
@@ -99,10 +96,10 @@ class PrefPageState extends State<PrefPage> {
             ),
             body: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: ListView.builder(
+              child: ScrollablePositionedList.builder(
                 itemCount: paragraphs.length,
+                itemScrollController: initialScrollController,
                 itemBuilder: (BuildContext context, int index) {
-                  itemScrollControllerSelector();
                   return ListTile(
                     subtitle: Text(
                       paragraphs[index].t!,
@@ -120,6 +117,8 @@ class PrefPageState extends State<PrefPage> {
                           doc: 2, // Prefrences
                           page: 0, // not used
                           para: index);
+
+                      //debugPrint(model.para.toString());
 
                       showPopupMenu(context, model);
                     },

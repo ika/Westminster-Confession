@@ -11,6 +11,15 @@ class ShorterQueries {
   Future<List<Shorter>> getShorter() async {
     final db = await shorterProvider.database;
 
+    // add empty lines at the end
+    List<Shorter> addedLines = [];
+
+    final line = Shorter(id: 0, h: '', t: '');
+
+    for (int l = 0; l <= 15; l++) {
+      addedLines.add(line);
+    }
+
     final List<Map<String, dynamic>> maps =
         await db.rawQuery("SELECT * FROM $_dbTable");
 
@@ -26,6 +35,8 @@ class ShorterQueries {
             },
           )
         : [];
+
+    list.insertAll(list.length, addedLines); // add empty lines
 
     return list;
   }

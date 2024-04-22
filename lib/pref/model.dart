@@ -1,8 +1,8 @@
 // Main Database Model
 
 class Preface {
-  int? id;
-  String? t;
+  int id;
+  String t;
 
-  Preface({this.id, this.t});
+  Preface({required this.id, required this.t});
 }

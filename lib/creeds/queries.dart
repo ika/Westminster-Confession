@@ -11,6 +11,15 @@ class CreedsQueries {
   Future<List<Creeds>> getCreeds() async {
     final db = await creedsProvider.database;
 
+    // add empty lines at the end
+    List<Creeds> addedLines = [];
+
+    final line = Creeds(id: 0, h: '', t: '');
+
+    for (int l = 0; l <= 15; l++) {
+      addedLines.add(line);
+    }
+
     final List<Map<String, dynamic>> maps =
         await db.rawQuery("SELECT * FROM $_dbTable");
 
@@ -26,6 +35,8 @@ class CreedsQueries {
             },
           )
         : [];
+
+    list.insertAll(list.length, addedLines); // add empty lines
 
     return list;
   }

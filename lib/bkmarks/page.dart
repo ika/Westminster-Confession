@@ -3,8 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:westminster_confession/bkmarks/model.dart';
 import 'package:westminster_confession/bkmarks/queries.dart';
 import 'package:westminster_confession/bloc/bloc_scroll.dart';
+import 'package:westminster_confession/creeds/page.dart';
 import 'package:westminster_confession/main/page.dart';
+import 'package:westminster_confession/points/page.dart';
 import 'package:westminster_confession/pref/page.dart';
+import 'package:westminster_confession/shorter/page.dart';
 import 'package:westminster_confession/utils/globals.dart';
 
 // Bookmarks
@@ -169,6 +172,48 @@ class BMMarksPageState extends State<BMMarksPage> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => const PrefPage(),
+                                  ),
+                                );
+                              },
+                            );
+                            break;
+
+                          case 3:
+                            Future.delayed(
+                              Duration(milliseconds: Globals.navigatorDelay),
+                              () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const PointsPage(),
+                                  ),
+                                );
+                              },
+                            );
+                            break;
+
+                          case 4:
+                            Future.delayed(
+                              Duration(milliseconds: Globals.navigatorDelay),
+                              () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const CreedsPage(),
+                                  ),
+                                );
+                              },
+                            );
+                            break;
+
+                          case 5:
+                            Future.delayed(
+                              Duration(milliseconds: Globals.navigatorDelay),
+                              () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const ShorterPage(),
                                   ),
                                 );
                               },
