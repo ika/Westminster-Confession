@@ -102,7 +102,7 @@ class PrefPageState extends State<PrefPage> {
                 itemBuilder: (BuildContext context, int index) {
                   return ListTile(
                     subtitle: Text(
-                      paragraphs[index].t!,
+                      paragraphs[index].t,
                       style: TextStyle(
                           fontFamily: fontsList[context.read<FontBloc>().state],
                           fontStyle: (context.read<ItalicBloc>().state)
@@ -113,7 +113,7 @@ class PrefPageState extends State<PrefPage> {
                     onTap: () {
                       final model = BmModel(
                           title: 'Preface',
-                          subtitle: prepareText(paragraphs[index].t!, 150),
+                          subtitle: prepareText(paragraphs[index].t, 150),
                           doc: 2, // Prefrences
                           page: 0, // not used
                           para: index);
