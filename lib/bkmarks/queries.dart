@@ -3,6 +3,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:westminster_confession/bkmarks/provider.dart';
 import 'package:westminster_confession/bkmarks/model.dart';
 import 'package:westminster_confession/utils/const.dart';
+import 'package:westminster_confession/utils/utils.dart';
 
 // Bookmarks database helper
 
@@ -12,6 +13,9 @@ class BMQueries {
 
   Future<void> saveBookMark(BmModel model) async {
     final db = await provider.database;
+
+    model.subtitle = prepareText(model.subtitle, 150);
+
     await db.insert(
       _dbTable,
       model.toMap(),
