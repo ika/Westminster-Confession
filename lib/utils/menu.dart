@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:westminster_confession/bkmarks/model.dart';
 import 'package:westminster_confession/bkmarks/queries.dart';
 import 'package:westminster_confession/utils/globals.dart';
@@ -13,8 +14,11 @@ const snackBarExists = SnackBar(
   content: Text('BookMark already Exists!'),
 );
 
+const textCopiedSnackBar = SnackBar(
+  content: Text('Text Copied'),
+);
+
 Future<dynamic> showPopupMenu(BuildContext context, BmModel model) async {
-  
   double width = MediaQuery.of(context).size.width;
   double height = MediaQuery.of(context).size.height * .3;
 
@@ -43,8 +47,19 @@ Future<dynamic> showPopupMenu(BuildContext context, BmModel model) async {
       PopupMenuItem(
         child: const Text("Copy"),
         onTap: () {
-          //debugPrint(rowid.toString());
-          // copyVerseWrapper(context);
+          final copyText = <String>[model.title, model.subtitle];
+
+          final sb = StringBuffer();
+          sb.writeAll(copyText);
+
+          Clipboard.setData(
+            ClipboardData(text: sb.toString()),
+          ).then((_) {
+            Future.delayed(Duration(milliseconds: Globals.navigatorLongDelay),
+                () {
+              ScaffoldMessenger.of(context).showSnackBar(textCopiedSnackBar);
+            });
+          });
         },
       ),
     ],
