@@ -11,7 +11,6 @@ import 'package:westminster_confession/pref/model.dart';
 import 'package:westminster_confession/pref/queries.dart';
 import 'package:westminster_confession/utils/globals.dart';
 import 'package:westminster_confession/utils/menu.dart';
-import 'package:westminster_confession/utils/utils.dart';
 
 // Preface
 
@@ -113,7 +112,7 @@ class PrefPageState extends State<PrefPage> {
                     onTap: () {
                       final model = BmModel(
                           title: 'Preface',
-                          subtitle: prepareText(paragraphs[index].t, 150),
+                          subtitle: paragraphs[index].t,
                           doc: 2, // Prefrences
                           page: 0, // not used
                           para: index);

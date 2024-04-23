@@ -11,7 +11,6 @@ import 'package:westminster_confession/shorter/model.dart';
 import 'package:westminster_confession/shorter/queries.dart';
 import 'package:westminster_confession/utils/globals.dart';
 import 'package:westminster_confession/utils/menu.dart';
-import 'package:westminster_confession/utils/utils.dart';
 
 // Shorter Catechism
 
@@ -118,7 +117,7 @@ class ShorterPageState extends State<ShorterPage> {
                                         onTap: () {
                       final model = BmModel(
                           title: 'Shorter Catechism',
-                          subtitle: prepareText(paragraphs[index].t, 150),
+                          subtitle: paragraphs[index].t,
                           doc: 5, // Prefrences
                           page: 0, // not used
                           para: index);

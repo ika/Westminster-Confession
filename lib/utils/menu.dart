@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:westminster_confession/bkmarks/model.dart';
 import 'package:westminster_confession/bkmarks/queries.dart';
 import 'package:westminster_confession/utils/globals.dart';
+import 'package:westminster_confession/utils/utils.dart';
 
 BMQueries bmQueries = BMQueries();
 
@@ -21,6 +22,8 @@ const textCopiedSnackBar = SnackBar(
 Future<dynamic> showPopupMenu(BuildContext context, BmModel model) async {
   double width = MediaQuery.of(context).size.width;
   double height = MediaQuery.of(context).size.height * .3;
+
+  model.subtitle = prepareText(model.subtitle, 150);
 
   await showMenu(
     context: context,

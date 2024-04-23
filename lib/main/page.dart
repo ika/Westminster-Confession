@@ -191,7 +191,7 @@ class _ProofsPageState extends State<ProofsPage> {
                               if (chapter.id! > 0) {
                                 final model = BmModel(
                                     title: westindex[chapter.c! - 1],
-                                    subtitle: prepareText(chapter.t!, 150),
+                                    subtitle: chapter.t!,
                                     doc: 1, // document one
                                     page: chapter.c!,
                                     para: index);

@@ -11,7 +11,6 @@ import 'package:westminster_confession/creeds/queries.dart';
 import 'package:westminster_confession/fonts/list.dart';
 import 'package:westminster_confession/utils/globals.dart';
 import 'package:westminster_confession/utils/menu.dart';
-import 'package:westminster_confession/utils/utils.dart';
 
 // Preface
 
@@ -119,7 +118,7 @@ class CreedsPageState extends State<CreedsPage> {
                     onTap: () {
                       final model = BmModel(
                           title: 'Ecumenical Creeds',
-                          subtitle: prepareText(paragraphs[index].t, 150),
+                          subtitle: paragraphs[index].t,
                           doc: 4, // Prefrences
                           page: 0, // not used
                           para: index);
