@@ -291,10 +291,6 @@ class _IndexPageState extends State<IndexPage> {
 
   @override
   Widget build(BuildContext context) {
-    // reset scrollto
-    // context.read<ScrollBloc>().add(
-    //       UpdateScroll(index: 0),
-    //     );
     // reset chapter
     context.read<ChapterBloc>().add(
           UpdateChapter(chapter: 1),
