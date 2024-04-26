@@ -16,7 +16,7 @@ class UpdateScroll extends ScrollEvent {
 // Bloc
 // -------------------------------------------------
 class ScrollBloc extends HydratedBloc<ScrollEvent, int> {
-  ScrollBloc() : super(2) { // somewhere 1 is subtracted from this initial value
+  ScrollBloc() : super(1) {
     on<UpdateScroll>((event, emit) {
       emit(event.index);
     });

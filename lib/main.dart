@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
+import 'package:westminster_confession/bloc/bloc_chapter.dart';
 import 'package:westminster_confession/bloc/bloc_font.dart';
 import 'package:westminster_confession/bloc/bloc_italic.dart';
 import 'package:westminster_confession/bloc/bloc_refs.dart';
@@ -53,6 +54,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<SizeBloc>(
           create: (context) => SizeBloc(),
+        ),
+        BlocProvider<ChapterBloc>(
+          create: (context) => ChapterBloc(),
         )
       ],
       child: BlocBuilder<ThemeBloc, bool>(

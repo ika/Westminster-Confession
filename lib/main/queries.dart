@@ -1,3 +1,4 @@
+import 'package:sqflite/sqflite.dart';
 import 'package:westminster_confession/main/model.dart';
 import 'package:westminster_confession/main/provider.dart';
 import 'package:westminster_confession/utils/const.dart';
@@ -46,5 +47,14 @@ class WeQueries {
     list.insertAll(list.length, addedLines); // add empty lines
 
     return list;
+  }
+
+    Future<int> getChapterCount() async {
+    final db = await WeProvider().database;
+
+    var cnt = Sqflite.firstIntValue(
+      await db.rawQuery('''SELECT MAX(c) FROM $_tableName'''),
+    );
+    return cnt ?? 0;
   }
 }

@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:linkfy_text/linkfy_text.dart';
 import 'package:westminster_confession/bkmarks/model.dart';
+import 'package:westminster_confession/bloc/bloc_chapter.dart';
 import 'package:westminster_confession/bloc/bloc_font.dart';
 import 'package:westminster_confession/bloc/bloc_italic.dart';
 import 'package:westminster_confession/bloc/bloc_refs.dart';
@@ -20,6 +21,9 @@ import 'package:westminster_confession/utils/globals.dart';
 import 'package:westminster_confession/utils/utils.dart';
 
 late bool refsAreOn;
+int indexNumber = 0;
+WeQueries weQueries = WeQueries();
+late PageController? pageController;
 
 class ProofsPage extends StatefulWidget {
   const ProofsPage({super.key, required this.page});
@@ -42,21 +46,33 @@ class _ProofsPageState extends State<ProofsPage> {
       (_) {
         Future.delayed(Duration(milliseconds: Globals.navigatorLongDelay), () {
           if (initialScrollController.isAttached) {
-            initialScrollController.scrollTo(
-              index: context.read<ScrollBloc>().state,
+            initialScrollController
+                .scrollTo(
+              index:  indexNumber, //context.read<ScrollBloc>().state,
               duration: Duration(milliseconds: Globals.navigatorLongDelay),
               curve: Curves.easeInOutCubic,
-            );
-            // reset scroll index
-            context.read<ScrollBloc>().add(
-                  UpdateScroll(index: 0),
-                );
+            )
+                .then((value) {
+              // reset scrollto
+              context.read<ScrollBloc>().add(
+                    UpdateScroll(index: 0),
+                  );
+            });
           } else {
-            debugPrint("initialScrollController in NOT attached");
+            debugPrint("initialScrollController is NOT attached");
           }
         });
       },
     );
+  }
+
+  itemScrollControllerSelector() {
+    initialScrollController = ItemScrollController();
+  }
+
+  void getPageController() {
+    pageController =
+        PageController(initialPage: context.read<ChapterBloc>().state - 1);
   }
 
   Widget showListTile(Wesminster chapter) {
@@ -105,14 +121,11 @@ class _ProofsPageState extends State<ProofsPage> {
           );
   }
 
-  itemScrollControllerSelector() {
-    initialScrollController = ItemScrollController();
-  }
-
   @override
   Widget build(BuildContext context) {
-    final PageController pageController =
-        PageController(initialPage: widget.page - 1);
+    //debugPrint("SCROLL TO INDEX ${context.read<ScrollBloc>().state}");
+    indexNumber = context.read<ScrollBloc>().state;
+    getPageController();
     return PopScope(
       canPop: false,
       child: Scaffold(
@@ -144,74 +157,74 @@ class _ProofsPageState extends State<ProofsPage> {
             },
           ),
         ),
-        body: ScrollConfiguration(
-          behavior: ScrollConfiguration.of(context).copyWith(
-            dragDevices: {PointerDeviceKind.touch, PointerDeviceKind.mouse},
-          ),
-          child: PageView.builder(
-            controller: pageController,
-            itemCount: 33,
-            physics: const BouncingScrollPhysics(),
-            pageSnapping: true,
-            itemBuilder: (BuildContext context, int index) {
-              itemScrollControllerSelector();
-              return Container(
-                padding: const EdgeInsets.all(8.0),
-                child: FutureBuilder<List<Wesminster>>(
-                  future: WeQueries().getChapter(index + 1),
-                  initialData: const [],
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      // return ListView.builder(
-                      //   itemCount: snapshot.data!.length,
-                      //   itemBuilder: (BuildContext context, int index) {
-                      //     final chapter = snapshot.data![index];
-                      //     return GestureDetector(
-                      //         child: showListTile(chapter),
-                      //         onTap: () {
-                      //           final model = BMModel(
-                      //               title: westindex[index + 1],
-                      //               subtitle: prepareText(chapter.t!, 150),
-                      //               page: chapter.c!,
-                      //               para: chapter.id!);
+        body: FutureBuilder<int>(
+          future: weQueries.getChapterCount(),
+          builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
+            if (snapshot.hasData) {
+              int chapterCount = snapshot.data!.toInt();
+              return ScrollConfiguration(
+                behavior: ScrollConfiguration.of(context).copyWith(
+                  dragDevices: {
+                    PointerDeviceKind.touch,
+                    PointerDeviceKind.mouse
+                  },
+                ),
+                child: PageView.builder(
+                  controller: pageController,
+                  itemCount: chapterCount,
+                  physics: const BouncingScrollPhysics(),
+                  pageSnapping: true,
+                  itemBuilder: (BuildContext context, int index) {
+                    itemScrollControllerSelector();
+                    return Container(
+                      padding: const EdgeInsets.all(8.0),
+                      child: FutureBuilder<List<Wesminster>>(
+                        future: weQueries.getChapter(
+                            index + 1), // index +1 from page controller
+                        initialData: const [],
+                        builder: (BuildContext context,
+                            AsyncSnapshot<List<Wesminster>> snapshot) {
+                          if (snapshot.hasData) {
+                            return ScrollablePositionedList.builder(
+                              itemCount: snapshot.data!.length,
+                              itemScrollController: initialScrollController,
+                              itemBuilder: (BuildContext context, int index) {
+                                final chapter = snapshot.data![index];
+                                return GestureDetector(
+                                  child: showListTile(chapter),
+                                  onTap: () {
+                                    final model = BmModel(
+                                        title: westindex[chapter.c! - 1],
+                                        subtitle: chapter.t!,
+                                        doc: 1, // document one
+                                        page: chapter.c!,
+                                        para: index);
 
-                      //           showPopupMenu(context, model);
-                      //         });
-                      //   },
-                      // );
-                      return ScrollablePositionedList.builder(
-                        itemCount: snapshot.data!.length,
-                        itemScrollController: initialScrollController,
-                        scrollDirection: Axis.vertical,
-                        itemBuilder: (BuildContext context, int index) {
-                          final chapter = snapshot.data![index];
-                          return GestureDetector(
-                            child: showListTile(chapter),
-                            onTap: () {
-                              if (chapter.id! > 0) {
-                                final model = BmModel(
-                                    title: westindex[chapter.c! - 1],
-                                    subtitle: chapter.t!,
-                                    doc: 1, // document one
-                                    page: chapter.c!,
-                                    para: index);
-
-                                showPopupMenu(context, model);
-                              }
-
-                              //debugPrint(chapter.id.toString());
-                            },
-                          );
+                                    showPopupMenu(context, model);
+                                  },
+                                );
+                              },
+                            );
+                          } else {
+                            return const Center(
+                                child: CircularProgressIndicator());
+                          }
                         },
-                      );
-                    } else {
-                      return const CircularProgressIndicator();
-                    }
+                      ),
+                    );
+                  },
+                  onPageChanged: (index) {
+                    // move to next chapter
+                    context
+                        .read<ChapterBloc>()
+                        .add(UpdateChapter(chapter: index + 1));
                   },
                 ),
               );
-            },
-          ),
+            } else {
+              return const Center(child: CircularProgressIndicator());
+            }
+          },
         ),
       ),
     );
