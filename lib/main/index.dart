@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:westminster_confession/about/page.dart';
 import 'package:westminster_confession/bkmarks/page.dart';
 import 'package:westminster_confession/bloc/bloc_chapter.dart';
-import 'package:westminster_confession/bloc/bloc_scroll.dart';
 import 'package:westminster_confession/creeds/page.dart';
 import 'package:westminster_confession/fonts/fonts.dart';
 import 'package:westminster_confession/main/page.dart';
@@ -293,9 +292,9 @@ class _IndexPageState extends State<IndexPage> {
   @override
   Widget build(BuildContext context) {
     // reset scrollto
-    context.read<ScrollBloc>().add(
-          UpdateScroll(index: 0),
-        );
+    // context.read<ScrollBloc>().add(
+    //       UpdateScroll(index: 0),
+    //     );
     // reset chapter
     context.read<ChapterBloc>().add(
           UpdateChapter(chapter: 1),
