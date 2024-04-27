@@ -124,9 +124,9 @@ class BMMarksPageState extends State<BMMarksPage> {
                           size: 20.0),
                       onTap: () {
                         // update Scroll to
-                        context.read<ScrollBloc>().add(
-                              UpdateScroll(index: list[index].para),
-                            );
+                        // context.read<ScrollBloc>().add(
+                        //       UpdateScroll(index: list[index].para),
+                        //     );
 
                         // pop before return
                         int c = 0;
@@ -134,6 +134,10 @@ class BMMarksPageState extends State<BMMarksPage> {
 
                         switch (list[index].doc) {
                           case 1: // Westminster plain text
+
+                            context.read<ScrollBloc>().add(
+                                  UpdateScroll(index: list[index].para),
+                                );
 
                             Future.delayed(
                               Duration(milliseconds: Globals.navigatorDelay),
@@ -157,7 +161,7 @@ class BMMarksPageState extends State<BMMarksPage> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) =>
-                                        ProofsPage(page: list[index].page),
+                                        ProofsPage(page: list[index].page - 1),
                                   ),
                                 );
                               },

@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:linkfy_text/linkfy_text.dart';
 import 'package:westminster_confession/bkmarks/model.dart';
-import 'package:westminster_confession/bloc/bloc_chapter.dart';
 import 'package:westminster_confession/bloc/bloc_font.dart';
 import 'package:westminster_confession/bloc/bloc_italic.dart';
 import 'package:westminster_confession/bloc/bloc_refs.dart';
@@ -21,7 +20,10 @@ import 'package:westminster_confession/utils/globals.dart';
 import 'package:westminster_confession/utils/utils.dart';
 
 late bool refsAreOn;
+
 int indexNumber = 0;
+int pageNumber = 0;
+
 WeQueries weQueries = WeQueries();
 late PageController? pageController;
 
@@ -48,7 +50,7 @@ class _ProofsPageState extends State<ProofsPage> {
           if (initialScrollController.isAttached) {
             initialScrollController
                 .scrollTo(
-              index:  indexNumber, //context.read<ScrollBloc>().state,
+              index: indexNumber, //context.read<ScrollBloc>().state,
               duration: Duration(milliseconds: Globals.navigatorLongDelay),
               curve: Curves.easeInOutCubic,
             )
@@ -71,8 +73,7 @@ class _ProofsPageState extends State<ProofsPage> {
   }
 
   void getPageController() {
-    pageController =
-        PageController(initialPage: context.read<ChapterBloc>().state - 1);
+    pageController = PageController(initialPage: pageNumber);
   }
 
   Widget showListTile(Wesminster chapter) {
@@ -125,6 +126,7 @@ class _ProofsPageState extends State<ProofsPage> {
   Widget build(BuildContext context) {
     //debugPrint("SCROLL TO INDEX ${context.read<ScrollBloc>().state}");
     indexNumber = context.read<ScrollBloc>().state;
+    pageNumber = widget.page;
     getPageController();
     return PopScope(
       canPop: false,
@@ -215,9 +217,10 @@ class _ProofsPageState extends State<ProofsPage> {
                   },
                   onPageChanged: (index) {
                     // move to next chapter
-                    context
-                        .read<ChapterBloc>()
-                        .add(UpdateChapter(chapter: index + 1));
+                    pageNumber = index + 1;
+                    // context
+                    //     .read<ChapterBloc>()
+                    //     .add(UpdateChapter(chapter: index + 1));
                   },
                 ),
               );
