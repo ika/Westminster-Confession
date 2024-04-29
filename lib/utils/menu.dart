@@ -47,7 +47,7 @@ Future<dynamic> showPopupMenu(BuildContext context, BmModel model) async {
       PopupMenuItem(
         child: const Text("Copy"),
         onTap: () {
-          final copyText = <String>[model.title, ' ', model.subtitle];
+          final copyText = <String>[model.subtitle];
 
           final sb = StringBuffer();
           sb.writeAll(copyText);

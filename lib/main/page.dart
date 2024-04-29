@@ -197,7 +197,7 @@ class _ProofsPageState extends State<ProofsPage> {
                                   onTap: () {
                                     final model = BmModel(
                                         title: westindex[chapter.c! - 1],
-                                        subtitle: chapter.t!,
+                                        subtitle: replaceNumbers(chapter.t!),
                                         doc: 1, // document one
                                         page: chapter.c!,
                                         para: index);

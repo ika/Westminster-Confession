@@ -59,7 +59,10 @@ class _FontsPageState extends State<FontsPage> {
                         Duration(milliseconds: Globals.navigatorDelay),
                         () {
                           Navigator.of(context).pop();
-                          Navigator.of(context).pop();
+                          //Navigator.of(context).pop();
+                          setState(() {
+                            selectedFont = fontNumber;
+                          });
                         },
                       );
                     },

@@ -123,16 +123,17 @@ class BMMarksPageState extends State<BMMarksPage> {
                           color: Theme.of(context).colorScheme.primary,
                           size: 20.0),
                       onTap: () {
+                        // update scroll
+                        context.read<ScrollBloc>().add(
+                              UpdateScroll(index: list[index].para),
+                            );
+
                         // pop before return
                         int c = 0;
                         Navigator.of(context).popUntil((route) => c++ == 2);
 
                         switch (list[index].doc) {
                           case 1: // Westminster
-
-                            context.read<ScrollBloc>().add(
-                                  UpdateScroll(index: list[index].para),
-                                );
 
                             Future.delayed(
                               Duration(milliseconds: Globals.navigatorDelay),
