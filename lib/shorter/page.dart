@@ -117,7 +117,7 @@ class ShorterPageState extends State<ShorterPage> {
                                         onTap: () {
                       final model = BmModel(
                           title: 'Shorter Catechism',
-                          subtitle: paragraphs[index].t,
+                          subtitle: "${paragraphs[index].h} ${paragraphs[index].t}",
                           doc: 5, // Prefrences
                           page: 0, // not used
                           para: index);
