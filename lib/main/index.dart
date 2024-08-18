@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:westminster_confession/about/page.dart';
 import 'package:westminster_confession/bkmarks/page.dart';
 import 'package:westminster_confession/creeds/page.dart';
@@ -249,6 +250,31 @@ class _IndexPageState extends State<IndexPage> {
                       builder: (context) => const ThemePage(),
                     ),
                   );
+                },
+              );
+            },
+          ),
+          ListTile(
+            trailing: Icon(
+              Icons.keyboard_double_arrow_right,
+              color: Theme.of(context).colorScheme.primary,
+            ),
+            title: Text(
+              'Share',
+              style: Theme.of(context).textTheme.bodyLarge,
+              // style: TextStyle(
+              //   color: Colors.black87,
+              //   fontFamily: 'Raleway-Regular',
+              //   fontSize: 16,
+              // ),
+            ),
+            dense: true,
+            onTap: () {
+              Future.delayed(
+                Duration(milliseconds: Globals.navigatorDelay),
+                () {
+                  Navigator.pop(context);
+                  Share.share('https://play.google.com/store/apps/details?id=org.armstrong.ika.westminster_confession');
                 },
               );
             },

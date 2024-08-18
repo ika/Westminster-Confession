@@ -1,9 +1,9 @@
-import 'package:westminster_confession/refs/model.dart';
-import 'package:westminster_confession/refs/provider.dart';
+import 'package:westminster_confession/proofs/model.dart';
+import 'package:westminster_confession/proofs/provider.dart';
 import 'package:westminster_confession/utils/const.dart';
 
 class ReQueries {
-  final String _tableName = Constants.refsTable;
+  final String _tableName = Constants.proofsTable;
 
   Future<List<Refs>> getRef(int num) async {
     final db = await ReProvider().database;

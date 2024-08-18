@@ -5,7 +5,7 @@ import 'package:westminster_confession/utils/const.dart';
 import 'package:westminster_confession/utils/utils.dart';
 
 class WeQueries {
-  final String _tableName = Constants.proofsTable;
+  final String _tableName = Constants.textTable;
 
   Future<List<Wesminster>> getChapter(int chap) async {
     final db = await WeProvider().database;

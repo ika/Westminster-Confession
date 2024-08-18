@@ -43,6 +43,8 @@ dependencies:
   flutter_bloc: ^8.1.5
   hydrated_bloc: ^9.1.5
   sqflite_common_ffi: ^2.3.3
+  share_plus: ^10.0.2
+  
 
 dev_dependencies:
   flutter_test:

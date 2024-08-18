@@ -14,8 +14,8 @@ import 'package:westminster_confession/fonts/list.dart';
 import 'package:westminster_confession/utils/menu.dart';
 import 'package:westminster_confession/main/model.dart';
 import 'package:westminster_confession/main/queries.dart';
-import 'package:westminster_confession/refs/getref.dart';
-import 'package:westminster_confession/refs/queries.dart';
+import 'package:westminster_confession/proofs/getref.dart';
+import 'package:westminster_confession/proofs/queries.dart';
 import 'package:westminster_confession/utils/globals.dart';
 import 'package:westminster_confession/utils/utils.dart';
 

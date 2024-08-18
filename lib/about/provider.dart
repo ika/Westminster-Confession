@@ -5,7 +5,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:westminster_confession/utils/const.dart';
 
 class AboutProvider {
-  final int newDbVerson = 1;
+  final int newDbVerson = 2;
 
   final String _dbName = Constants.aboutDatabase;
 

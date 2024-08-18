@@ -6,8 +6,8 @@ import 'package:westminster_confession/utils/const.dart';
 
 class ReProvider {
 
-  final int newDbVerson = 1;
-  final String _dbName = Constants.refsDatabase;
+  final int newDbVerson = 2;
+  final String _dbName = Constants.proofsDatabase;
 
   ReProvider.internal();
 
