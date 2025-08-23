@@ -6,17 +6,11 @@ import 'package:westminster_confession/utils/globals.dart';
 
 BMQueries bmQueries = BMQueries();
 
-const snackBarSaved = SnackBar(
-  content: Text('BookMark Saved!'),
-);
+const snackBarSaved = SnackBar(content: Text('BookMark Saved!'));
 
-const snackBarExists = SnackBar(
-  content: Text('BookMark already Exists!'),
-);
+const snackBarExists = SnackBar(content: Text('BookMark already Exists!'));
 
-const textCopiedSnackBar = SnackBar(
-  content: Text('Text Copied'),
-);
+const textCopiedSnackBar = SnackBar(content: Text('Text Copied'));
 
 // main popup menu
 Future<dynamic> showPopupMenu(BuildContext context, BmModel model) async {
@@ -30,19 +24,24 @@ Future<dynamic> showPopupMenu(BuildContext context, BmModel model) async {
       PopupMenuItem(
         child: const Text("Bookmark"),
         onTap: () {
-          bmQueries.getBookMarkExists(model.doc, model.page, model.para).then(
-            (value) {
-              (value < 1)
-                  ? bmQueries.saveBookMark(model).then((value) {
-                      Future.delayed(
-                          Duration(microseconds: Globals.navigatorDelay), () {
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(snackBarSaved);
-                      });
-                    })
-                  : ScaffoldMessenger.of(context).showSnackBar(snackBarExists);
-            },
-          );
+          bmQueries.getBookMarkExists(model.doc, model.page, model.para).then((
+            value,
+          ) {
+            (value < 1)
+                ? bmQueries.saveBookMark(model).then((value) {
+                    Future.delayed(
+                      Duration(microseconds: Globals.navigatorDelay),
+                      () {
+                        if (context.mounted) {
+                          ScaffoldMessenger.of(
+                            context,
+                          ).showSnackBar(snackBarSaved);
+                        }
+                      },
+                    );
+                  })
+                : (context.mounted) ? ScaffoldMessenger.of(context).showSnackBar(snackBarExists) : null;
+          });
         },
       ),
       PopupMenuItem(
@@ -53,13 +52,16 @@ Future<dynamic> showPopupMenu(BuildContext context, BmModel model) async {
           final sb = StringBuffer();
           sb.writeAll(copyText);
 
-          Clipboard.setData(
-            ClipboardData(text: sb.toString()),
-          ).then((_) {
-            Future.delayed(Duration(milliseconds: Globals.navigatorLongDelay),
-                () {
-              ScaffoldMessenger.of(context).showSnackBar(textCopiedSnackBar);
-            });
+          Clipboard.setData(ClipboardData(text: sb.toString())).then((_) {
+            Future.delayed(
+              Duration(milliseconds: Globals.navigatorLongDelay),
+              () {
+                if(context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      textCopiedSnackBar);
+                }
+              },
+            );
           });
         },
       ),

@@ -95,7 +95,9 @@ class PointsPageState extends State<PointsPage> {
                     Future.delayed(
                       Duration(milliseconds: Globals.navigatorDelay),
                       () {
-                        Navigator.pop(context);
+                        if(context.mounted) {
+                          Navigator.pop(context);
+                        }
                       },
                     );
                   },

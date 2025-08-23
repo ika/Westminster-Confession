@@ -60,7 +60,9 @@ class AboutPageState extends State<AboutPage> {
                   ),
                   onPressed: () {
                     Future.delayed(Duration(milliseconds: Globals.navigatorDelay), () {
-                      Navigator.pop(context);
+                      if(context.mounted) {
+                        Navigator.pop(context);
+                      }
                     });
                   },
                 ),

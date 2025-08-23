@@ -67,7 +67,7 @@ class _FontsPageState extends State<FontsPage> {
           actions: [
             TextButton(
               onPressed: () {
-                context.read<SizeBloc>().add(UpdateSize(size: tempSize, double: null));
+                context.read<SizeBloc>().add(UpdateSize(size: tempSize));
                 setState(() => textSize = tempSize);
                 Navigator.pop(context);
               },

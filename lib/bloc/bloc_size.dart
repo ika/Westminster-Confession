@@ -8,7 +8,7 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 abstract class SizeEvent {}
 
 class UpdateSize extends SizeEvent {
-  UpdateSize({required this.size, required double});
+  UpdateSize({required this.size});
 
   final double size;
 }

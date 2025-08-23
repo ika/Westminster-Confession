@@ -91,7 +91,9 @@ class ShorterPageState extends State<ShorterPage> {
                     Future.delayed(
                       Duration(milliseconds: Globals.navigatorDelay),
                       () {
-                        Navigator.pop(context);
+                        if(context.mounted) {
+                          Navigator.pop(context);
+                        }
                       },
                     );
                   },

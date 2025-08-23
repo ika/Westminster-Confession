@@ -95,7 +95,9 @@ class BMMarksPageState extends State<BMMarksPage> {
                     Future.delayed(
                       Duration(milliseconds: Globals.navigatorDelay),
                       () {
-                        Navigator.pop(context);
+                        if(context.mounted){
+                          Navigator.pop(context);
+                        }
                       },
                     );
                   },
@@ -190,13 +192,16 @@ class BMMarksPageState extends State<BMMarksPage> {
                               //   );
                               // },
                               () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        ProofsPage(page: list[index].page - 1),
-                                  ),
-                                );
+                                if(context.mounted) {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          ProofsPage(
+                                              page: list[index].page - 1),
+                                    ),
+                                  );
+                                }
                               },
                             );
                             break;
@@ -205,12 +210,14 @@ class BMMarksPageState extends State<BMMarksPage> {
                             Future.delayed(
                               Duration(milliseconds: Globals.navigatorDelay),
                               () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const PrefPage(),
-                                  ),
-                                );
+                                if(context.mounted) {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const PrefPage(),
+                                    ),
+                                  );
+                                }
                               },
                             );
                             break;
@@ -219,12 +226,14 @@ class BMMarksPageState extends State<BMMarksPage> {
                             Future.delayed(
                               Duration(milliseconds: Globals.navigatorDelay),
                               () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const PointsPage(),
-                                  ),
-                                );
+                                if(context.mounted) {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const PointsPage(),
+                                    ),
+                                  );
+                                }
                               },
                             );
                             break;
@@ -233,12 +242,14 @@ class BMMarksPageState extends State<BMMarksPage> {
                             Future.delayed(
                               Duration(milliseconds: Globals.navigatorDelay),
                               () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const CreedsPage(),
-                                  ),
-                                );
+                                if(context.mounted) {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const CreedsPage(),
+                                    ),
+                                  );
+                                }
                               },
                             );
                             break;
@@ -247,12 +258,14 @@ class BMMarksPageState extends State<BMMarksPage> {
                             Future.delayed(
                               Duration(milliseconds: Globals.navigatorDelay),
                               () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const ShorterPage(),
-                                  ),
-                                );
+                                if(context.mounted) {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const ShorterPage(),
+                                    ),
+                                  );
+                                }
                               },
                             );
                             break;
