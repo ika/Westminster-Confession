@@ -1,4 +1,6 @@
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:westminster_confession/about/page.dart';
 import 'package:westminster_confession/bkmarks/page.dart';
@@ -7,318 +9,29 @@ import 'package:westminster_confession/fonts/fonts.dart';
 import 'package:westminster_confession/main/page.dart';
 import 'package:westminster_confession/points/page.dart';
 import 'package:westminster_confession/shorter/page.dart';
-import 'package:westminster_confession/theme/theme.dart';
 import 'package:westminster_confession/utils/globals.dart';
 import 'package:westminster_confession/utils/utils.dart';
 import 'package:westminster_confession/pref/page.dart';
 
-class IndexPage extends StatefulWidget {
-  const IndexPage({super.key, required this.title});
+import '../bloc/bloc_theme.dart';
 
-  final String title;
+part 'drawer.dart';
+
+class IndexPage extends StatefulWidget {
+  const IndexPage({super.key, required this.themeState});
+
+  final bool themeState;
 
   @override
-  State<IndexPage> createState() => _IndexPageState();
+  State<IndexPage> createState() => IndexPageState();
 }
 
-class _IndexPageState extends State<IndexPage> {
+class IndexPageState extends State<IndexPage> {
   List<String> westindex = [];
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
-  drawerCode() {
-    return Drawer(
-      //backgroundColor: Theme.of(context).drawerTheme.backgroundColor,
-      child: ListView(
-        // Important: Remove any padding from the ListView.
-        padding: EdgeInsets.zero,
-        children: [
-          SizedBox(
-            height: 200.0,
-            child: DrawerHeader(
-              decoration: const BoxDecoration(
-                  //color: Theme.of(context).colorScheme.inversePrimary
-                  ),
-              child: Baseline(
-                baseline: 80,
-                baselineType: TextBaseline.alphabetic,
-                child: Text(
-                  'Index',
-                  style: TextStyle(
-                      color: Theme.of(context).colorScheme.primary,
-                      fontSize: 32,
-                      fontWeight: FontWeight.w700),
-                ),
-              ),
-            ),
-          ),
-          ListTile(
-            trailing: Icon(
-              Icons.keyboard_double_arrow_right,
-              color: Theme.of(context).colorScheme.primary,
-            ),
-            title: Text(
-              'Bookmarks',
-              style: Theme.of(context).textTheme.bodyLarge,
-              // style: TextStyle(
-              //   color: Colors.black87,
-              //   fontFamily: 'Raleway-Regular',
-              //   fontSize: 16,
-              // ),
-            ),
-            dense: true,
-            onTap: () {
-              Future.delayed(
-                Duration(milliseconds: Globals.navigatorDelay),
-                () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const BMMarksPage(),
-                    ),
-                  );
-                },
-              );
-            },
-          ),
-          ListTile(
-            trailing: Icon(
-              Icons.keyboard_double_arrow_right,
-              color: Theme.of(context).colorScheme.primary,
-            ),
-            title: Text(
-              'Preface',
-              style: Theme.of(context).textTheme.bodyLarge,
-              // style: TextStyle(
-              //   color: Colors.black87,
-              //   fontFamily: 'Raleway-Regular',
-              //   fontSize: 16,
-              // ),
-            ),
-            dense: true,
-            onTap: () {
-              Future.delayed(
-                Duration(milliseconds: Globals.navigatorDelay),
-                () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const PrefPage(),
-                    ),
-                  );
-                },
-              );
-            },
-          ),
-          ListTile(
-            trailing: Icon(
-              Icons.keyboard_double_arrow_right,
-              color: Theme.of(context).colorScheme.primary,
-            ),
-            title: Text(
-              'Five Points',
-              style: Theme.of(context).textTheme.bodyLarge,
-              // style: TextStyle(
-              //   color: Colors.black87,
-              //   fontFamily: 'Raleway-Regular',
-              //   fontSize: 16,
-              // ),
-            ),
-            dense: true,
-            onTap: () {
-              Future.delayed(
-                Duration(milliseconds: Globals.navigatorDelay),
-                () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const PointsPage(),
-                    ),
-                  );
-                },
-              );
-            },
-          ),
-          ListTile(
-            trailing: Icon(
-              Icons.keyboard_double_arrow_right,
-              color: Theme.of(context).colorScheme.primary,
-            ),
-            title: Text(
-              'Creeds',
-              style: Theme.of(context).textTheme.bodyLarge,
-              // style: TextStyle(
-              //   color: Colors.black87,
-              //   fontFamily: 'Raleway-Regular',
-              //   fontSize: 16,
-              // ),
-            ),
-            dense: true,
-            onTap: () {
-              Future.delayed(
-                Duration(milliseconds: Globals.navigatorDelay),
-                () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const CreedsPage(),
-                    ),
-                  );
-                },
-              );
-            },
-          ),
-          ListTile(
-            trailing: Icon(
-              Icons.keyboard_double_arrow_right,
-              color: Theme.of(context).colorScheme.primary,
-            ),
-            title: Text(
-              'Catechism',
-              style: Theme.of(context).textTheme.bodyLarge,
-              // style: TextStyle(
-              //   color: Colors.black87,
-              //   fontFamily: 'Raleway-Regular',
-              //   fontSize: 16,
-              // ),
-            ),
-            dense: true,
-            onTap: () {
-              Future.delayed(
-                Duration(milliseconds: Globals.navigatorDelay),
-                () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const ShorterPage(),
-                    ),
-                  );
-                },
-              );
-            },
-          ),
-          ListTile(
-            trailing: Icon(
-              Icons.keyboard_double_arrow_right,
-              color: Theme.of(context).colorScheme.primary,
-            ),
-            title: Text(
-              'Fonts',
-              style: Theme.of(context).textTheme.bodyLarge,
-              // style: TextStyle(
-              //   color: Colors.black87,
-              //   fontFamily: 'Raleway-Regular',
-              //   fontSize: 16,
-              // ),
-            ),
-            dense: true,
-            onTap: () {
-              Future.delayed(
-                Duration(milliseconds: Globals.navigatorDelay),
-                () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const FontsPage(),
-                    ),
-                  );
-                },
-              );
-            },
-          ),
-          ListTile(
-            trailing: Icon(
-              Icons.keyboard_double_arrow_right,
-              color: Theme.of(context).colorScheme.primary,
-            ),
-            title: Text(
-              'Theme',
-              style: Theme.of(context).textTheme.bodyLarge,
-              // style: TextStyle(
-              //   color: Colors.black87,
-              //   fontFamily: 'Raleway-Regular',
-              //   fontSize: 16,
-              // ),
-            ),
-            dense: true,
-            onTap: () {
-              Future.delayed(
-                Duration(milliseconds: Globals.navigatorDelay),
-                () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const ThemePage(),
-                    ),
-                  );
-                },
-              );
-            },
-          ),
-          ListTile(
-            trailing: Icon(
-              Icons.keyboard_double_arrow_right,
-              color: Theme.of(context).colorScheme.primary,
-            ),
-            title: Text(
-              'Share',
-              style: Theme.of(context).textTheme.bodyLarge,
-              // style: TextStyle(
-              //   color: Colors.black87,
-              //   fontFamily: 'Raleway-Regular',
-              //   fontSize: 16,
-              // ),
-            ),
-            dense: true,
-            onTap: () {
-              Future.delayed(
-                Duration(milliseconds: Globals.navigatorDelay),
-                () {
-                  Navigator.pop(context);
-                  Share.share('https://play.google.com/store/apps/details?id=org.armstrong.ika.westminster_confession');
-                },
-              );
-            },
-          ),
-          ListTile(
-            trailing: Icon(
-              Icons.keyboard_double_arrow_right,
-              color: Theme.of(context).colorScheme.primary,
-            ),
-            title: Text(
-              'About',
-              style: Theme.of(context).textTheme.bodyLarge,
-              // style: TextStyle(
-              //   color: Colors.black87,
-              //   fontFamily: 'Raleway-Regular',
-              //   fontSize: 16,
-              // ),
-            ),
-            dense: true,
-            onTap: () {
-              Future.delayed(
-                Duration(milliseconds: Globals.navigatorDelay),
-                () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const AboutPage(),
-                    ),
-                  );
-                },
-              );
-            },
-          ),
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    // reset chapter
-    // context.read<ChapterBloc>().add(
-    //       UpdateChapter(chapter: 1),
-    //     );
     return FutureBuilder<List<String>>(
       future: Utils().getTitleList(),
       builder: (context, AsyncSnapshot<List<String>> snapshot) {
@@ -326,83 +39,169 @@ class _IndexPageState extends State<IndexPage> {
           westindex = snapshot.data!;
           return Scaffold(
             key: scaffoldKey,
-            appBar: AppBar(
-              centerTitle: true,
-              elevation: 5,
-              leading: GestureDetector(
-                child: IconButton(
-                  icon: const Icon(Icons.menu),
-                  onPressed: () {
-                    Future.delayed(
-                      Duration(milliseconds: Globals.navigatorDelay),
-                      () {
-                        scaffoldKey.currentState!.openDrawer();
-                      },
-                    );
-                  },
+            extendBodyBehindAppBar: true,
+            // appBar: AppBar(
+            //   backgroundColor: Colors.transparent,
+            //   elevation: 0,
+            //   centerTitle: true,
+            //   title: Text(
+            //     'Chapters',
+            //     style: TextStyle(
+            //       fontWeight: FontWeight.w700,
+            //       color: Theme.of(context).colorScheme.onPrimary,
+            //       fontSize: 26,
+            //       letterSpacing: 1.2,
+            //     ),
+            //   ),
+            //   leading: IconButton(
+            //     icon: Icon(
+            //       Icons.menu,
+            //       color: Theme.of(context).colorScheme.onPrimary,
+            //     ),
+            //     onPressed: () {
+            //       Future.delayed(
+            //         Duration(milliseconds: Globals.navigatorDelay),
+            //         () {
+            //           scaffoldKey.currentState!.openDrawer();
+            //         },
+            //       );
+            //     },
+            //   ),
+            // ),
+            drawer: AppDrawer(themeState: widget.themeState),
+            body: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Theme.of(context).colorScheme.primary,
+                    Theme.of(context).colorScheme.surface,
+                  ],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
                 ),
               ),
-              title: Text(
-                widget.title,
-                style: const TextStyle(fontWeight: FontWeight.w700),
-              ),
-            ),
-            drawer: drawerCode(),
-            body: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Center(
-                child: ListView.separated(
-                  itemCount: westindex.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    //context.read<ChapterBloc>().add(UpdateChapter(chapter: index));
-                    int num = index + 1;
-                    return ListTile(
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  top: 12,
+                  left: 12,
+                  right: 12,
+                  bottom: 8,
+                ),
+                child: CustomScrollView(
+                  slivers: [
+                    SliverAppBar(
+                      backgroundColor: Colors.transparent,
+                      elevation: 0,
+                      centerTitle: true,
+                      floating: true,
+                      snap: true,
                       title: Text(
-                        "Chapter $num:",
-                        style: Theme.of(context).textTheme.bodyLarge,
+                        'Chapters',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          color: Theme.of(context).colorScheme.onPrimary,
+                        ),
                       ),
-                      subtitle: Row(
-                        children: [
-                          Icon(Icons.linear_scale,
-                              color: Theme.of(context).colorScheme.primary),
-                          Flexible(
-                            child: RichText(
-                              overflow: TextOverflow.ellipsis,
-                              text: TextSpan(
-                                text: " ${westindex[index]}",
-                                style: Theme.of(context).textTheme.bodyMedium,
-                              ),
+                      leading: IconButton(
+                        icon: Icon(
+                          Icons.menu,
+                          color: Theme.of(context).colorScheme.onPrimary,
+                        ),
+                        onPressed: () {
+                          Future.delayed(
+                            Duration(milliseconds: Globals.navigatorDelay),
+                            () {
+                              scaffoldKey.currentState!.openDrawer();
+                            },
+                          );
+                        },
+                      ),
+                    ),
+                    SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                        (BuildContext context, int index) {
+                          int num = index + 1;
+
+                          return Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16),
                             ),
-                          )
-                        ],
-                      ),
-                      trailing: Icon(Icons.keyboard_arrow_right,
-                          color: Theme.of(context).colorScheme.primary,
-                          size: 20.0),
-                      onTap: () {
-                        Future.delayed(
-                          Duration(milliseconds: Globals.navigatorDelay),
-                          () {
-                            Navigator.push(
+                            elevation: 4,
+                            color: Theme.of(
                               context,
-                              MaterialPageRoute(
-                                builder: (context) => ProofsPage(page: index),
+                            ).colorScheme.outline,
+                            child: ListTile(
+                              //tileColor: Theme.of(context).colorScheme.primaryContainer.withValues(alpha: 0.8),
+                              contentPadding: const EdgeInsets.symmetric(
+                                horizontal: 20,
+                                vertical: 12,
                               ),
-                            );
-                          },
-                        );
-                      },
-                    );
-                  },
-                  separatorBuilder: (BuildContext context, int index) {
-                    return const Divider();
-                  },
+                              title: Text(
+                                "Chapter $num:",
+                                style: Theme.of(context).textTheme.titleMedium
+                                    ?.copyWith(
+                                  color: Theme.of(context).colorScheme.primary,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              subtitle: Row(
+                                children: [
+                                  Icon(
+                                    Icons.linear_scale,
+                                    color: Theme.of(context).colorScheme.primary,
+                                  ),
+                                  Flexible(
+                                    child: RichText(
+                                      overflow: TextOverflow.ellipsis,
+                                      text: TextSpan(
+                                        text: " ${westindex[index]}",
+                                        style: Theme.of(context).textTheme.bodyMedium
+                                            ?.copyWith(
+                                          color: Theme.of(
+                                            context,
+                                          ).colorScheme.onSurface,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              trailing: Icon(
+                                Icons.keyboard_arrow_right,
+                                color: Theme.of(context).colorScheme.primary,
+                                size: 24.0,
+                              ),
+                              onTap: () {
+                                Future.delayed(
+                                  Duration(milliseconds: Globals.navigatorDelay),
+                                      () {
+                                    if (context.mounted) {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              ProofsPage(page: index),
+                                        ),
+                                      );
+                                    }
+                                  },
+                                );
+                              },
+                            ),
+
+
+                          );
+                        },
+                        childCount: westindex.length,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
           );
         } else {
-          return const CircularProgressIndicator();
+          return const Center(child: CircularProgressIndicator());
         }
       },
     );

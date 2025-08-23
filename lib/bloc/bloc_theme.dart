@@ -16,7 +16,7 @@ class ChangeTheme extends ThemeEvent {
 // Bloc
 // -------------------------------------------------
 class ThemeBloc extends HydratedBloc<ThemeEvent, bool> {
-  ThemeBloc() : super(true) {
+  ThemeBloc() : super(false) {
 
     on<ChangeTheme>((event, emit) {
       emit(event.isDark ? false : true);

@@ -18,8 +18,9 @@ const textCopiedSnackBar = SnackBar(
   content: Text('Text Copied'),
 );
 
+// main popup menu
 Future<dynamic> showPopupMenu(BuildContext context, BmModel model) async {
-  double width = MediaQuery.of(context).size.width;
+  double width = MediaQuery.of(context).size.width * .8;
   double height = MediaQuery.of(context).size.height * .3;
 
   await showMenu(

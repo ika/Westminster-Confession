@@ -8,6 +8,8 @@ import 'package:westminster_confession/about/model.dart';
 import 'package:westminster_confession/about/queries.dart';
 import 'package:westminster_confession/utils/globals.dart';
 
+import '../bloc/bloc_theme.dart';
+
 // About
 
 AbQueries abQueries = AbQueries();
@@ -21,19 +23,16 @@ class AboutPage extends StatefulWidget {
 
 class AboutPageState extends State<AboutPage> {
   List<About> paragraphs = List<About>.empty();
-  String heading = "About";
+  late bool themeIsDark;
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   primaryTextSize = BlocProvider.of<TextSizeCubit>(context).state;
-  // }
+  @override
+  void initState() {
+    themeIsDark = context.read<ThemeBloc>().state;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    // final args =
-    //     ModalRoute.of(context)!.settings.arguments as PrefPageArguments;
-
     return FutureBuilder<List<About>>(
       future: abQueries.getParagraphs(),
       builder: (context, AsyncSnapshot<List<About>> snapshot) {
@@ -41,27 +40,35 @@ class AboutPageState extends State<AboutPage> {
           paragraphs = snapshot.data!;
           return Scaffold(
             appBar: AppBar(
+              backgroundColor: Colors.transparent,
+              elevation: 0,
               centerTitle: true,
-              elevation: 5,
+              flexibleSpace: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [Theme.of(context).colorScheme.primary, Theme.of(context).colorScheme.surface],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                ),
+              ),
               leading: GestureDetector(
                 child: IconButton(
-                  icon: const Icon(Icons.arrow_back),
+                  icon: Icon(
+                    Icons.arrow_back,
+                    color: themeIsDark ? Colors.black : Colors.white,
+                  ),
                   onPressed: () {
-                    Future.delayed(
-                      Duration(milliseconds: Globals.navigatorDelay),
-                      () {
-                        Navigator.pop(context);
-                      },
-                    );
+                    Future.delayed(Duration(milliseconds: Globals.navigatorDelay), () {
+                      Navigator.pop(context);
+                    });
                   },
                 ),
               ),
-              title: Text(heading,
-                  style: const TextStyle(fontWeight: FontWeight.w700)
-                  // style: const TextStyle(
-                  //   color: Colors.yellow,
-                  // ),
-                  ),
+              title: Text(
+                'About',
+                style: TextStyle(fontWeight: FontWeight.w700, color: Theme.of(context).colorScheme.onPrimary),
+              ),
             ),
             body: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -72,21 +79,19 @@ class AboutPageState extends State<AboutPage> {
                     title: Text(
                       paragraphs[index].h!,
                       style: TextStyle(
-                          fontFamily: fontsList[context.read<FontBloc>().state],
-                          fontWeight: FontWeight.w700,
-                          fontStyle: (context.read<ItalicBloc>().state)
-                              ? FontStyle.italic
-                              : FontStyle.normal,
-                          fontSize: context.read<SizeBloc>().state),
+                        fontFamily: fontsList[context.read<FontBloc>().state],
+                        fontWeight: FontWeight.w700,
+                        fontStyle: (context.read<ItalicBloc>().state) ? FontStyle.italic : FontStyle.normal,
+                        fontSize: context.read<SizeBloc>().state,
+                      ),
                     ),
                     subtitle: Text(
                       paragraphs[index].t!,
                       style: TextStyle(
-                          fontFamily: fontsList[context.read<FontBloc>().state],
-                          fontStyle: (context.read<ItalicBloc>().state)
-                              ? FontStyle.italic
-                              : FontStyle.normal,
-                          fontSize: context.read<SizeBloc>().state),
+                        fontFamily: fontsList[context.read<FontBloc>().state],
+                        fontStyle: (context.read<ItalicBloc>().state) ? FontStyle.italic : FontStyle.normal,
+                        fontSize: context.read<SizeBloc>().state,
+                      ),
                     ),
                   );
                 },

@@ -10,6 +10,8 @@ import 'package:westminster_confession/pref/page.dart';
 import 'package:westminster_confession/shorter/page.dart';
 import 'package:westminster_confession/utils/globals.dart';
 
+import '../bloc/bloc_theme.dart';
+
 // Bookmarks
 
 final BMQueries bmQueries = BMQueries();
@@ -18,17 +20,22 @@ Future confirmDialog(BuildContext context, List list, int index) async {
   return showDialog(
     builder: (context) => AlertDialog(
       title: const Text('Delete bookmark?'), // title
-      content:
-          Text("${list[index].title}\n${list[index].subtitle}"), // subtitle
+      content: Text(
+        "${list[index].title}\n${list[index].subtitle}",
+      ), // subtitle
       actions: [
         TextButton(
-          child:
-              const Text('YES', style: TextStyle(fontWeight: FontWeight.bold)),
+          child: const Text(
+            'YES',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           onPressed: () => Navigator.of(context).pop(true),
         ),
         TextButton(
-          child:
-              const Text('NO', style: TextStyle(fontWeight: FontWeight.bold)),
+          child: const Text(
+            'NO',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           onPressed: () => Navigator.of(context).pop(false),
         ),
       ],
@@ -46,6 +53,13 @@ class BMMarksPage extends StatefulWidget {
 
 class BMMarksPageState extends State<BMMarksPage> {
   List<BmModel> list = List<BmModel>.empty();
+  late bool themeIsDark;
+
+  @override
+  void initState() {
+    themeIsDark = context.read<ThemeBloc>().state;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,12 +70,26 @@ class BMMarksPageState extends State<BMMarksPage> {
           list = snapshot.data!;
           return Scaffold(
             appBar: AppBar(
+              backgroundColor: Colors.transparent,
+              elevation: 0,
               centerTitle: true,
-              elevation: 5,
+              flexibleSpace: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      Theme.of(context).colorScheme.primary,
+                      Theme.of(context).colorScheme.surface,
+                    ],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                ),
+              ),
               leading: GestureDetector(
                 child: IconButton(
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.arrow_back,
+                    color: themeIsDark ? Colors.black : Colors.white,
                   ),
                   onPressed: () {
                     Future.delayed(
@@ -73,8 +101,13 @@ class BMMarksPageState extends State<BMMarksPage> {
                   },
                 ),
               ),
-              title: const Text('Bookmarks',
-                  style: TextStyle(fontWeight: FontWeight.w700)),
+              title: Text(
+                'Bookmarks',
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  color: Theme.of(context).colorScheme.onPrimary,
+                ),
+              ),
             ),
             body: Padding(
               padding: const EdgeInsets.all(20.0),
@@ -87,9 +120,9 @@ class BMMarksPageState extends State<BMMarksPage> {
                           details.primaryVelocity! < 0) {
                         confirmDialog(context, list, index).then((value) {
                           if (value) {
-                            bmQueries
-                                .deleteBookMark(list[index].id!)
-                                .then((value) {
+                            bmQueries.deleteBookMark(list[index].id!).then((
+                              value,
+                            ) {
                               setState(() {});
                             });
                           }
@@ -105,8 +138,10 @@ class BMMarksPageState extends State<BMMarksPage> {
                       ),
                       subtitle: Row(
                         children: [
-                          Icon(Icons.linear_scale,
-                              color: Theme.of(context).colorScheme.primary),
+                          Icon(
+                            Icons.linear_scale,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
                           Flexible(
                             child: RichText(
                               overflow: TextOverflow.ellipsis,
@@ -119,14 +154,16 @@ class BMMarksPageState extends State<BMMarksPage> {
                           ),
                         ],
                       ),
-                      trailing: Icon(Icons.keyboard_arrow_right,
-                          color: Theme.of(context).colorScheme.primary,
-                          size: 20.0),
+                      trailing: Icon(
+                        Icons.keyboard_arrow_right,
+                        color: Theme.of(context).colorScheme.primary,
+                        size: 20.0,
+                      ),
                       onTap: () {
                         // update scroll
                         context.read<ScrollBloc>().add(
-                              UpdateScroll(index: list[index].para),
-                            );
+                          UpdateScroll(index: list[index].para),
+                        );
 
                         // pop before return
                         int c = 0;

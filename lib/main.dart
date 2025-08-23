@@ -14,7 +14,6 @@ import 'package:westminster_confession/main/index.dart';
 import 'package:westminster_confession/theme/apptheme.dart';
 
 void main() async {
-  //DartPluginRegistrant.ensureInitialized();
   WidgetsFlutterBinding.ensureInitialized();
 
   if (Platform.isLinux || Platform.isWindows) {
@@ -23,7 +22,8 @@ void main() async {
   }
 
   HydratedBloc.storage = await HydratedStorage.build(
-    storageDirectory: await getApplicationDocumentsDirectory(),
+    storageDirectory: HydratedStorageDirectory(
+        (await getApplicationDocumentsDirectory()).path),
   );
 
   runApp(const MyApp());
@@ -58,12 +58,12 @@ class MyApp extends StatelessWidget {
       child: BlocBuilder<ThemeBloc, bool>(
         builder: (context, state) {
           return MaterialApp(
-            debugShowCheckedModeBanner: false,
+            // debugShowCheckedModeBanner: false,
             title: 'Westminster Confession',
             theme: lightTheme,
             darkTheme: darkTheme,
-            themeMode: state ? ThemeMode.light : ThemeMode.dark,
-            home: const IndexPage(title: 'Index'),
+            themeMode: state ? ThemeMode.dark : ThemeMode.light,
+            home: IndexPage(themeState: state),
           );
         },
       ),

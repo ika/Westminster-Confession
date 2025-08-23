@@ -38,8 +38,10 @@ class AboutProvider {
       } catch (_) {}
 
       ByteData data = await rootBundle.load(join("assets", _dbName));
-      List<int> bytes =
-          data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+      List<int> bytes = data.buffer.asUint8List(
+        data.offsetInBytes,
+        data.lengthInBytes,
+      );
       await File(path).writeAsBytes(bytes, flush: true);
 
       db = await openDatabase(path);

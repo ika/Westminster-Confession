@@ -20,19 +20,14 @@ class PRQueries {
       addedLines.add(line);
     }
 
-    final List<Map<String, dynamic>> maps =
-        await db.rawQuery("SELECT * FROM $_dbTable");
+    final List<Map<String, dynamic>> maps = await db.rawQuery(
+      "SELECT * FROM $_dbTable",
+    );
 
     List<Preface> list = maps.isNotEmpty
-        ? List.generate(
-            maps.length,
-            (i) {
-              return Preface(
-                id: maps[i]['id'],
-                t: maps[i]['t'],
-              );
-            },
-          )
+        ? List.generate(maps.length, (i) {
+            return Preface(id: maps[i]['id'], t: maps[i]['t']);
+          })
         : [];
 
     list.insertAll(list.length, addedLines); // add empty lines

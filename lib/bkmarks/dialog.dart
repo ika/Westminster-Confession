@@ -39,7 +39,7 @@
 //   );
 
 //   void bMWrapper(BuildContext context, BMModel bmmodel) {
-    
+
 //     bmQueries.getBookMarkExists(bmmodel.para).then((value) {
 //       if (value < 1) {
 //         confirmDialog(context, bmmodel).then((value) {

@@ -12,6 +12,8 @@ import 'package:westminster_confession/shorter/queries.dart';
 import 'package:westminster_confession/utils/globals.dart';
 import 'package:westminster_confession/utils/menu.dart';
 
+import '../bloc/bloc_theme.dart';
+
 // Shorter Catechism
 
 ShorterQueries shorterQueries = ShorterQueries();
@@ -24,34 +26,32 @@ class ShorterPage extends StatefulWidget {
 }
 
 class ShorterPageState extends State<ShorterPage> {
-    ItemScrollController initialScrollController = ItemScrollController();
-    
+  ItemScrollController initialScrollController = ItemScrollController();
   List<Shorter> paragraphs = List<Shorter>.empty();
-  String heading = "Shorter Catechism";
+  late bool themeIsDark;
 
   @override
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance.addPostFrameCallback(
-      (_) {
-        Future.delayed(Duration(milliseconds: Globals.navigatorLongDelay), () {
-          if (initialScrollController.isAttached) {
-            initialScrollController.scrollTo(
-              index: context.read<ScrollBloc>().state,
-              duration: Duration(milliseconds: Globals.navigatorLongDelay),
-              curve: Curves.easeInOutCubic,
-            );
-            // reset scroll index
-            context.read<ScrollBloc>().add(
-                  UpdateScroll(index: 0),
-                );
-          } else {
-            debugPrint("initialScrollController in NOT attached");
-          }
-        });
-      },
-    );
+    themeIsDark = context.read<ThemeBloc>().state;
+    var scrollBlocState = context.read<ScrollBloc>().state;
+    // reset scroll index
+    context.read<ScrollBloc>().add(UpdateScroll(index: 0));
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Future.delayed(Duration(milliseconds: Globals.navigatorLongDelay), () {
+        if (initialScrollController.isAttached) {
+          initialScrollController.scrollTo(
+            index: scrollBlocState,
+            duration: Duration(milliseconds: Globals.navigatorLongDelay),
+            curve: Curves.easeInOutCubic,
+          );
+        } else {
+          debugPrint("initialScrollController in NOT attached");
+        }
+      });
+    });
   }
 
   @override
@@ -66,11 +66,27 @@ class ShorterPageState extends State<ShorterPage> {
           paragraphs = snapshot.data!;
           return Scaffold(
             appBar: AppBar(
+              backgroundColor: Colors.transparent,
+              elevation: 0,
               centerTitle: true,
-              elevation: 5,
+              flexibleSpace: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      Theme.of(context).colorScheme.primary,
+                      Theme.of(context).colorScheme.surface,
+                    ],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                ),
+              ),
               leading: GestureDetector(
                 child: IconButton(
-                  icon: const Icon(Icons.arrow_back),
+                  icon: Icon(
+                    Icons.arrow_back,
+                    color: themeIsDark ? Colors.black : Colors.white,
+                  ),
                   onPressed: () {
                     Future.delayed(
                       Duration(milliseconds: Globals.navigatorDelay),
@@ -81,12 +97,13 @@ class ShorterPageState extends State<ShorterPage> {
                   },
                 ),
               ),
-              title: Text(heading,
-                  style: const TextStyle(fontWeight: FontWeight.w700)
-                  // style: const TextStyle(
-                  //   color: Colors.yellow,
-                  // ),
-                  ),
+              title: Text(
+                'Shorter Catechism',
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  color: Theme.of(context).colorScheme.onPrimary,
+                ),
+              ),
             ),
             body: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -98,29 +115,35 @@ class ShorterPageState extends State<ShorterPage> {
                     title: Text(
                       paragraphs[index].h,
                       style: TextStyle(
-                          fontFamily: fontsList[context.read<FontBloc>().state],
-                          fontWeight: FontWeight.w700,
-                          fontStyle: (context.read<ItalicBloc>().state)
-                              ? FontStyle.italic
-                              : FontStyle.normal,
-                          fontSize: context.read<SizeBloc>().state),
+                        fontFamily: fontsList[context.read<FontBloc>().state],
+                        fontWeight: FontWeight.w700,
+                        fontStyle: (context.read<ItalicBloc>().state)
+                            ? FontStyle.italic
+                            : FontStyle.normal,
+                        fontSize: context.read<SizeBloc>().state,
+                      ),
                     ),
                     subtitle: Text(
                       paragraphs[index].t,
                       style: TextStyle(
-                          fontFamily: fontsList[context.read<FontBloc>().state],
-                          fontStyle: (context.read<ItalicBloc>().state)
-                              ? FontStyle.italic
-                              : FontStyle.normal,
-                          fontSize: context.read<SizeBloc>().state),
+                        fontFamily: fontsList[context.read<FontBloc>().state],
+                        fontStyle: (context.read<ItalicBloc>().state)
+                            ? FontStyle.italic
+                            : FontStyle.normal,
+                        fontSize: context.read<SizeBloc>().state,
+                      ),
                     ),
-                                        onTap: () {
+                    onTap: () {
                       final model = BmModel(
-                          title: 'Shorter Catechism',
-                          subtitle: "${paragraphs[index].h} ${paragraphs[index].t}",
-                          doc: 5, // Prefrences
-                          page: 0, // not used
-                          para: index);
+                        title: 'Shorter Catechism',
+                        subtitle:
+                            "${paragraphs[index].h} ${paragraphs[index].t}",
+                        doc: 5,
+                        // Prefrences
+                        page: 0,
+                        // not used
+                        para: index,
+                      );
 
                       //debugPrint(model.para.toString());
 

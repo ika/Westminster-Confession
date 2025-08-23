@@ -4,7 +4,7 @@ class GetRef {
   Future<dynamic> refDialog(BuildContext context, data) {
     return showDialog(
       context: context,
-      barrierDismissible: false, // user must tap button!
+      barrierDismissible: true,
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text(data['header']),

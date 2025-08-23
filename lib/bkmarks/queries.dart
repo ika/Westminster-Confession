@@ -31,23 +31,21 @@ class BMQueries {
   Future<List<BmModel>> getBookMarkList() async {
     final db = await provider.database;
 
-    final List<Map<String, dynamic>> maps =
-        await db.rawQuery("SELECT * FROM $_dbTable ORDER BY id DESC");
+    final List<Map<String, dynamic>> maps = await db.rawQuery(
+      "SELECT * FROM $_dbTable ORDER BY id DESC",
+    );
 
     List<BmModel> list = maps.isNotEmpty
-        ? List.generate(
-            maps.length,
-            (i) {
-              return BmModel(
-                id: maps[i]['id'],
-                title: maps[i]['title'],
-                subtitle: maps[i]['subtitle'],
-                doc: maps[i]['doc'],
-                page: maps[i]['page'],
-                para: maps[i]['para'],
-              );
-            },
-          )
+        ? List.generate(maps.length, (i) {
+            return BmModel(
+              id: maps[i]['id'],
+              title: maps[i]['title'],
+              subtitle: maps[i]['subtitle'],
+              doc: maps[i]['doc'],
+              page: maps[i]['page'],
+              para: maps[i]['para'],
+            );
+          })
         : [];
     return list;
   }
@@ -57,8 +55,9 @@ class BMQueries {
 
     var cnt = Sqflite.firstIntValue(
       await db.rawQuery(
-          '''SELECT MAX(id) FROM $_dbTable WHERE doc=? AND page=? AND para=?''',
-          [doc, page, para]),
+        '''SELECT MAX(id) FROM $_dbTable WHERE doc=? AND page=? AND para=?''',
+        [doc, page, para],
+      ),
     );
     return cnt ?? 0;
   }

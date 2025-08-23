@@ -12,12 +12,7 @@ import 'package:westminster_confession/fonts/list.dart';
 import 'package:westminster_confession/utils/globals.dart';
 import 'package:westminster_confession/utils/menu.dart';
 
-// Preface
-
-// class PrefPageArguments {
-//   final int index;
-//   PrefPageArguments(this.index);
-// }
+import '../bloc/bloc_theme.dart';
 
 CreedsQueries creedsQueries = CreedsQueries();
 
@@ -30,33 +25,32 @@ class CreedsPage extends StatefulWidget {
 
 class CreedsPageState extends State<CreedsPage> {
   ItemScrollController initialScrollController = ItemScrollController();
-
   List<Creeds> paragraphs = List<Creeds>.empty();
-  String heading = "Ecumenical Creeds";
+  late bool themeIsDark;
 
   @override
   void initState() {
     super.initState();
+    themeIsDark = context.read<ThemeBloc>().state;
 
-    WidgetsBinding.instance.addPostFrameCallback(
-      (_) {
-        Future.delayed(Duration(milliseconds: Globals.navigatorLongDelay), () {
-          if (initialScrollController.isAttached) {
-            initialScrollController.scrollTo(
-              index: context.read<ScrollBloc>().state,
-              duration: Duration(milliseconds: Globals.navigatorLongDelay),
-              curve: Curves.easeInOutCubic,
-            );
-            // reset scroll index
-            context.read<ScrollBloc>().add(
-                  UpdateScroll(index: 0),
-                );
-          } else {
-            debugPrint("initialScrollController in NOT attached");
-          }
-        });
-      },
-    );
+    var scrollBlocState = context.read<ScrollBloc>().state;
+    // reset scroll index
+    context.read<ScrollBloc>().add(UpdateScroll(index: 0));
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Future.delayed(Duration(milliseconds: Globals.navigatorLongDelay), () {
+        if (initialScrollController.isAttached) {
+          initialScrollController.scrollTo(
+            index: scrollBlocState,
+            duration: Duration(milliseconds: Globals.navigatorLongDelay),
+            curve: Curves.easeInOutCubic,
+          );
+
+        } else {
+          debugPrint("initialScrollController in NOT attached");
+        }
+      });
+    });
   }
 
   @override
@@ -71,11 +65,27 @@ class CreedsPageState extends State<CreedsPage> {
           paragraphs = snapshot.data!;
           return Scaffold(
             appBar: AppBar(
+              backgroundColor: Colors.transparent,
+              elevation: 0,
               centerTitle: true,
-              elevation: 5,
+              flexibleSpace: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      Theme.of(context).colorScheme.primary,
+                      Theme.of(context).colorScheme.surface,
+                    ],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                ),
+              ),
               leading: GestureDetector(
                 child: IconButton(
-                  icon: const Icon(Icons.arrow_back),
+                  icon: Icon(
+                    Icons.arrow_back,
+                    color: themeIsDark ? Colors.black : Colors.white,
+                  ),
                   onPressed: () {
                     Future.delayed(
                       Duration(milliseconds: Globals.navigatorDelay),
@@ -86,8 +96,13 @@ class CreedsPageState extends State<CreedsPage> {
                   },
                 ),
               ),
-              title: Text(heading,
-                  style: const TextStyle(fontWeight: FontWeight.w700)),
+              title: Text(
+                'Ecumenical Creeds',
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  color: Theme.of(context).colorScheme.onPrimary,
+                ),
+              ),
             ),
             body: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -99,29 +114,34 @@ class CreedsPageState extends State<CreedsPage> {
                     title: Text(
                       paragraphs[index].h,
                       style: TextStyle(
-                          fontFamily: fontsList[context.read<FontBloc>().state],
-                          fontWeight: FontWeight.w700,
-                          fontStyle: (context.read<ItalicBloc>().state)
-                              ? FontStyle.italic
-                              : FontStyle.normal,
-                          fontSize: context.read<SizeBloc>().state),
+                        fontFamily: fontsList[context.read<FontBloc>().state],
+                        fontWeight: FontWeight.w700,
+                        fontStyle: (context.read<ItalicBloc>().state)
+                            ? FontStyle.italic
+                            : FontStyle.normal,
+                        fontSize: context.read<SizeBloc>().state,
+                      ),
                     ),
                     subtitle: Text(
                       paragraphs[index].t,
                       style: TextStyle(
-                          fontFamily: fontsList[context.read<FontBloc>().state],
-                          fontStyle: (context.read<ItalicBloc>().state)
-                              ? FontStyle.italic
-                              : FontStyle.normal,
-                          fontSize: context.read<SizeBloc>().state),
+                        fontFamily: fontsList[context.read<FontBloc>().state],
+                        fontStyle: (context.read<ItalicBloc>().state)
+                            ? FontStyle.italic
+                            : FontStyle.normal,
+                        fontSize: context.read<SizeBloc>().state,
+                      ),
                     ),
                     onTap: () {
                       final model = BmModel(
-                          title: 'Ecumenical Creeds',
-                          subtitle: paragraphs[index].t,
-                          doc: 4, // Prefrences
-                          page: 0, // not used
-                          para: index);
+                        title: 'Ecumenical Creeds',
+                        subtitle: paragraphs[index].t,
+                        doc: 4,
+                        // Prefrences
+                        page: 0,
+                        // not used
+                        para: index,
+                      );
 
                       //debugPrint(model.para.toString());
 

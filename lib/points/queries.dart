@@ -20,20 +20,14 @@ class PointsQueries {
       addedLines.add(line);
     }
 
-    final List<Map<String, dynamic>> maps =
-        await db.rawQuery("SELECT * FROM $_dbTable");
+    final List<Map<String, dynamic>> maps = await db.rawQuery(
+      "SELECT * FROM $_dbTable",
+    );
 
     List<Points> list = maps.isNotEmpty
-        ? List.generate(
-            maps.length,
-            (i) {
-              return Points(
-                id: maps[i]['id'],
-                h: maps[i]['h'],
-                t: maps[i]['t'],
-              );
-            },
-          )
+        ? List.generate(maps.length, (i) {
+            return Points(id: maps[i]['id'], h: maps[i]['h'], t: maps[i]['t']);
+          })
         : [];
 
     list.insertAll(list.length, addedLines); // add empty lines
