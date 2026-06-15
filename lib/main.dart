@@ -55,15 +55,13 @@ class MyApp extends StatelessWidget {
           create: (context) => SizeBloc(),
         )
       ],
-      child: BlocBuilder<ThemeBloc, bool>(
+      child: BlocBuilder<ThemeBloc, int>(
         builder: (context, state) {
           return MaterialApp(
-            // debugShowCheckedModeBanner: false,
+            debugShowCheckedModeBanner: false,
             title: 'Westminster Confession',
-            theme: lightTheme,
-            darkTheme: darkTheme,
-            themeMode: state ? ThemeMode.dark : ThemeMode.light,
-            home: IndexPage(themeState: state),
+            theme: selectTheme(state),
+            home: const IndexPage(),
           );
         },
       ),

@@ -12,8 +12,6 @@ import 'package:westminster_confession/fonts/list.dart';
 import 'package:westminster_confession/utils/globals.dart';
 import 'package:westminster_confession/utils/menu.dart';
 
-import '../bloc/bloc_theme.dart';
-
 CreedsQueries creedsQueries = CreedsQueries();
 
 class CreedsPage extends StatefulWidget {
@@ -26,12 +24,12 @@ class CreedsPage extends StatefulWidget {
 class CreedsPageState extends State<CreedsPage> {
   ItemScrollController initialScrollController = ItemScrollController();
   List<Creeds> paragraphs = List<Creeds>.empty();
-  late bool themeIsDark;
+  // late bool themeIsDark;
 
   @override
   void initState() {
     super.initState();
-    themeIsDark = context.read<ThemeBloc>().state;
+    // themeIsDark = context.read<ThemeBloc>().state;
 
     var scrollBlocState = context.read<ScrollBloc>().state;
     // reset scroll index
@@ -45,7 +43,6 @@ class CreedsPageState extends State<CreedsPage> {
             duration: Duration(milliseconds: Globals.navigatorLongDelay),
             curve: Curves.easeInOutCubic,
           );
-
         } else {
           debugPrint("initialScrollController in NOT attached");
         }
@@ -84,13 +81,13 @@ class CreedsPageState extends State<CreedsPage> {
                 child: IconButton(
                   icon: Icon(
                     Icons.arrow_back,
-                    color: themeIsDark ? Colors.black : Colors.white,
+                    color: Theme.of(context).colorScheme.onPrimary,
                   ),
                   onPressed: () {
                     Future.delayed(
                       Duration(milliseconds: Globals.navigatorDelay),
                       () {
-                        if(context.mounted) {
+                        if (context.mounted) {
                           Navigator.pop(context);
                         }
                       },

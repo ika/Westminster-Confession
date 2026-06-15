@@ -10,8 +10,6 @@ import 'package:westminster_confession/pref/page.dart';
 import 'package:westminster_confession/shorter/page.dart';
 import 'package:westminster_confession/utils/globals.dart';
 
-import '../bloc/bloc_theme.dart';
-
 // Bookmarks
 
 final BMQueries bmQueries = BMQueries();
@@ -53,11 +51,11 @@ class BMMarksPage extends StatefulWidget {
 
 class BMMarksPageState extends State<BMMarksPage> {
   List<BmModel> list = List<BmModel>.empty();
-  late bool themeIsDark;
+ // late bool themeIsDark;
 
   @override
   void initState() {
-    themeIsDark = context.read<ThemeBloc>().state;
+    //themeIsDark = context.read<ThemeBloc>().state;
     super.initState();
   }
 
@@ -89,7 +87,7 @@ class BMMarksPageState extends State<BMMarksPage> {
                 child: IconButton(
                   icon: Icon(
                     Icons.arrow_back,
-                    color: themeIsDark ? Colors.black : Colors.white,
+                    color: Theme.of(context).colorScheme.onPrimary
                   ),
                   onPressed: () {
                     Future.delayed(

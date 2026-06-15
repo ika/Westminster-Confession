@@ -9,7 +9,6 @@ import 'package:westminster_confession/bloc/bloc_italic.dart';
 import 'package:westminster_confession/bloc/bloc_refs.dart';
 import 'package:westminster_confession/bloc/bloc_scroll.dart';
 import 'package:westminster_confession/bloc/bloc_size.dart';
-import 'package:westminster_confession/bloc/bloc_theme.dart';
 import 'package:westminster_confession/fonts/list.dart';
 import 'package:westminster_confession/utils/menu.dart';
 import 'package:westminster_confession/main/model.dart';
@@ -32,7 +31,7 @@ class ProofsPage extends StatefulWidget {
 class _ProofsPageState extends State<ProofsPage> {
   late final PageController pageController;
   late bool refsAreOn;
-  late bool themeIsDark;
+  //late bool themeIsDark;
   //int indexNumber = 0;
   int pageNumber = 0;
 
@@ -40,7 +39,7 @@ class _ProofsPageState extends State<ProofsPage> {
   void initState() {
     super.initState();
     refsAreOn = context.read<RefsBloc>().state;
-    themeIsDark = context.read<ThemeBloc>().state;
+    //themeIsDark = context.read<ThemeBloc>().state;
     // controll scrollTo indexNumber here
     //indexNumber = context.read<ScrollBloc>().state;
     pageNumber = widget.page;
@@ -146,7 +145,7 @@ class _ProofsPageState extends State<ProofsPage> {
           leading: IconButton(
             icon: Icon(
               Icons.arrow_back,
-              color: themeIsDark ? Colors.black : Colors.white,
+              color: Theme.of(context).colorScheme.onPrimary,
             ),
             onPressed: () {
               Future.delayed(

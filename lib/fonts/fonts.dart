@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:westminster_confession/bloc/bloc_font.dart';
@@ -6,8 +5,6 @@ import 'package:westminster_confession/bloc/bloc_italic.dart';
 import 'package:westminster_confession/bloc/bloc_size.dart';
 import 'package:westminster_confession/fonts/list.dart';
 import 'package:westminster_confession/utils/globals.dart';
-
-import '../bloc/bloc_theme.dart';
 
 class FontsPage extends StatefulWidget {
   const FontsPage({super.key});
@@ -21,7 +18,7 @@ class _FontsPageState extends State<FontsPage> {
   late int fontNumber;
   late bool italicIsOn;
   late double textSize;
-  late bool themeIsDark;
+  // late bool themeIsDark;
 
   @override
   void initState() {
@@ -29,7 +26,7 @@ class _FontsPageState extends State<FontsPage> {
     selectedFont = context.read<FontBloc>().state;
     italicIsOn = context.read<ItalicBloc>().state;
     textSize = context.read<SizeBloc>().state;
-    themeIsDark = context.read<ThemeBloc>().state;
+    //themeIsDark = context.read<ThemeBloc>().state;
   }
 
   void changeFontSize() {
@@ -164,7 +161,7 @@ class _FontsPageState extends State<FontsPage> {
             child: IconButton(
               icon: Icon(
                 Icons.arrow_back,
-                color: themeIsDark ? Colors.black : Colors.white,
+                color: Theme.of(context).colorScheme.onPrimary,
               ),
               onPressed: () {
                 Future.delayed(

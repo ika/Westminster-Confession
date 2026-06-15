@@ -1,9 +1,7 @@
 part of 'index.dart';
 
 class AppDrawer extends StatefulWidget {
-  const AppDrawer({super.key, required this.themeState});
-
-  final bool themeState;
+  const AppDrawer({super.key});
 
   @override
   State<AppDrawer> createState() => _AppDrawerState();
@@ -14,31 +12,31 @@ class _AppDrawerState extends State<AppDrawer> {
 
   @override
   void initState() {
-    isDark = widget.themeState;
+    //isDark = widget.themeState;
     super.initState();
   }
 
-  Widget themeSwitcherIcon() {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          // toggle the theme state icon
-          isDark = !isDark;
-          context.read<ThemeBloc>().add(ChangeTheme(!isDark));
-        });
-      },
-      child: AnimatedSwitcher(
-        duration: const Duration(milliseconds: 300),
-        transitionBuilder: (child, animation) =>
-            RotationTransition(turns: animation, child: child),
-        child: Icon(
-          isDark ? Icons.dark_mode : Icons.light_mode,
-          key: ValueKey<bool>(isDark),
-          color: Theme.of(context).colorScheme.inversePrimary,
-        ),
-      ),
-    );
-  }
+  // Widget themeSwitcherIcon() {
+  //   return GestureDetector(
+  //     onTap: () {
+  //       setState(() {
+  //         // toggle the theme state icon
+  //         isDark = !isDark;
+  //         context.read<ThemeBloc>().add(ChangeTheme(!isDark));
+  //       });
+  //     },
+  //     child: AnimatedSwitcher(
+  //       duration: const Duration(milliseconds: 300),
+  //       transitionBuilder: (child, animation) =>
+  //           RotationTransition(turns: animation, child: child),
+  //       child: Icon(
+  //         isDark ? Icons.dark_mode : Icons.light_mode,
+  //         key: ValueKey<bool>(isDark),
+  //         color: Theme.of(context).colorScheme.inversePrimary,
+  //       ),
+  //     ),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +58,7 @@ class _AppDrawerState extends State<AppDrawer> {
                 ),
               ),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
@@ -89,21 +88,21 @@ class _AppDrawerState extends State<AppDrawer> {
                       // themeSwitcherIcon(),
                     ],
                   ),
-                  const Spacer(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [themeSwitcherIcon()],
-                  ),
-                  const Spacer(),
-                  Text(
-                    'Welcome!',
-                    style: TextStyle(
-                      color: Theme.of(
-                        context,
-                      ).colorScheme.onPrimary.withValues(alpha: 0.8),
-                      fontSize: 16,
-                    ),
-                  ),
+                  // const Spacer(),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.center,
+                  //   children: [themeSwitcherIcon()],
+                  // ),
+                  // const Spacer(),
+                  // Text(
+                  //   'Welcome!',
+                  //   style: TextStyle(
+                  //     color: Theme.of(
+                  //       context,
+                  //     ).colorScheme.onPrimary.withValues(alpha: 0.8),
+                  //     fontSize: 16,
+                  //   ),
+                  // ),
                 ],
               ),
             ),
@@ -226,6 +225,32 @@ class _AppDrawerState extends State<AppDrawer> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => const ShorterPage(),
+                      ),
+                    );
+                  }
+                },
+              );
+            },
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.school_outlined,
+              color: Theme.of(context).colorScheme.primary,
+            ),
+            title: Text(
+              'Theme Switcher',
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
+            //dense: true,
+            onTap: () {
+              Future.delayed(
+                Duration(milliseconds: Globals.navigatorDelay),
+                () {
+                  if (context.mounted) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ThemePage(),
                       ),
                     );
                   }

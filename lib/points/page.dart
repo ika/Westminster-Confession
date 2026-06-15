@@ -12,8 +12,6 @@ import 'package:westminster_confession/points/queries.dart';
 import 'package:westminster_confession/utils/globals.dart';
 import 'package:westminster_confession/utils/menu.dart';
 
-import '../bloc/bloc_theme.dart';
-
 // Preface
 
 // class PrefPageArguments {
@@ -33,12 +31,12 @@ class PointsPage extends StatefulWidget {
 class PointsPageState extends State<PointsPage> {
   ItemScrollController initialScrollController = ItemScrollController();
   List<Points> paragraphs = List<Points>.empty();
-  late bool themeIsDark;
+//  late bool themeIsDark;
 
   @override
   void initState() {
     super.initState();
-    themeIsDark = context.read<ThemeBloc>().state;
+   // themeIsDark = context.read<ThemeBloc>().state;
     var scrollBlocState = context.read<ScrollBloc>().state;
     // reset scroll index
     context.read<ScrollBloc>().add(UpdateScroll(index: 0));
@@ -89,7 +87,7 @@ class PointsPageState extends State<PointsPage> {
                 child: IconButton(
                   icon: Icon(
                     Icons.arrow_back,
-                    color: themeIsDark ? Colors.black : Colors.white,
+                      color: Theme.of(context).colorScheme.onPrimary
                   ),
                   onPressed: () {
                     Future.delayed(

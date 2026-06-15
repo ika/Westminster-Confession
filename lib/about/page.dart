@@ -8,8 +8,6 @@ import 'package:westminster_confession/about/model.dart';
 import 'package:westminster_confession/about/queries.dart';
 import 'package:westminster_confession/utils/globals.dart';
 
-import '../bloc/bloc_theme.dart';
-
 // About
 
 AbQueries abQueries = AbQueries();
@@ -23,11 +21,11 @@ class AboutPage extends StatefulWidget {
 
 class AboutPageState extends State<AboutPage> {
   List<About> paragraphs = List<About>.empty();
-  late bool themeIsDark;
+  //late bool themeIsDark;
 
   @override
   void initState() {
-    themeIsDark = context.read<ThemeBloc>().state;
+   // themeIsDark = context.read<ThemeBloc>().state;
     super.initState();
   }
 
@@ -56,7 +54,7 @@ class AboutPageState extends State<AboutPage> {
                 child: IconButton(
                   icon: Icon(
                     Icons.arrow_back,
-                    color: themeIsDark ? Colors.black : Colors.white,
+                    color: Theme.of(context).colorScheme.onPrimary
                   ),
                   onPressed: () {
                     Future.delayed(Duration(milliseconds: Globals.navigatorDelay), () {

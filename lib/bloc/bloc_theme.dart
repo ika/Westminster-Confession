@@ -1,31 +1,40 @@
-import 'package:flutter/material.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 
-// -------------------------------------------------
-// Event
-// -------------------------------------------------
-@immutable
+//-------------------------------------------------------------
+// Theme Bloc
+//-------------------------------------------------------------
+
+const String _hydratedBlocName = 'confessionTheme'; //'${Constants.projectName}Theme';
+
+/// Base class for theme-related events
 abstract class ThemeEvent {}
 
+/// Event to change the theme (dark/light mode)
 class ChangeTheme extends ThemeEvent {
-  ChangeTheme(this.isDark);
-  final bool isDark;
+  ChangeTheme({required this.themeNumber});
+
+  final int themeNumber;
 }
 
-// -------------------------------------------------
-// Bloc
-// -------------------------------------------------
-class ThemeBloc extends HydratedBloc<ThemeEvent, bool> {
-  ThemeBloc() : super(false) {
-
-    on<ChangeTheme>((event, emit) {
-      emit(event.isDark ? false : true);
-    });
+/// Bloc for managing the theme setting
+/// reutruns integer
+class ThemeBloc extends HydratedBloc<ThemeEvent, int> {
+  ThemeBloc() : super(8) { // sepiaLight
+    on<ChangeTheme>((event, emit) => emit(event.themeNumber));
   }
 
   @override
-  bool? fromJson(Map<String, dynamic> json) => json['theme'] as bool;
+  int? fromJson(Map<String, dynamic> json) {
+    try {
+      return json[_hydratedBlocName] as int?;
+    } catch (e) {
+      return null;
+    }
+  }
 
   @override
-  Map<String, dynamic>? toJson(bool state) => {'theme': state};
+  Map<String, dynamic>? toJson(int state) => {_hydratedBlocName: state};
+
+  @override
+  String get id => _hydratedBlocName;
 }

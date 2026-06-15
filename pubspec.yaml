@@ -37,9 +37,9 @@ dependencies:
   path_provider: ^2.1.2
   scrollable_positioned_list: ^0.3.8
   flutter_bloc: ^9.1.1
-  hydrated_bloc: ^10.0.0
+  hydrated_bloc: ^11.0.0
   sqflite_common_ffi: ^2.3.3
-  share_plus: ^11.1.0
+  share_plus: ^13.1.0
 
 dev_dependencies:
   flutter_test:

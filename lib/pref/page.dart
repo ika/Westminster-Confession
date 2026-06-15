@@ -12,8 +12,6 @@ import 'package:westminster_confession/pref/queries.dart';
 import 'package:westminster_confession/utils/globals.dart';
 import 'package:westminster_confession/utils/menu.dart';
 
-import '../bloc/bloc_theme.dart';
-
 // Preface
 
 // class PrefPageArguments {
@@ -33,12 +31,12 @@ class PrefPage extends StatefulWidget {
 class PrefPageState extends State<PrefPage> {
   ItemScrollController initialScrollController = ItemScrollController();
   List<Preface> paragraphs = List<Preface>.empty();
-  late bool themeIsDark;
+  //late bool themeIsDark;
 
   @override
   void initState() {
     super.initState();
-    themeIsDark = context.read<ThemeBloc>().state;
+    //themeIsDark = context.read<ThemeBloc>().state;
     var scrollBlocState = context.read<ScrollBloc>().state;
     // reset scroll index
     context.read<ScrollBloc>().add(UpdateScroll(index: 0));
@@ -89,13 +87,13 @@ class PrefPageState extends State<PrefPage> {
                 child: IconButton(
                   icon: Icon(
                     Icons.arrow_back,
-                    color: themeIsDark ? Colors.black : Colors.white,
+                    color: Theme.of(context).colorScheme.onPrimary,
                   ),
                   onPressed: () {
                     Future.delayed(
                       Duration(milliseconds: Globals.navigatorDelay),
                       () {
-                        if(context.mounted) {
+                        if (context.mounted) {
                           Navigator.pop(context);
                         }
                       },

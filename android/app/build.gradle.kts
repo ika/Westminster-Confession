@@ -5,7 +5,7 @@ import java.io.FileInputStream
 // It is written in Kotlin DSL for Gradle.
 plugins {
     id("com.android.application")
-    id("kotlin-android")
+    //id("kotlin-android")
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id("dev.flutter.flutter-gradle-plugin")
 }
@@ -18,16 +18,22 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     namespace = "org.armstrong.ika.westminster_confession"
-    compileSdk = 36 //flutter.compileSdkVersion
+    compileSdk = 37 //flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_11.toString()
+        jvmTarget = JavaVersion.VERSION_17.toString()
+    }
+
+    kotlin {
+        compilerOptions {
+            jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
+        }
     }
 
     defaultConfig {
@@ -36,9 +42,9 @@ android {
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion
-        targetSdk = 36 //flutter.targetSdkVersion
-        versionCode = 27 // flutter.versionCode
-        versionName = "3.2.7" //flutter.versionName
+        targetSdk = 37 //flutter.targetSdkVersion
+        versionCode = 28 // flutter.versionCode
+        versionName = "3.2.8" //flutter.versionName
     }
 
     signingConfigs {
