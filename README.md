@@ -4,7 +4,7 @@ The Westminster Confession, published in 1643, with the Ecumenical creeds and th
 
 # Privacy Policy
 
-This app is free and open source. It does not collect any information about its users, and nor does it share information with any third party.
+This application respects your privacy and is designed with simplicity and security in mind. No personal data is collected, stored, or processed at any time. You are not required to create an account or log in to use the app, ensuring complete anonymity and ease of access. The app functions entirely on your device, without transmitting information to external servers. Furthermore, no data is shared, sold, or disclosed to any third parties. By using this application, you can be assured of a private, secure, and transparent experience.
 
 # License
 
@@ -15,10 +15,4 @@ The GPL 3 is a strong copyleft license, meaning that any copy or modification of
 # Android app
 
 https://play.google.com/store/apps/details?id=org.armstrong.ika.westminster_confession
-
-
-
-
-
-
 
